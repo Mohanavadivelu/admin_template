@@ -1,0 +1,95 @@
+{
+  "metrics": {
+    "siteVisitors": {
+      "value": "4.2m",
+      "subMetrics": [
+        { "icon": "fas fa-arrow-up", "text": "33.3% more than last week", "class": "metric-increase" },
+        { "icon": "fas fa-user-friends", "text": "45.5% new visitors" },
+        { "icon": "fas fa-times-circle", "text": "3.25% bounce rate" }
+      ]
+    },
+    "storeSales": {
+      "value": "$35.2K",
+      "subMetrics": [
+        { "icon": "fas fa-arrow-up", "text": "20.4% more than last week", "class": "metric-increase" },
+        { "icon": "fas fa-shopping-bag", "text": "33.5% new orders" },
+        { "icon": "fas fa-dollar-sign", "text": "6.21% conversion rate" }
+      ]
+    },
+    "newMembers": {
+      "value": "4,490",
+      "subMetrics": [
+        { "icon": "fas fa-arrow-up", "text": "59.5% more than last week", "class": "metric-increase" },
+        { "icon": "fab fa-facebook-f", "text": "45.5% from facebook" },
+        { "icon": "fab fa-youtube", "text": "15.25% from youtube" }
+      ]
+    },
+    "bandwidth": {
+      "value": "4.5TB",
+      "subMetrics": [
+        { "icon": "fas fa-arrow-up", "text": "5.3% more than last week", "class": "metric-increase" },
+        { "icon": "fas fa-server", "text": "10.5% from total usage" },
+        { "icon": "fas fa-mouse-pointer", "text": "2MB per visit" }
+      ]
+    }
+  },
+  "chartData": {
+    "siteVisitors": [60, 75, 50, 65, 40, 55, 35, 70, 85, 95],
+    "storeSales": [25, 20, 28, 22, 25, 18, 22, 20, 25, 15, 20],
+    "newMembers": [45.5, 15.25, 39.25],
+    "bandwidth": [75, 25],
+    "serverMemory": [70, 78, 50, 42, 60, 65, 52, 70, 40, 55],
+    "serverCPU": [60, 70, 55, 40, 82, 50, 78, 62, 65, 62],
+    "diskUsage": [7.8, 92.2],
+    "bandwidthUsage": [83.7, 16.3],
+    "trafficSource": [25.7, 24.3, 23.05, 14.85, 7.35, 4.75]
+  },
+  "serverStats": {
+    "diskUsage": {
+      "percentage": "81",
+      "metric": "20.04 / 256 GB",
+      "updated": "Last updated 1 min ago",
+      "details": [
+        { "label": "DISK C", "value": "19.56GB" },
+        { "label": "DISK D", "value": "0.50GB" }
+      ]
+    },
+    "bandwidth": {
+      "metric": "83.76GB / 10TB",
+      "updated": "Last updated 1 min ago",
+      "details": [
+        { "label": "HTTP", "value": "35.47GB" },
+        { "label": "FTP", "value": "1.25GB" }
+      ]
+    }
+  },
+  "trafficAnalytics": {
+    "countries": [
+      { "name": "FRANCE", "visits": "13,849", "percentage": "40.79%", "active": false },
+      { "name": "SPAIN", "visits": "3,216", "percentage": "9.79%", "active": false },
+      { "name": "MEXICO", "visits": "1,398", "percentage": "4.26%", "active": true },
+      { "name": "UNITED STATES", "visits": "1,090", "percentage": "3.32%", "active": false },
+      { "name": "BELGIUM", "visits": "1,045", "percentage": "3.18%", "active": false }
+    ],
+    "trafficSources": [
+      { "label": "FEED", "percentage": "25.70%", "color": "#3ddc97" },
+      { "label": "ORGANIC", "percentage": "24.30%", "color": "#4d8af0" },
+      { "label": "REFERRAL", "percentage": "23.05%", "color": "#ffc107" },
+      { "label": "DIRECT", "percentage": "14.85%", "color": "#e83e8c" },
+      { "label": "EMAIL", "percentage": "7.35%", "color": "#6f42c1" }
+    ]
+  },
+  "chartColors": {
+    "primary": "#64ffda",
+    "secondary": "#3ddc97",
+    "tertiary": "#4d8af0",
+    "warning": "#ffc107",
+    "danger": "#e83e8c",
+    "purple": "#6f42c1",
+    "gray": "#5a7d9a",
+    "dark": "#34495e",
+    "serverMemory": "#5a7d9a",
+    "serverCPU": "#3ddc97",
+    "diskBackground": "#415a77"
+  }
+}

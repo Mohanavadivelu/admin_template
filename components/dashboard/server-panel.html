@@ -1,0 +1,56 @@
+<!-- Panel 5: Server Stats -->
+<div class="dashboard-panel">
+    <span class="corner corner-tl"></span><span class="corner corner-tr"></span><span class="corner corner-bl"></span><span class="corner corner-br"></span>
+    <div class="panel-title">Server Stats</div>
+    <div class="panel-content-wrapper">
+        <div class="chart-section">
+            <canvas id="serverStatsChart" height="200"></canvas>
+        </div>
+        <div class="chart-legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #5a7d9a;"></div>
+                <span>MEMORY USAGE</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #3ddc97;"></div>
+                <span>CPU USAGE</span>
+            </div>
+        </div>
+        <hr class="panel-divider">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="usage-stat-title">DISK USAGE</div>
+                <div class="usage-stat-container">
+                    <div class="usage-chart-wrapper">
+                        <canvas id="diskUsageChart" width="120" height="120"></canvas>
+                        <div class="usage-percentage" id="disk-percentage">81</div>
+                    </div>
+                    <div class="usage-info">
+                        <div class="usage-stat-metric" id="disk-metric">20.04 / 256 GB</div>
+                        <div class="usage-stat-updated" id="disk-updated">Last updated 1 min ago</div>
+                    </div>
+                </div>
+                <ul class="usage-details-list" id="disk-details">
+                    <li><span class="label"><span class="dot"></span> DISK C</span> <span class="value">19.56GB</span></li>
+                    <li><span class="label"><span class="dot"></span> DISK D</span> <span class="value">0.50GB</span></li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <div class="usage-stat-title">BANDWIDTH</div>
+                <div class="usage-stat-container">
+                    <div class="usage-chart-wrapper">
+                        <canvas id="bandwidthUsageChart" width="120" height="120"></canvas>
+                    </div>
+                    <div class="usage-info">
+                        <div class="usage-stat-metric" id="bandwidth-usage-metric">83.76GB / 10TB</div>
+                        <div class="usage-stat-updated" id="bandwidth-usage-updated">Last updated 1 min ago</div>
+                    </div>
+                </div>
+                <ul class="usage-details-list" id="bandwidth-usage-details">
+                    <li><span class="label"><span class="dot"></span> HTTP</span> <span class="value">35.47GB</span></li>
+                    <li><span class="label"><span class="dot"></span> FTP</span> <span class="value">1.25GB</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
