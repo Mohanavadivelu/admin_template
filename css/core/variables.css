@@ -1,0 +1,182 @@
+/**
+ * Design System Variables
+ * 
+ * This file contains all CSS custom properties that define the visual
+ * identity of the dashboard. Modify these values to change the entire
+ * theme consistently across all components.
+ * 
+ * Dependencies: None (foundation file)
+ * 
+ * Usage:
+ * - Import this file first in main.css
+ * - Reference variables using var(--variable-name)
+ * - Modify values here to update the entire theme
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+:root {
+  /* === COLOR PALETTE === */
+  /* Primary colors for main UI elements */
+  --primary-bg: #1a233a;        /* Main background - deep navy */
+  --secondary-bg: #1d2d44;      /* Panel backgrounds - lighter navy */
+  --panel-bg: rgba(29, 45, 68, 0.5); /* Translucent panels with blur */
+  
+  /* Accent colors for highlights and interactions */
+  --accent-color: #64ffda;      /* Primary accent - cyan */
+  --accent-hover: #4dd0e1;      /* Hover state - lighter cyan */
+  
+  /* Text colors for hierarchy */
+  --text-primary: #e0e0e0;      /* Main text - light gray */
+  --text-secondary: #a8b2d1;    /* Secondary text - muted blue-gray */
+  --text-muted: #8892b0;        /* Muted text - darker blue-gray */
+  
+  /* Border and divider colors */
+  --border-color: rgba(100, 255, 218, 0.15); /* Subtle cyan borders */
+  --border-hover: rgba(100, 255, 218, 0.3);  /* Hover state borders */
+  --border-active: rgba(100, 255, 218, 0.5); /* Active state borders */
+  
+  /* Status colors */
+  --success-color: #3ddc97;     /* Success states */
+  --warning-color: #ffd93d;     /* Warning states */
+  --error-color: #ff6b6b;       /* Error states */
+  --info-color: #4dd0e1;        /* Info states */
+  
+  /* === LAYOUT DIMENSIONS === */
+  --sidebar-width: 80px;        /* Fixed sidebar width */
+  --topbar-height: 70px;        /* Fixed top navigation height */
+  
+  /* === SPACING SCALE === */
+  /* Consistent spacing system based on 8px grid */
+  --spacing-xs: 0.25rem;        /* 4px - minimal spacing */
+  --spacing-sm: 0.5rem;         /* 8px - small spacing */
+  --spacing-md: 1rem;           /* 16px - medium spacing */
+  --spacing-lg: 1.5rem;         /* 24px - large spacing */
+  --spacing-xl: 2rem;           /* 32px - extra large spacing */
+  --spacing-xxl: 3rem;          /* 48px - maximum spacing */
+  
+  /* === BORDER RADIUS === */
+  --radius-sm: 3px;             /* Small elements (buttons, inputs) */
+  --radius-md: 4px;             /* Standard elements (cards, panels) */
+  --radius-lg: 8px;             /* Large elements (modals, containers) */
+  --radius-xl: 12px;            /* Extra large elements */
+  --radius-round: 50%;          /* Circular elements */
+  
+  /* === SHADOWS === */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(100, 255, 218, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-glow: 0 0 20px rgba(100, 255, 218, 0.4);
+  
+  /* === TRANSITIONS === */
+  --transition-fast: 0.15s ease;    /* Quick interactions */
+  --transition-normal: 0.3s ease;   /* Standard transitions */
+  --transition-slow: 0.5s ease;     /* Slow, dramatic effects */
+  
+  /* === Z-INDEX SCALE === */
+  /* Organized z-index system to prevent conflicts */
+  --z-base: 1;                  /* Base level */
+  --z-dropdown: 100;            /* Dropdown menus */
+  --z-sticky: 200;              /* Sticky elements */
+  --z-fixed: 300;               /* Fixed elements */
+  --z-sidebar: 1000;            /* Sidebar navigation */
+  --z-topbar: 1001;             /* Top navigation */
+  --z-modal-backdrop: 1040;     /* Modal backdrop */
+  --z-modal: 1050;              /* Modal dialogs */
+  --z-tooltip: 1060;            /* Tooltips */
+  --z-notification: 1070;       /* Notifications */
+  
+  /* === TYPOGRAPHY === */
+  --font-family-primary: 'Segoe UI', 'Roboto', sans-serif;
+  --font-family-mono: 'Consolas', 'Monaco', monospace;
+  
+  /* Font sizes following modular scale */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.85rem;      /* 13.6px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+  --font-size-3xl: 1.875rem;    /* 30px */
+  --font-size-4xl: 2.25rem;     /* 36px */
+  --font-size-5xl: 3rem;        /* 48px */
+  
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* === BREAKPOINTS === */
+  /* Responsive design breakpoints */
+  --breakpoint-sm: 576px;       /* Small devices */
+  --breakpoint-md: 768px;       /* Medium devices */
+  --breakpoint-lg: 992px;       /* Large devices */
+  --breakpoint-xl: 1200px;      /* Extra large devices */
+  --breakpoint-xxl: 1400px;     /* Extra extra large devices */
+  
+  /* === ANIMATION TIMING === */
+  --ease-in-out-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-cubic: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-cubic: cubic-bezier(0.4, 0, 1, 1);
+  
+  /* === COMPONENT SPECIFIC === */
+  /* Panel specific variables */
+  --panel-padding: var(--spacing-lg);
+  --panel-border-width: 1px;
+  --panel-backdrop-blur: 5px;
+  
+  /* Corner decoration size */
+  --corner-size: 20px;
+  --corner-border-width: 2px;
+  
+  /* Form element heights */
+  --input-height: 2.5rem;       /* 40px */
+  --button-height: 2.5rem;      /* 40px */
+  --select-height: 2.5rem;      /* 40px */
+  
+  /* Table row height */
+  --table-row-height: 3rem;     /* 48px */
+  
+  /* Chart container minimum height */
+  --chart-min-height: 200px;
+}
+
+/* === DARK MODE OVERRIDES === */
+/* Future-proofing for potential dark mode toggle */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Enhanced contrast for dark mode preference */
+    --text-primary: #ffffff;
+    --border-color: rgba(100, 255, 218, 0.2);
+  }
+}
+
+/* === REDUCED MOTION === */
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0s;
+    --transition-normal: 0s;
+    --transition-slow: 0s;
+  }
+}
+
+/* === HIGH CONTRAST === */
+/* Enhanced accessibility for high contrast mode */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: rgba(100, 255, 218, 0.8);
+    --text-secondary: #ffffff;
+    --accent-color: #00ffff;
+  }
+}

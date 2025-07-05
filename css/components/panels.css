@@ -1,0 +1,515 @@
+/**
+ * Dashboard Panel Components
+ * 
+ * Styles for dashboard panels including the signature futuristic corner
+ * decorations, glass-morphism effects, and panel content structure.
+ * 
+ * Dependencies:
+ * - variables.css (design tokens)
+ * 
+ * Usage:
+ * - .dashboard-panel for main panel container
+ * - .corner-* classes for futuristic corner decorations
+ * - .panel-title, .panel-metric for content styling
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === MAIN PANEL CONTAINER === */
+/* Base panel styling with glass-morphism effect */
+
+.dashboard-panel {
+  background-color: var(--panel-bg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: var(--panel-padding);
+  position: relative;
+  height: auto;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  box-sizing: border-box;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+}
+
+.dashboard-panel:hover {
+  border-color: var(--border-hover);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* === FUTURISTIC CORNER DECORATIONS === */
+/* Signature corner elements for sci-fi aesthetic */
+
+.corner {
+  position: absolute;
+  width: var(--corner-size);
+  height: var(--corner-size);
+  border-style: solid;
+  border-color: var(--accent-color);
+  border-width: var(--corner-border-width);
+  transition: all var(--transition-normal);
+  z-index: 2;
+}
+
+/* Individual corner positions */
+.corner-tl {
+  top: -2px;
+  left: -2px;
+  border-width: 2px 0 0 2px;
+}
+
+.corner-tr {
+  top: -2px;
+  right: -2px;
+  border-width: 2px 2px 0 0;
+}
+
+.corner-bl {
+  bottom: -2px;
+  left: -2px;
+  border-width: 0 0 2px 2px;
+}
+
+.corner-br {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Corner hover effects */
+.dashboard-panel:hover .corner {
+  border-color: var(--accent-hover);
+  box-shadow: 0 0 8px var(--accent-color);
+}
+
+/* === PANEL CONTENT STRUCTURE === */
+/* Content organization within panels */
+
+.panel-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.panel-title {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.1em;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-lg);
+  text-transform: uppercase;
+  line-height: var(--line-height-tight);
+}
+
+.panel-metric {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  color: #ffffff;
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+/* === PANEL DIVIDERS === */
+/* Styled horizontal rules for content separation */
+
+hr.panel-divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: var(--spacing-lg) 0;
+  opacity: 0.6;
+  transition: opacity var(--transition-normal);
+}
+
+.dashboard-panel:hover hr.panel-divider {
+  opacity: 0.8;
+  border-color: var(--border-hover);
+}
+
+/* === SUB-METRICS LIST === */
+/* Secondary metrics and statistics */
+
+.sub-metrics {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.sub-metrics li {
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.sub-metrics li:hover {
+  color: var(--text-primary);
+}
+
+.sub-metrics i {
+  color: var(--accent-color);
+  margin-right: var(--spacing-sm);
+  width: 20px;
+  text-align: center;
+  font-size: var(--font-size-sm);
+}
+
+.metric-increase {
+  color: var(--accent-color);
+  font-weight: var(--font-weight-medium);
+}
+
+/* === CHART CONTAINERS === */
+/* Chart and visualization containers */
+
+.chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: var(--chart-min-height);
+  position: relative;
+}
+
+.chart-section {
+  flex-grow: 1;
+  position: relative;
+  min-height: 150px;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  transition: color var(--transition-fast);
+}
+
+.legend-item:hover {
+  color: var(--text-primary);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+/* === USAGE STATISTICS === */
+/* Specialized styling for usage metrics */
+
+.usage-stat-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.usage-chart-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.usage-percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--accent-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.usage-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.usage-stat-title {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.usage-stat-metric {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: #ffffff;
+  margin-bottom: var(--spacing-xs);
+}
+
+.usage-stat-updated {
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.usage-details-list {
+  list-style: none;
+  padding: 0;
+  font-size: var(--font-size-sm);
+}
+
+.usage-details-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+  padding: var(--spacing-xs) 0;
+}
+
+.usage-details-list .label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--text-primary);
+}
+
+.usage-details-list .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-round);
+  background-color: var(--success-color);
+  flex-shrink: 0;
+}
+
+.usage-details-list .value {
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* === MAP VISUALIZATION === */
+/* Interactive map container and controls */
+
+.map-container {
+  position: relative;
+  flex-grow: 1;
+  min-height: 250px;
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.6;
+  transition: opacity var(--transition-normal);
+}
+
+.dashboard-panel:hover .map-img {
+  opacity: 0.8;
+}
+
+.map-point {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: var(--accent-color);
+  border-radius: var(--radius-round);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 10px var(--accent-color);
+  animation: pulse 2s infinite;
+}
+
+.map-zoom-controls {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.zoom-btn {
+  background-color: rgba(29, 45, 68, 0.8);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  border-radius: var(--radius-sm);
+}
+
+.zoom-btn:hover {
+  background-color: var(--secondary-bg);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+/* === ANALYTICS TABLE === */
+/* Table styling within panels */
+
+.analytics-table {
+  font-size: var(--font-size-sm);
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.analytics-table .header-row {
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-semibold);
+  border-bottom: 1px solid var(--border-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.analytics-table .data-row {
+  border-bottom: 1px solid rgba(29, 45, 68, 0.8);
+  transition: all var(--transition-fast);
+}
+
+.analytics-table .data-row:last-child {
+  border-bottom: none;
+}
+
+.analytics-table .data-row.active {
+  color: var(--accent-color);
+  font-weight: var(--font-weight-semibold);
+}
+
+.analytics-table .data-row:hover {
+  background-color: rgba(100, 255, 218, 0.05);
+}
+
+.analytics-table div {
+  padding: var(--spacing-sm) var(--spacing-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.analytics-table .row {
+  margin: 0;
+  max-width: 100%;
+}
+
+/* === PANEL LAYOUT FIXES === */
+/* Bootstrap grid fixes within panels */
+
+.dashboard-panel .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.dashboard-panel .d-flex {
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.dashboard-panel .flex-grow-1 {
+  min-width: 0;
+  overflow: visible;
+}
+
+/* === RESPONSIVE PANEL BEHAVIOR === */
+/* Mobile and tablet adaptations */
+
+@media (max-width: 768px) {
+  .dashboard-panel {
+    padding: var(--spacing-md);
+  }
+  
+  .panel-metric {
+    font-size: var(--font-size-4xl);
+  }
+  
+  .usage-stat-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-sm);
+  }
+  
+  .chart-legend {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .map-container {
+    min-height: 200px;
+  }
+  
+  .analytics-table {
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .corner {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .panel-metric {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .usage-percentage {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/* === ACCESSIBILITY === */
+/* Enhanced accessibility for panel interactions */
+
+.dashboard-panel:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-point {
+    animation: none;
+  }
+  
+  .dashboard-panel,
+  .corner,
+  .zoom-btn {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .dashboard-panel {
+    border-width: 2px;
+    background-color: var(--primary-bg);
+  }
+  
+  .corner {
+    border-width: 3px;
+  }
+}

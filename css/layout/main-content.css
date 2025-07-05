@@ -1,0 +1,155 @@
+/**
+ * Main Content Area Layout
+ * 
+ * Styles for the main content wrapper and dashboard container.
+ * Handles the scrollable content area and page transitions.
+ * 
+ * Dependencies:
+ * - variables.css (design tokens)
+ * 
+ * Usage:
+ * - .main-content-wrapper for main container
+ * - .dashboard-container for content area
+ * - .page-content for page management
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === MAIN CONTENT WRAPPER === */
+/* Primary content container */
+
+.main-content-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-left: var(--sidebar-width);
+  min-height: auto;
+  position: relative;
+}
+
+/* === DASHBOARD CONTAINER === */
+/* Scrollable content area */
+
+.dashboard-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacing-xl);
+  background: transparent;
+  position: relative;
+}
+
+/* Custom scrollbar styling */
+.dashboard-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dashboard-container::-webkit-scrollbar-track {
+  background: var(--primary-bg);
+}
+
+.dashboard-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.dashboard-container::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+/* === PAGE CONTENT MANAGEMENT === */
+/* Page switching and transitions */
+
+.page-content {
+  display: none;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.page-content.active {
+  display: block;
+}
+
+/* === PAGE HEADERS === */
+/* Page title and subtitle styling */
+
+.page-header {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.page-title {
+  color: var(--accent-color);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: var(--line-height-tight);
+}
+
+.page-subtitle {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  margin-bottom: 0;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+}
+
+/* === RESPONSIVE BEHAVIOR === */
+/* Mobile and tablet adaptations */
+
+@media (max-width: 768px) {
+  .main-content-wrapper {
+    margin-left: 0;
+  }
+  
+  .dashboard-container {
+    padding: var(--spacing-md);
+  }
+  
+  .page-title {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: var(--spacing-sm);
+  }
+  
+  .page-title {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* === ANIMATIONS === */
+/* Page transition animations */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .page-content {
+    animation: none;
+  }
+  
+  @keyframes fadeIn {
+    from, to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

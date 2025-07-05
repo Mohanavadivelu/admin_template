@@ -1,0 +1,461 @@
+/**
+ * Button Components
+ * 
+ * Comprehensive button styling including primary, secondary, outline,
+ * and danger variants with hover states and accessibility features.
+ * 
+ * Dependencies:
+ * - variables.css (design tokens)
+ * 
+ * Usage:
+ * - .futuristic-btn for primary buttons
+ * - .futuristic-btn-secondary for secondary buttons
+ * - .futuristic-btn-outline for outline buttons
+ * - .futuristic-btn-danger for danger buttons
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === PRIMARY BUTTON === */
+/* Main action button with gradient background */
+
+.futuristic-btn {
+  background: linear-gradient(135deg, var(--accent-color), #4dd0e1);
+  border: none;
+  color: var(--primary-bg);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  line-height: var(--line-height-normal);
+  min-height: var(--button-height);
+  font-family: inherit;
+}
+
+.futuristic-btn:hover {
+  background: linear-gradient(135deg, #4dd0e1, var(--accent-color));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+  color: var(--primary-bg);
+  text-decoration: none;
+}
+
+.futuristic-btn:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.25);
+}
+
+.futuristic-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(100, 255, 218, 0.2);
+}
+
+.futuristic-btn:disabled {
+  background: var(--border-color);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* === SECONDARY BUTTON === */
+/* Alternative button with solid background */
+
+.futuristic-btn-secondary {
+  background-color: rgba(29, 45, 68, 0.8);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  line-height: var(--line-height-normal);
+  min-height: var(--button-height);
+  font-family: inherit;
+}
+
+.futuristic-btn-secondary:hover {
+  background-color: rgba(29, 45, 68, 1);
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(29, 45, 68, 0.4);
+  text-decoration: none;
+}
+
+.futuristic-btn-secondary:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.25);
+}
+
+.futuristic-btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(29, 45, 68, 0.3);
+}
+
+.futuristic-btn-secondary:disabled {
+  background-color: rgba(29, 45, 68, 0.3);
+  border-color: var(--border-color);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* === OUTLINE BUTTON === */
+/* Transparent button with border */
+
+.futuristic-btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  line-height: var(--line-height-normal);
+  min-height: var(--button-height);
+  font-family: inherit;
+}
+
+.futuristic-btn-outline:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background-color: rgba(100, 255, 218, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(100, 255, 218, 0.2);
+  text-decoration: none;
+}
+
+.futuristic-btn-outline:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.25);
+}
+
+.futuristic-btn-outline:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(100, 255, 218, 0.15);
+}
+
+.futuristic-btn-outline:disabled {
+  border-color: var(--border-color);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* === DANGER BUTTON === */
+/* Destructive action button */
+
+.futuristic-btn-danger {
+  background: linear-gradient(135deg, var(--error-color), #ee5a52);
+  border: none;
+  color: white;
+  font-weight: var(--font-weight-semibold);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  text-decoration: none;
+  line-height: var(--line-height-normal);
+  min-height: var(--button-height);
+  font-family: inherit;
+}
+
+.futuristic-btn-danger:hover {
+  background: linear-gradient(135deg, #ee5a52, var(--error-color));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+.futuristic-btn-danger:focus {
+  outline: 2px solid var(--error-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
+}
+
+.futuristic-btn-danger:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(255, 107, 107, 0.2);
+}
+
+.futuristic-btn-danger:disabled {
+  background: var(--border-color);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* === BUTTON SIZES === */
+/* Size variations */
+
+.futuristic-btn-sm,
+.futuristic-btn-secondary-sm,
+.futuristic-btn-outline-sm,
+.futuristic-btn-danger-sm {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  min-height: calc(var(--button-height) - 8px);
+}
+
+.futuristic-btn-lg,
+.futuristic-btn-secondary-lg,
+.futuristic-btn-outline-lg,
+.futuristic-btn-danger-lg {
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-size-base);
+  min-height: calc(var(--button-height) + 8px);
+}
+
+/* === ACTION BUTTONS === */
+/* Small action buttons for tables */
+
+.action-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  text-decoration: none;
+  line-height: var(--line-height-normal);
+  min-height: 28px;
+  font-family: inherit;
+}
+
+.action-btn:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background-color: rgba(100, 255, 218, 0.1);
+  text-decoration: none;
+}
+
+.action-btn:focus {
+  outline: 1px solid var(--accent-color);
+  outline-offset: 1px;
+}
+
+.action-btn.danger:hover {
+  border-color: var(--error-color);
+  color: var(--error-color);
+  background-color: rgba(255, 107, 107, 0.1);
+}
+
+.action-btn:disabled {
+  border-color: var(--border-color);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+/* === BUTTON GROUPS === */
+/* Grouped button styling */
+
+.btn-group {
+  display: inline-flex;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.btn-group .futuristic-btn,
+.btn-group .futuristic-btn-secondary,
+.btn-group .futuristic-btn-outline {
+  border-radius: 0;
+  margin-left: -1px;
+}
+
+.btn-group .futuristic-btn:first-child,
+.btn-group .futuristic-btn-secondary:first-child,
+.btn-group .futuristic-btn-outline:first-child {
+  border-top-left-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+  margin-left: 0;
+}
+
+.btn-group .futuristic-btn:last-child,
+.btn-group .futuristic-btn-secondary:last-child,
+.btn-group .futuristic-btn-outline:last-child {
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+/* === LOADING STATE === */
+/* Button loading indicators */
+
+.futuristic-btn.loading,
+.futuristic-btn-secondary.loading,
+.futuristic-btn-outline.loading,
+.futuristic-btn-danger.loading {
+  position: relative;
+  color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.futuristic-btn.loading::after,
+.futuristic-btn-secondary.loading::after,
+.futuristic-btn-outline.loading::after,
+.futuristic-btn-danger.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.futuristic-btn.loading::after {
+  border-top-color: var(--primary-bg);
+}
+
+.futuristic-btn-secondary.loading::after,
+.futuristic-btn-outline.loading::after {
+  border-top-color: var(--accent-color);
+}
+
+.futuristic-btn-danger.loading::after {
+  border-top-color: white;
+}
+
+/* === RESPONSIVE BEHAVIOR === */
+/* Mobile and tablet adaptations */
+
+@media (max-width: 768px) {
+  .futuristic-btn,
+  .futuristic-btn-secondary,
+  .futuristic-btn-outline,
+  .futuristic-btn-danger {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .action-btn {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-xs);
+    min-height: 24px;
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-group .futuristic-btn,
+  .btn-group .futuristic-btn-secondary,
+  .btn-group .futuristic-btn-outline {
+    border-radius: 0;
+    margin-left: 0;
+    margin-top: -1px;
+  }
+  
+  .btn-group .futuristic-btn:first-child,
+  .btn-group .futuristic-btn-secondary:first-child,
+  .btn-group .futuristic-btn-outline:first-child {
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
+    margin-top: 0;
+  }
+  
+  .btn-group .futuristic-btn:last-child,
+  .btn-group .futuristic-btn-secondary:last-child,
+  .btn-group .futuristic-btn-outline:last-child {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  }
+}
+
+/* === ACCESSIBILITY === */
+/* Enhanced accessibility features */
+
+@media (prefers-contrast: high) {
+  .futuristic-btn,
+  .futuristic-btn-secondary,
+  .futuristic-btn-outline,
+  .futuristic-btn-danger,
+  .action-btn {
+    border-width: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .futuristic-btn,
+  .futuristic-btn-secondary,
+  .futuristic-btn-outline,
+  .futuristic-btn-danger,
+  .action-btn {
+    transition: none;
+    transform: none !important;
+  }
+  
+  .futuristic-btn:hover,
+  .futuristic-btn-secondary:hover,
+  .futuristic-btn-outline:hover,
+  .futuristic-btn-danger:hover,
+  .action-btn:hover {
+    transform: none;
+  }
+  
+  @keyframes spin {
+    from, to {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+  }
+}
+
+/* === ANIMATIONS === */
+/* Button animations */
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

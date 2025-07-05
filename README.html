@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="futuristic-dashboard-ui">Futuristic Dashboard UI</h1>
+<p>A modern, responsive admin dashboard built with HTML5, CSS3, JavaScript, and Chart.js featuring a futuristic design with dynamic data visualization and application management capabilities.</p>
+<h2 id="%F0%9F%9A%80-features">🚀 Features</h2>
+<ul>
+<li><strong>Responsive Design</strong>: Bootstrap 5 grid system with mobile-first approach</li>
+<li><strong>Component-Based Architecture</strong>: Modular HTML components for easy maintenance</li>
+<li><strong>Dynamic Data Loading</strong>: JSON-based data management with real-time updates</li>
+<li><strong>Interactive Charts</strong>: Chart.js integration for various data visualizations</li>
+<li><strong>Application Manager</strong>: Complete CRUD operations for application management</li>
+<li><strong>Multi-Page Navigation</strong>: Dashboard and Application Manager pages</li>
+<li><strong>Futuristic UI</strong>: Custom CSS with accent colors, backdrop filters, and corner decorations</li>
+<li><strong>Error Handling</strong>: Comprehensive error handling and loading states</li>
+<li><strong>Clean Architecture</strong>: Organized file structure with no unused files</li>
+</ul>
+<h2 id="%F0%9F%93%81-project-structure">📁 Project Structure</h2>
+<pre class="hljs"><code><div>admin_template/
+├── index.html                    # Main entry point with multi-page layout
+├── README.md                     # Project documentation
+├── TODO_README.md               # Future development roadmap
+├── css/
+│   └── styles.css               # Main stylesheet with futuristic design
+├── js/
+│   └── dashboard-init.js        # Main application logic and initialization
+├── data/
+│   └── dashboard-data.json      # Dashboard data and application storage
+└── components/
+    ├── common/                  # Shared components
+    │   ├── sidebar.html         # Navigation sidebar with page switching
+    │   └── topbar.html          # Top navigation bar
+    └── pages/                   # Page-specific components
+        ├── dashboard/           # Dashboard page panels
+        │   ├── bandwidth-panel.html
+        │   ├── members-panel.html
+        │   ├── sales-panel.html
+        │   ├── server-panel.html
+        │   ├── traffic-panel.html
+        │   └── visitors-panel.html
+        └── app-manager/         # Application manager page
+            ├── app-form-panel.html    # Application form for CRUD operations
+            └── app-table-panel.html   # Applications table with search/sort
+</div></code></pre>
+<h2 id="%F0%9F%8E%AF-pages--features">🎯 Pages &amp; Features</h2>
+<h3 id="dashboard-page">Dashboard Page</h3>
+<ul>
+<li><strong>Metrics Overview</strong>: Site visitors, store sales, new members, bandwidth usage</li>
+<li><strong>Interactive Charts</strong>: Bar charts, line charts, pie charts, doughnut charts</li>
+<li><strong>Server Statistics</strong>: Real-time CPU, memory, and disk usage monitoring</li>
+<li><strong>Traffic Analytics</strong>: Geographic traffic distribution and source analysis</li>
+</ul>
+<h3 id="application-manager-page">Application Manager Page</h3>
+<ul>
+<li><strong>Application Form</strong>: Add/edit applications with comprehensive tracking options</li>
+<li><strong>Applications Table</strong>: View, search, sort, and manage registered applications</li>
+<li><strong>CRUD Operations</strong>: Create, read, update, delete applications</li>
+<li><strong>Advanced Features</strong>: Pagination, filtering, export functionality</li>
+<li><strong>Tracking Options</strong>: Usage, location, CPU/memory monitoring with configurable intervals</li>
+</ul>
+<h2 id="1-panel-and-layout-system">1. Panel and Layout System</h2>
+<h3 id="component-based-architecture">Component-Based Architecture</h3>
+<p>The dashboard uses a modular component system where each panel is a separate HTML file loaded dynamically:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">&lt;!-- Multi-page layout structure --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">main</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container-fluid dashboard-container"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- DASHBOARD PAGE --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dashboard-page"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"page-content active"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-3 col-lg-6 col-md-6 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"visitors-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-3 col-lg-6 col-md-6 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"sales-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-3 col-lg-6 col-md-6 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"members-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-3 col-lg-6 col-md-6 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bandwidth-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- APP MANAGER PAGE --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app-manager-page"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"page-content"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-6 col-lg-6 col-md-12 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app-form-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-6 col-lg-6 col-md-12 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app-table-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span>
+</div></code></pre>
+<h3 id="panel-structure">Panel Structure</h3>
+<p>Each panel follows a consistent futuristic design structure:</p>
+<pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dashboard-panel"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- Corner decorations for futuristic look --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"corner corner-tl"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"corner corner-tr"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"corner corner-bl"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"corner corner-br"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    
+    <span class="hljs-comment">&lt;!-- Panel content --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"panel-title"</span>&gt;</span>PANEL TITLE<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"panel-content-wrapper"</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- Panel-specific content --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</div></code></pre>
+<h3 id="bootstrap-grid-system">Bootstrap Grid System</h3>
+<ul>
+<li><strong>Desktop (xl)</strong>: 4 columns for metrics, 2 columns for detailed panels</li>
+<li><strong>Tablet (lg)</strong>: 2 columns layout</li>
+<li><strong>Mobile (md/sm)</strong>: Single column stack</li>
+<li><strong>App Manager</strong>: 2 equal columns on desktop, stacked on mobile</li>
+</ul>
+<h3 id="responsive-breakpoints">Responsive Breakpoints</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">/* Panel responsive behavior */</span>
+<span class="hljs-selector-class">.col-xl-3</span>  <span class="hljs-comment">/* 4 panels per row on extra large screens */</span>
+<span class="hljs-selector-class">.col-lg-6</span>  <span class="hljs-comment">/* 2 panels per row on large screens */</span>
+<span class="hljs-selector-class">.col-md-6</span>  <span class="hljs-comment">/* 2 panels per row on medium screens */</span>
+<span class="hljs-selector-class">.col-xl-6</span>  <span class="hljs-comment">/* 2 panels per row for app manager */</span>
+</div></code></pre>
+<h2 id="2-css-design-system">2. CSS Design System</h2>
+<h3 id="color-scheme">Color Scheme</h3>
+<p>The dashboard uses CSS custom properties for consistent futuristic theming:</p>
+<pre class="hljs"><code><div><span class="hljs-selector-pseudo">:root</span> {
+    <span class="hljs-attribute">--primary-bg</span>: <span class="hljs-number">#1a233a</span>;      <span class="hljs-comment">/* Main background */</span>
+    <span class="hljs-attribute">--secondary-bg</span>: <span class="hljs-number">#1d2d44</span>;    <span class="hljs-comment">/* Panel backgrounds */</span>
+    <span class="hljs-attribute">--panel-bg</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">29</span>, <span class="hljs-number">45</span>, <span class="hljs-number">68</span>, <span class="hljs-number">0.5</span>); <span class="hljs-comment">/* Translucent panels */</span>
+    <span class="hljs-attribute">--accent-color</span>: <span class="hljs-number">#64ffda</span>;    <span class="hljs-comment">/* Accent/highlight color */</span>
+    <span class="hljs-attribute">--text-primary</span>: <span class="hljs-number">#e0e0e0</span>;    <span class="hljs-comment">/* Primary text */</span>
+    <span class="hljs-attribute">--text-secondary</span>: <span class="hljs-number">#a8b2d1</span>;  <span class="hljs-comment">/* Secondary text */</span>
+    <span class="hljs-attribute">--border-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">100</span>, <span class="hljs-number">255</span>, <span class="hljs-number">218</span>, <span class="hljs-number">0.15</span>); <span class="hljs-comment">/* Borders */</span>
+}
+</div></code></pre>
+<h3 id="panel-styling">Panel Styling</h3>
+<h4 id="futuristic-panel-design">Futuristic Panel Design</h4>
+<pre class="hljs"><code><div><span class="hljs-selector-class">.dashboard-panel</span> {
+    <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--panel-bg);
+    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--border-color);
+    <span class="hljs-attribute">backdrop-filter</span>: <span class="hljs-built_in">blur</span>(<span class="hljs-number">5px</span>);  <span class="hljs-comment">/* Glass effect */</span>
+    <span class="hljs-attribute">position</span>: relative;
+    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">8px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.5rem</span>;
+}
+</div></code></pre>
+<h4 id="corner-decorations">Corner Decorations</h4>
+<pre class="hljs"><code><div><span class="hljs-selector-class">.corner</span> {
+    <span class="hljs-attribute">position</span>: absolute;
+    <span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">height</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">border-style</span>: solid;
+    <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--accent-color);
+}
+<span class="hljs-comment">/* Individual corner positioning */</span>
+<span class="hljs-selector-class">.corner-tl</span> { <span class="hljs-attribute">top</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">left</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">border-width</span>: <span class="hljs-number">2px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">2px</span>; }
+<span class="hljs-selector-class">.corner-tr</span> { <span class="hljs-attribute">top</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">right</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">border-width</span>: <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>; }
+<span class="hljs-selector-class">.corner-bl</span> { <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">left</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">border-width</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">2px</span> <span class="hljs-number">2px</span>; }
+<span class="hljs-selector-class">.corner-br</span> { <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">right</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">border-width</span>: <span class="hljs-number">0</span> <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0</span>; }
+</div></code></pre>
+<h3 id="typography-hierarchy">Typography Hierarchy</h3>
+<pre class="hljs"><code><div><span class="hljs-selector-class">.panel-title</span> {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.8rem</span>;
+    <span class="hljs-attribute">letter-spacing</span>: <span class="hljs-number">1.5px</span>;
+    <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">600</span>;
+    <span class="hljs-attribute">text-transform</span>: uppercase;
+    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--text-secondary);
+}
+
+<span class="hljs-selector-class">.panel-metric</span> {
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.75rem</span>;
+    <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">700</span>;
+    <span class="hljs-attribute">color</span>: <span class="hljs-number">#ffffff</span>;
+    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
+}
+</div></code></pre>
+<h3 id="layout-components">Layout Components</h3>
+<h4 id="sidebar-navigation">Sidebar Navigation</h4>
+<ul>
+<li>Fixed width: <code>80px</code></li>
+<li>Full height with flex layout</li>
+<li>Icon-based navigation with active states</li>
+<li>Page switching functionality</li>
+</ul>
+<h4 id="main-content">Main Content</h4>
+<ul>
+<li>Flexible width with sidebar offset</li>
+<li>Scrollable dashboard container</li>
+<li>Top navigation bar: <code>70px</code> height</li>
+<li>Multi-page content switching</li>
+</ul>
+<h4 id="grid-background">Grid Background</h4>
+<pre class="hljs"><code><div><span class="hljs-selector-tag">body</span> {
+    <span class="hljs-attribute">background-image</span>:
+        <span class="hljs-built_in">linear-gradient</span>(rgba(<span class="hljs-number">100</span>, <span class="hljs-number">255</span>, <span class="hljs-number">218</span>, <span class="hljs-number">0.07</span>) <span class="hljs-number">1px</span>, transparent <span class="hljs-number">1px</span>),
+        <span class="hljs-built_in">linear-gradient</span>(<span class="hljs-number">90deg</span>, rgba(<span class="hljs-number">100</span>, <span class="hljs-number">255</span>, <span class="hljs-number">218</span>, <span class="hljs-number">0.07</span>) <span class="hljs-number">1px</span>, transparent <span class="hljs-number">1px</span>);
+    <span class="hljs-attribute">background-size</span>: <span class="hljs-number">30px</span> <span class="hljs-number">30px</span>;
+}
+</div></code></pre>
+<h2 id="3-application-management-system">3. Application Management System</h2>
+<h3 id="dashboardmanager-class">DashboardManager Class</h3>
+<p>The enhanced <code>DashboardManager</code> class handles both dashboard and application management:</p>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DashboardManager</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-keyword">this</span>.data = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">this</span>.charts = {};
+        <span class="hljs-keyword">this</span>.applications = [];
+        <span class="hljs-keyword">this</span>.currentEditingApp = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">this</span>.currentPage = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">this</span>.itemsPerPage = <span class="hljs-number">10</span>;
+        <span class="hljs-keyword">this</span>.sortField = <span class="hljs-string">'app_name'</span>;
+        <span class="hljs-keyword">this</span>.sortDirection = <span class="hljs-string">'asc'</span>;
+        <span class="hljs-keyword">this</span>.searchTerm = <span class="hljs-string">''</span>;
+        <span class="hljs-keyword">this</span>.loadingStatus = {
+            <span class="hljs-attr">data</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">components</span>: <span class="hljs-literal">false</span>,
+            <span class="hljs-attr">charts</span>: <span class="hljs-literal">false</span>
+        };
+        
+        <span class="hljs-keyword">this</span>.init();
+    }
+}
+</div></code></pre>
+<h3 id="application-crud-operations">Application CRUD Operations</h3>
+<h4 id="create-application">Create Application</h4>
+<pre class="hljs"><code><div>addApplication(appData) {
+    <span class="hljs-keyword">this</span>.applications.push({
+        <span class="hljs-attr">id</span>: <span class="hljs-built_in">Date</span>.now(),
+        ...appData,
+        <span class="hljs-attr">registered_date</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toISOString().split(<span class="hljs-string">'T'</span>)[<span class="hljs-number">0</span>]
+    });
+    <span class="hljs-keyword">this</span>.saveApplicationsToStorage();
+    <span class="hljs-keyword">this</span>.populateApplicationsTable();
+}
+</div></code></pre>
+<h4 id="read-applications-with-search--sort">Read Applications with Search &amp; Sort</h4>
+<pre class="hljs"><code><div>populateApplicationsTable() {
+    <span class="hljs-comment">// Filter applications based on search term</span>
+    <span class="hljs-keyword">let</span> filteredApps = <span class="hljs-keyword">this</span>.applications.filter(<span class="hljs-function"><span class="hljs-params">app</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.searchTerm) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">return</span> (
+            app.app_name.toLowerCase().includes(<span class="hljs-keyword">this</span>.searchTerm) ||
+            app.publisher.toLowerCase().includes(<span class="hljs-keyword">this</span>.searchTerm) ||
+            app.current_version.toLowerCase().includes(<span class="hljs-keyword">this</span>.searchTerm)
+        );
+    });
+
+    <span class="hljs-comment">// Sort applications</span>
+    filteredApps.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> {
+        <span class="hljs-keyword">let</span> aVal = a[<span class="hljs-keyword">this</span>.sortField];
+        <span class="hljs-keyword">let</span> bVal = b[<span class="hljs-keyword">this</span>.sortField];
+        
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> aVal === <span class="hljs-string">'string'</span>) {
+            aVal = aVal.toLowerCase();
+            bVal = bVal.toLowerCase();
+        }
+        
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.sortDirection === <span class="hljs-string">'asc'</span> ? 
+            (aVal &gt; bVal ? <span class="hljs-number">1</span> : <span class="hljs-number">-1</span>) : (aVal &lt; bVal ? <span class="hljs-number">1</span> : <span class="hljs-number">-1</span>);
+    });
+
+    <span class="hljs-comment">// Implement pagination</span>
+    <span class="hljs-keyword">const</span> startIndex = (<span class="hljs-keyword">this</span>.currentPage - <span class="hljs-number">1</span>) * <span class="hljs-keyword">this</span>.itemsPerPage;
+    <span class="hljs-keyword">const</span> paginatedApps = filteredApps.slice(startIndex, startIndex + <span class="hljs-keyword">this</span>.itemsPerPage);
+    
+    <span class="hljs-comment">// Generate table rows</span>
+    <span class="hljs-keyword">this</span>.renderTableRows(paginatedApps);
+}
+</div></code></pre>
+<h4 id="update-application">Update Application</h4>
+<pre class="hljs"><code><div>updateApplication(appData) {
+    <span class="hljs-keyword">const</span> index = <span class="hljs-keyword">this</span>.applications.findIndex(<span class="hljs-function"><span class="hljs-params">app</span> =&gt;</span> app.id === <span class="hljs-keyword">this</span>.currentEditingApp.id);
+    <span class="hljs-keyword">if</span> (index !== <span class="hljs-number">-1</span>) {
+        <span class="hljs-keyword">this</span>.applications[index] = appData;
+        <span class="hljs-keyword">this</span>.saveApplicationsToStorage();
+        <span class="hljs-keyword">this</span>.populateApplicationsTable();
+    }
+}
+</div></code></pre>
+<h4 id="delete-application">Delete Application</h4>
+<pre class="hljs"><code><div>deleteApplication(appId) {
+    <span class="hljs-keyword">this</span>.applications = <span class="hljs-keyword">this</span>.applications.filter(<span class="hljs-function"><span class="hljs-params">app</span> =&gt;</span> app.id !== appId);
+    <span class="hljs-keyword">this</span>.saveApplicationsToStorage();
+    <span class="hljs-keyword">this</span>.populateApplicationsTable();
+}
+</div></code></pre>
+<h3 id="advanced-table-features">Advanced Table Features</h3>
+<h4 id="search-functionality">Search Functionality</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Real-time search across multiple fields</span>
+<span class="hljs-keyword">const</span> searchInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'app-search'</span>);
+searchInput.addEventListener(<span class="hljs-string">'input'</span>, (e) =&gt; {
+    <span class="hljs-keyword">this</span>.searchTerm = e.target.value.toLowerCase();
+    <span class="hljs-keyword">this</span>.currentPage = <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">this</span>.populateApplicationsTable();
+});
+</div></code></pre>
+<h4 id="sorting-system">Sorting System</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Click-to-sort on table headers</span>
+handleSort(field) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.sortField === field) {
+        <span class="hljs-keyword">this</span>.sortDirection = <span class="hljs-keyword">this</span>.sortDirection === <span class="hljs-string">'asc'</span> ? <span class="hljs-string">'desc'</span> : <span class="hljs-string">'asc'</span>;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">this</span>.sortField = field;
+        <span class="hljs-keyword">this</span>.sortDirection = <span class="hljs-string">'asc'</span>;
+    }
+    <span class="hljs-keyword">this</span>.populateApplicationsTable();
+}
+</div></code></pre>
+<h4 id="pagination">Pagination</h4>
+<pre class="hljs"><code><div><span class="hljs-comment">// Dynamic pagination with page info</span>
+updatePagination(totalItems) {
+    <span class="hljs-keyword">const</span> totalPages = <span class="hljs-built_in">Math</span>.ceil(totalItems / <span class="hljs-keyword">this</span>.itemsPerPage);
+    <span class="hljs-comment">// Generate pagination controls</span>
+    <span class="hljs-comment">// Update showing X to Y of Z records</span>
+}
+</div></code></pre>
+<h3 id="application-form-features">Application Form Features</h3>
+<h4 id="comprehensive-form-fields">Comprehensive Form Fields</h4>
+<ul>
+<li>Application Name, Type, Version</li>
+<li>Publisher, Release Date, Description</li>
+<li>Download Link (with URL validation)</li>
+<li>Registration Date</li>
+<li>Tracking Options (Usage, Location, CPU/Memory)</li>
+<li>Configurable monitoring intervals</li>
+</ul>
+<h4 id="form-validation">Form Validation</h4>
+<pre class="hljs"><code><div>validateFormData(data) {
+    <span class="hljs-keyword">const</span> requiredFields = [<span class="hljs-string">'app_name'</span>, <span class="hljs-string">'app_type'</span>, <span class="hljs-string">'current_version'</span>, <span class="hljs-string">'released_date'</span>, <span class="hljs-string">'publisher'</span>];
+    
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> field <span class="hljs-keyword">of</span> requiredFields) {
+        <span class="hljs-keyword">if</span> (!data[field] || data[field].trim() === <span class="hljs-string">''</span>) {
+            <span class="hljs-keyword">this</span>.showMessage(<span class="hljs-string">`Please fill in the <span class="hljs-subst">${field.replace(<span class="hljs-string">'_'</span>, <span class="hljs-string">' '</span>)}</span> field.`</span>, <span class="hljs-string">'error'</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+    }
+
+    <span class="hljs-comment">// URL validation for download links</span>
+    <span class="hljs-keyword">if</span> (data.download_link &amp;&amp; !<span class="hljs-keyword">this</span>.isValidUrl(data.download_link)) {
+        <span class="hljs-keyword">this</span>.showMessage(<span class="hljs-string">'Please enter a valid download URL.'</span>, <span class="hljs-string">'error'</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+</div></code></pre>
+<h2 id="4-navigation-system">4. Navigation System</h2>
+<h3 id="multi-page-architecture">Multi-Page Architecture</h3>
+<p>The dashboard supports multiple pages with smooth transitions:</p>
+<pre class="hljs"><code><div>navigateToPage(page) {
+    <span class="hljs-comment">// Update navigation active state</span>
+    <span class="hljs-keyword">this</span>.updateNavigationState(page);
+    
+    <span class="hljs-comment">// Show the selected page</span>
+    <span class="hljs-keyword">this</span>.showPage(page);
+    
+    <span class="hljs-comment">// Refresh page-specific data</span>
+    <span class="hljs-keyword">this</span>.refreshPageData(page);
+}
+
+showPage(page) {
+    <span class="hljs-comment">// Hide all pages</span>
+    <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'.page-content'</span>).forEach(<span class="hljs-function"><span class="hljs-params">pageEl</span> =&gt;</span> {
+        pageEl.classList.remove(<span class="hljs-string">'active'</span>);
+    });
+
+    <span class="hljs-comment">// Show target page</span>
+    <span class="hljs-keyword">const</span> targetPage = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">`<span class="hljs-subst">${page}</span>-page`</span>);
+    <span class="hljs-keyword">if</span> (targetPage) {
+        targetPage.classList.add(<span class="hljs-string">'active'</span>);
+    }
+}
+</div></code></pre>
+<h3 id="page-specific-data-refresh">Page-Specific Data Refresh</h3>
+<pre class="hljs"><code><div>refreshPageData(page) {
+    <span class="hljs-keyword">switch</span> (page) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'dashboard'</span>:
+            <span class="hljs-keyword">this</span>.refreshDashboardPage();
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'app-manager'</span>:
+            <span class="hljs-keyword">this</span>.refreshAppManagerPage();
+            <span class="hljs-keyword">break</span>;
+    }
+}
+</div></code></pre>
+<h2 id="5-data-loading--initialization">5. Data Loading &amp; Initialization</h2>
+<h3 id="initialization-flow">Initialization Flow</h3>
+<ol>
+<li><strong>Show Loading Indicator</strong> with progress updates</li>
+<li><strong>Load Dashboard Data</strong> from JSON file</li>
+<li><strong>Load Components</strong> dynamically with error handling</li>
+<li><strong>Initialize Charts</strong> with Chart.js</li>
+<li><strong>Initialize Application Management</strong> with data loading</li>
+<li><strong>Initialize Navigation</strong> system</li>
+<li><strong>Populate Data</strong> into all components</li>
+<li><strong>Hide Loading Indicator</strong></li>
+</ol>
+<h3 id="component-loading-with-error-handling">Component Loading with Error Handling</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">async</span> loadComponents() {
+    <span class="hljs-keyword">const</span> components = [
+        { <span class="hljs-attr">selector</span>: <span class="hljs-string">'#sidebar-container'</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">'./components/common/sidebar.html'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'Sidebar'</span> },
+        { <span class="hljs-attr">selector</span>: <span class="hljs-string">'#topbar-container'</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">'./components/common/topbar.html'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'Top Navigation'</span> },
+        { <span class="hljs-attr">selector</span>: <span class="hljs-string">'#visitors-panel-container'</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">'./components/pages/dashboard/visitors-panel.html'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'Visitors Panel'</span> },
+        <span class="hljs-comment">// ... more components</span>
+    ];
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> component <span class="hljs-keyword">of</span> components) {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-keyword">const</span> controller = <span class="hljs-keyword">new</span> AbortController();
+            <span class="hljs-keyword">const</span> timeoutId = setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> controller.abort(), <span class="hljs-number">5000</span>);
+            
+            <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(component.url, { <span class="hljs-attr">signal</span>: controller.signal });
+            clearTimeout(timeoutId);
+            
+            <span class="hljs-keyword">if</span> (!response.ok) {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`HTTP error! status: <span class="hljs-subst">${response.status}</span>`</span>);
+            }
+            
+            <span class="hljs-keyword">const</span> html = <span class="hljs-keyword">await</span> response.text();
+            <span class="hljs-keyword">const</span> container = <span class="hljs-built_in">document</span>.querySelector(component.selector);
+            <span class="hljs-keyword">if</span> (container) {
+                container.innerHTML = html;
+            }
+        } <span class="hljs-keyword">catch</span> (error) {
+            <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`Failed to load <span class="hljs-subst">${component.name}</span>:`</span>, error);
+        }
+    }
+}
+</div></code></pre>
+<h3 id="chart-initialization-with-error-handling">Chart Initialization with Error Handling</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">async</span> initializeCharts() {
+    <span class="hljs-keyword">const</span> chartInitializers = [
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">'Site Visitors'</span>, <span class="hljs-attr">fn</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.initSiteVisitorsChart() },
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">'Store Sales'</span>, <span class="hljs-attr">fn</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.initStoreSalesChart() },
+        <span class="hljs-comment">// ... more charts</span>
+    ];
+    
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> chart <span class="hljs-keyword">of</span> chartInitializers) {
+        <span class="hljs-keyword">try</span> {
+            chart.fn();
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`✅ <span class="hljs-subst">${chart.name}</span> chart initialized`</span>);
+        } <span class="hljs-keyword">catch</span> (error) {
+            <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`❌ Failed to initialize <span class="hljs-subst">${chart.name}</span> chart:`</span>, error);
+        }
+    }
+}
+</div></code></pre>
+<h2 id="%F0%9F%94%A7-common-issues--solutions">🔧 Common Issues &amp; Solutions</h2>
+<h3 id="application-table-issues">Application Table Issues</h3>
+<p><strong>Issue</strong>: Table not updating after adding/editing applications.</p>
+<p><strong>Solution</strong>: Ensure <code>populateApplicationsTable()</code> is called after CRUD operations:</p>
+<pre class="hljs"><code><div>addApplication(appData) {
+    <span class="hljs-keyword">this</span>.applications.push(appData);
+    <span class="hljs-keyword">this</span>.saveApplicationsToStorage();
+    <span class="hljs-keyword">this</span>.populateApplicationsTable(); <span class="hljs-comment">// Essential for UI update</span>
+}
+</div></code></pre>
+<h3 id="search-and-pagination">Search and Pagination</h3>
+<p><strong>Issue</strong>: Search results not paginating correctly.</p>
+<p><strong>Solution</strong>: Reset to page 1 when searching:</p>
+<pre class="hljs"><code><div>searchInput.addEventListener(<span class="hljs-string">'input'</span>, (e) =&gt; {
+    <span class="hljs-keyword">this</span>.searchTerm = e.target.value.toLowerCase();
+    <span class="hljs-keyword">this</span>.currentPage = <span class="hljs-number">1</span>; <span class="hljs-comment">// Reset pagination</span>
+    <span class="hljs-keyword">this</span>.populateApplicationsTable();
+});
+</div></code></pre>
+<h3 id="form-validation">Form Validation</h3>
+<p><strong>Issue</strong>: Form submitting with invalid data.</p>
+<p><strong>Solution</strong>: Implement comprehensive validation:</p>
+<pre class="hljs"><code><div>handleFormSubmission() {
+    <span class="hljs-keyword">const</span> formData = <span class="hljs-keyword">this</span>.getFormData();
+    
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.validateFormData(formData)) {
+        <span class="hljs-keyword">return</span>; <span class="hljs-comment">// Stop submission if validation fails</span>
+    }
+    
+    <span class="hljs-comment">// Proceed with save operation</span>
+}
+</div></code></pre>
+<h3 id="chart-canvas-conflicts">Chart Canvas Conflicts</h3>
+<p><strong>Issue</strong>: Charts not rendering when switching pages.</p>
+<p><strong>Solution</strong>: Ensure unique canvas IDs and proper initialization:</p>
+<pre class="hljs"><code><div>refreshCharts() {
+    <span class="hljs-comment">// Destroy existing charts</span>
+    <span class="hljs-built_in">Object</span>.keys(<span class="hljs-keyword">this</span>.charts).forEach(<span class="hljs-function"><span class="hljs-params">chartKey</span> =&gt;</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.charts[chartKey]) {
+            <span class="hljs-keyword">this</span>.charts[chartKey].destroy();
+        }
+    });
+    
+    <span class="hljs-comment">// Re-initialize charts</span>
+    <span class="hljs-keyword">this</span>.initializeCharts();
+}
+</div></code></pre>
+<h2 id="%F0%9F%9A%80-getting-started">🚀 Getting Started</h2>
+<ol>
+<li><strong>Clone the repository</strong></li>
+<li><strong>Open <code>index.html</code></strong> in a web browser</li>
+<li><strong>Ensure files are served</strong> from a web server (not file://) for proper component loading</li>
+<li><strong>Navigate between pages</strong> using the sidebar navigation</li>
+<li><strong>Add applications</strong> using the Application Manager form</li>
+<li><strong>Explore dashboard metrics</strong> and interactive charts</li>
+</ol>
+<h2 id="%F0%9F%93%8A-customization">📊 Customization</h2>
+<h3 id="adding-new-dashboard-panels">Adding New Dashboard Panels</h3>
+<ol>
+<li>Create HTML component in <code>components/pages/dashboard/</code></li>
+<li>Add container div in <code>index.html</code> dashboard page</li>
+<li>Update component loading array in <code>dashboard-init.js</code></li>
+<li>Add data structure to <code>dashboard-data.json</code></li>
+</ol>
+<h3 id="adding-new-application-fields">Adding New Application Fields</h3>
+<ol>
+<li>Update form HTML in <code>app-form-panel.html</code></li>
+<li>Modify <code>getFormData()</code> method to include new fields</li>
+<li>Update <code>validateFormData()</code> for new field validation</li>
+<li>Modify table generation to display new fields</li>
+</ol>
+<h3 id="modifying-colors">Modifying Colors</h3>
+<p>Update CSS custom properties in <code>:root</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-selector-pseudo">:root</span> {
+    <span class="hljs-attribute">--accent-color</span>: #your-color;
+    <span class="hljs-attribute">--primary-bg</span>: #your-background;
+    <span class="hljs-attribute">--panel-bg</span>: <span class="hljs-built_in">rgba</span>(your-color, <span class="hljs-number">0.5</span>);
+}
+</div></code></pre>
+<h3 id="adding-new-charts">Adding New Charts</h3>
+<ol>
+<li>Add canvas element to component</li>
+<li>Add chart data to JSON</li>
+<li>Create initialization function in <code>DashboardManager</code></li>
+<li>Call function in <code>initializeCharts()</code></li>
+</ol>
+<h2 id="%F0%9F%9B%A0%EF%B8%8F-technologies-used">🛠️ Technologies Used</h2>
+<ul>
+<li><strong>HTML5</strong>: Semantic markup and structure</li>
+<li><strong>CSS3</strong>: Custom properties, flexbox, grid, backdrop-filter</li>
+<li><strong>JavaScript ES6+</strong>: Classes, async/await, modules</li>
+<li><strong>Bootstrap 5</strong>: Responsive grid system and utilities</li>
+<li><strong>Chart.js</strong>: Data visualization library</li>
+<li><strong>Font Awesome</strong>: Icon library</li>
+<li><strong>LocalStorage</strong>: Client-side data persistence</li>
+</ul>
+<h2 id="%F0%9F%93%B1-browser-support">📱 Browser Support</h2>
+<ul>
+<li>Chrome 88+</li>
+<li>Firefox 85+</li>
+<li>Safari 14+</li>
+<li>Edge 88+</li>
+</ul>
+<p><em>Note: Backdrop-filter support may vary on older browsers</em></p>
+<h2 id="%F0%9F%A7%B9-project-cleanup">🧹 Project Cleanup</h2>
+<p>The project has been cleaned and optimized:</p>
+<h3 id="%E2%9C%85-removed-unused-files--folders">✅ Removed Unused Files &amp; Folders</h3>
+<ul>
+<li>Empty directories: <code>js/charts/</code>, <code>js/utils/</code>, <code>components/modals/</code></li>
+<li>Duplicate files: <code>README.html</code>, <code>TODO_README.html</code></li>
+<li>Old component structure reorganized</li>
+</ul>
+<h3 id="%E2%9C%85-current-clean-structure">✅ Current Clean Structure</h3>
+<ul>
+<li>Organized component hierarchy</li>
+<li>No unused files or empty directories</li>
+<li>Clear separation between common and page-specific components</li>
+<li>Optimized for maintainability and development</li>
+</ul>
+<h2 id="%F0%9F%93%88-performance-features">📈 Performance Features</h2>
+<ul>
+<li><strong>Lazy Loading</strong>: Components loaded on demand</li>
+<li><strong>Error Boundaries</strong>: Graceful error handling</li>
+<li><strong>Memory Management</strong>: Proper cleanup of intervals and event listeners</li>
+<li><strong>Optimized Rendering</strong>: Efficient DOM updates</li>
+<li><strong>Caching</strong>: LocalStorage for application data persistence</li>
+</ul>
+<h2 id="%F0%9F%94%AE-future-enhancements">🔮 Future Enhancements</h2>
+<p>See <code>TODO_README.md</code> for detailed roadmap including:</p>
+<ul>
+<li>REST API integration</li>
+<li>Real-time data updates</li>
+<li>WebSocket support</li>
+<li>Advanced analytics</li>
+<li>Performance monitoring</li>
+<li>User authentication</li>
+</ul>
+
+</body>
+</html>

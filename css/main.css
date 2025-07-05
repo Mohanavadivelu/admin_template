@@ -1,0 +1,137 @@
+/**
+ * Main CSS Import File
+ * 
+ * This file orchestrates the loading of all CSS modules in the correct order.
+ * Import order is critical for proper cascade and specificity management.
+ * 
+ * Architecture:
+ * 1. Core Foundation - Variables, reset, typography
+ * 2. Layout System - Grid, sidebar, topbar, content areas
+ * 3. UI Components - Panels, buttons, forms, tables, etc.
+ * 4. Page-Specific - Dashboard and app manager customizations
+ * 5. Utilities - Animations, helpers, responsive overrides
+ * 
+ * Dependencies: None (this is the entry point)
+ * 
+ * Usage:
+ * - Import this file in your HTML: <link rel="stylesheet" href="css/main.css">
+ * - All component styles will be automatically included
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* ========================================
+   CORE FOUNDATION
+   ======================================== */
+
+/* Design tokens and CSS custom properties - Must be loaded first */
+@import url('./core/variables.css');
+
+/* Browser reset and base styles - Establishes consistent foundation */
+@import url('./core/reset.css');
+
+/* Typography system - Defines text hierarchy and styling */
+@import url('./core/typography.css');
+
+/* ========================================
+   LAYOUT SYSTEM
+   ======================================== */
+
+/* Grid system and main layout structure */
+@import url('./layout/grid.css');
+
+/* Sidebar navigation component */
+@import url('./layout/sidebar.css');
+
+/* Top navigation bar */
+@import url('./layout/topbar.css');
+
+/* Main content area styling */
+@import url('./layout/main-content.css');
+
+/* ========================================
+   UI COMPONENTS
+   ======================================== */
+
+/* Base panel styling - Foundation for all dashboard panels */
+@import url('./components/panels.css');
+
+/* Interactive button components */
+@import url('./components/buttons.css');
+
+/* Form inputs and validation */
+@import url('./components/forms.css');
+
+/* Data tables and interactions */
+@import url('./components/tables.css');
+
+/* Modal dialogs and overlays */
+@import url('./components/modals.css');
+
+/* Data visualization components */
+@import url('./components/charts.css');
+
+/* Status badges and indicators */
+@import url('./components/badges.css');
+
+/* ========================================
+   PAGE-SPECIFIC STYLES
+   ======================================== */
+
+/* Dashboard page customizations */
+@import url('./pages/dashboard.css');
+
+/* Application manager page styles */
+@import url('./pages/app-manager.css');
+
+/* ========================================
+   UTILITIES & RESPONSIVE
+   ======================================== */
+
+/* Animation definitions and keyframes */
+@import url('./utilities/animations.css');
+
+/* Utility classes and helper styles */
+@import url('./utilities/helpers.css');
+
+/* Responsive design - Load last to override as needed */
+@import url('./utilities/responsive.css');
+
+/* ========================================
+   DEVELOPMENT NOTES
+   ======================================== */
+
+/*
+ * Import Order Rationale:
+ * 
+ * 1. Variables first - Provides design tokens for all other files
+ * 2. Reset second - Establishes consistent browser baseline
+ * 3. Typography third - Sets up text foundation
+ * 4. Layout fourth - Defines structural components
+ * 5. Components fifth - Builds on layout foundation
+ * 6. Pages sixth - Specific customizations
+ * 7. Utilities last - Overrides and responsive adjustments
+ * 
+ * This order ensures proper cascade and prevents specificity conflicts.
+ */
+
+/*
+ * Performance Considerations:
+ * 
+ * - All imports use relative URLs for faster resolution
+ * - Files are organized by concern for better caching
+ * - Critical styles (variables, reset) load first
+ * - Utility classes load last for maximum specificity
+ */
+
+/*
+ * Maintenance Guidelines:
+ * 
+ * - Add new component imports in the COMPONENTS section
+ * - Page-specific styles go in the PAGES section
+ * - Utility classes and helpers go in UTILITIES section
+ * - Never modify the order of core foundation imports
+ * - Document any new imports with comments
+ */

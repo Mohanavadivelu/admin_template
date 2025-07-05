@@ -1131,88 +1131,132 @@ class DashboardManager {
         const app = this.applications.find(a => a.id === appId);
         if (!app) return;
 
-        const modal = document.getElementById('appDetailsModal');
-        const modalBody = document.getElementById('modal-app-details');
-        
-        if (!modal || !modalBody) return;
+        // Create custom modal with new styling
+        this.showApplicationModal(app);
+    }
 
-        modalBody.innerHTML = `
-            <div class="app-details-grid">
-                <div class="detail-item">
-                    <div class="detail-label">Application Name</div>
-                    <div class="detail-value">${app.app_name}</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">Type</div>
-                    <div class="detail-value">${app.app_type.toUpperCase()}</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">Version</div>
-                    <div class="detail-value">${app.current_version}</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">Publisher</div>
-                    <div class="detail-value">${app.publisher}</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">Release Date</div>
-                    <div class="detail-value">${new Date(app.released_date).toLocaleDateString()}</div>
-                </div>
-                <div class="detail-item">
-                    <div class="detail-label">Registration Date</div>
-                    <div class="detail-value">${new Date(app.registered_date).toLocaleDateString()}</div>
-                </div>
-            </div>
-            ${app.description ? `
-                <div class="detail-item">
-                    <div class="detail-label">Description</div>
-                    <div class="detail-value">${app.description}</div>
-                </div>
-            ` : ''}
-            ${app.download_link ? `
-                <div class="detail-item">
-                    <div class="detail-label">Download Link</div>
-                    <div class="detail-value">
-                        <a href="${app.download_link}" class="detail-value url" target="_blank">${app.download_link}</a>
-                    </div>
-                </div>
-            ` : ''}
-            <div class="detail-item">
-                <div class="detail-label">Tracking Status</div>
-                <div class="detail-value">
-                    <span class="status-badge ${app.enable_tracking ? 'active' : 'inactive'}">
-                        <span class="status-dot"></span>
-                        ${app.enable_tracking ? 'Enabled' : 'Disabled'}
-                    </span>
-                </div>
-            </div>
-            ${app.enable_tracking ? `
-                <div class="detail-item">
-                    <div class="detail-label">Tracking Details</div>
-                    <div class="detail-value">
-                        <ul style="margin: 0; padding-left: 1rem;">
-                            <li>Usage Tracking: ${app.track.usage ? 'Enabled' : 'Disabled'}</li>
-                            <li>Location Tracking: ${app.track.location ? 'Enabled' : 'Disabled'}</li>
-                            <li>CPU/Memory Tracking: ${app.track.cpu_memory.track_cm ? `Enabled (${app.track.cpu_memory.track_intr} min intervals)` : 'Disabled'}</li>
-                        </ul>
-                    </div>
-                </div>
-            ` : ''}
-        `;
-
-        // Set up edit button
-        const editBtn = document.getElementById('edit-app-btn');
-        if (editBtn) {
-            editBtn.onclick = () => {
-                const modal = bootstrap.Modal.getInstance(document.getElementById('appDetailsModal'));
-                if (modal) modal.hide();
-                this.editApplication(appId);
-            };
+    showApplicationModal(app) {
+        // Remove existing modal if present
+        const existingModal = document.getElementById('custom-app-modal');
+        if (existingModal) {
+            existingModal.remove();
         }
 
-        // Show modal
-        const bootstrapModal = new bootstrap.Modal(modal);
-        bootstrapModal.show();
+        // Create modal HTML with proper structured layout matching the expected design
+        const modalHTML = `
+            <div class="modal-overlay active" id="custom-app-modal">
+                <div class="modal animate-in">
+                    <div class="modal-header">
+                        <h2 class="modal-title">APPLICATION DETAILS</h2>
+                        <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">
+                            ×
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-grid">
+                            <div class="modal-field-card">
+                                <span class="modal-field-label">APPLICATION NAME</span>
+                                <div class="modal-field-value">${app.app_name}</div>
+                            </div>
+                            
+                            <div class="modal-field-card">
+                                <span class="modal-field-label">TYPE</span>
+                                <div class="modal-field-value">${app.app_type.toUpperCase()}</div>
+                            </div>
+                            
+                            <div class="modal-field-card">
+                                <span class="modal-field-label">VERSION</span>
+                                <div class="modal-field-value">${app.current_version}</div>
+                            </div>
+                            
+                            <div class="modal-field-card">
+                                <span class="modal-field-label">PUBLISHER</span>
+                                <div class="modal-field-value">${app.publisher}</div>
+                            </div>
+                            
+                            <div class="modal-field-card">
+                                <span class="modal-field-label">RELEASE DATE</span>
+                                <div class="modal-field-value">${new Date(app.released_date).toLocaleDateString()}</div>
+                            </div>
+                            
+                            <div class="modal-field-card">
+                                <span class="modal-field-label">REGISTRATION DATE</span>
+                                <div class="modal-field-value">${new Date(app.registered_date).toLocaleDateString()}</div>
+                            </div>
+                        </div>
+                        
+                        ${app.description ? `
+                            <div class="modal-field-card modal-field-full">
+                                <span class="modal-field-label">DESCRIPTION</span>
+                                <div class="modal-field-value">${app.description}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${app.download_link ? `
+                            <div class="modal-field-card modal-field-full">
+                                <span class="modal-field-label">DOWNLOAD LINK</span>
+                                <div class="modal-field-value">
+                                    <a href="${app.download_link}" class="modal-field-value link" target="_blank">${app.download_link}</a>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="modal-field-card modal-field-full">
+                            <span class="modal-field-label">TRACKING STATUS</span>
+                            <div class="modal-field-value">
+                                <span class="modal-status-badge ${app.enable_tracking ? 'enabled' : 'disabled'}">
+                                    ${app.enable_tracking ? 'ENABLED' : 'DISABLED'}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        ${app.enable_tracking ? `
+                            <div class="modal-tracking-details">
+                                <span class="modal-field-label">TRACKING DETAILS</span>
+                                <div class="modal-tracking-item">Usage Tracking: ${app.track.usage ? 'Enabled' : 'Disabled'}</div>
+                                <div class="modal-tracking-item">Location Tracking: ${app.track.location ? 'Enabled' : 'Disabled'}</div>
+                                <div class="modal-tracking-item">CPU/Memory Tracking: ${app.track.cpu_memory.track_cm ? `Enabled (${app.track.cpu_memory.track_intr} min intervals)` : 'Disabled'}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" onclick="this.closest('.modal-overlay').remove()">Close</button>
+                        <button class="btn btn-primary" onclick="window.dashboardManager.editApplicationFromModal(${app.id})">
+                            Edit Application
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Add modal to body
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+        // Add click outside to close
+        const modalOverlay = document.getElementById('custom-app-modal');
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.remove();
+            }
+        });
+
+        // Add escape key to close
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                modalOverlay.remove();
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+    }
+
+    editApplicationFromModal(appId) {
+        // Close modal
+        const modal = document.getElementById('custom-app-modal');
+        if (modal) modal.remove();
+        
+        // Edit application
+        this.editApplication(appId);
     }
 
     editApplication(appId) {

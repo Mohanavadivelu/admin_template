@@ -1,0 +1,497 @@
+/**
+ * Table Components
+ * 
+ * Comprehensive table styling including futuristic data tables,
+ * sortable headers, status badges, and responsive behavior.
+ * 
+ * Dependencies:
+ * - variables.css (design tokens)
+ * 
+ * Usage:
+ * - .futuristic-table for main table styling
+ * - .status-badge for status indicators
+ * - .table-controls for search and actions
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === TABLE CONTROLS === */
+/* Search and action controls above tables */
+
+.table-controls {
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.search-container {
+  position: relative;
+  flex-grow: 1;
+  max-width: 300px;
+}
+
+.search-container .search-icon {
+  position: absolute;
+  left: var(--spacing-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+  font-size: var(--font-size-sm);
+  z-index: 2;
+}
+
+.search-container .futuristic-input {
+  padding-left: calc(var(--spacing-xl) + var(--spacing-xs));
+}
+
+.table-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+/* === MAIN TABLE STYLING === */
+/* Futuristic table with glass-morphism effect */
+
+.futuristic-table {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* === TABLE HEADER === */
+/* Sortable table headers */
+
+.futuristic-table thead th {
+  background-color: rgba(29, 45, 68, 0.5);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--spacing-sm) var(--spacing-sm);
+  position: relative;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  vertical-align: middle;
+  text-align: left;
+}
+
+.futuristic-table thead th:first-child {
+  border-top-left-radius: var(--radius-md);
+}
+
+.futuristic-table thead th:last-child {
+  border-top-right-radius: var(--radius-md);
+}
+
+.futuristic-table thead th.sortable:hover {
+  background-color: rgba(29, 45, 68, 0.8);
+  color: var(--accent-color);
+}
+
+.futuristic-table thead th .sort-icon {
+  position: absolute;
+  right: var(--spacing-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-xs);
+  opacity: 0.5;
+  transition: all var(--transition-normal);
+}
+
+.futuristic-table thead th.sort-asc .sort-icon {
+  opacity: 1;
+  color: var(--accent-color);
+}
+
+.futuristic-table thead th.sort-desc .sort-icon {
+  opacity: 1;
+  color: var(--accent-color);
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* === TABLE BODY === */
+/* Data rows and cells */
+
+.futuristic-table tbody td {
+  background-color: rgba(29, 45, 68, 0.3);
+  border: 1px solid var(--border-color);
+  border-top: none;
+  padding: var(--spacing-sm) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  vertical-align: middle;
+  transition: all var(--transition-normal);
+  color: var(--text-primary);
+}
+
+.futuristic-table tbody tr:hover td {
+  background-color: rgba(29, 45, 68, 0.5);
+  border-color: rgba(100, 255, 218, 0.3);
+}
+
+.futuristic-table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: var(--radius-md);
+}
+
+.futuristic-table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: var(--radius-md);
+}
+
+/* === STATUS BADGES === */
+/* Status indicators within tables */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: var(--line-height-tight);
+  white-space: nowrap;
+}
+
+.status-badge.active {
+  background-color: rgba(100, 255, 218, 0.2);
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+}
+
+.status-badge.inactive {
+  background-color: rgba(255, 107, 107, 0.2);
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+}
+
+.status-badge.pending {
+  background-color: rgba(255, 217, 61, 0.2);
+  color: var(--warning-color);
+  border: 1px solid var(--warning-color);
+}
+
+.status-badge.success {
+  background-color: rgba(61, 220, 151, 0.2);
+  color: var(--success-color);
+  border: 1px solid var(--success-color);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-round);
+  background-color: currentColor;
+  flex-shrink: 0;
+}
+
+/* === ACTION BUTTONS IN TABLES === */
+/* Action button groups within table cells */
+
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* === EMPTY STATE === */
+/* Empty table state styling */
+
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+.empty-icon {
+  font-size: var(--font-size-5xl);
+  color: var(--border-color);
+  margin-bottom: var(--spacing-md);
+  opacity: 0.5;
+}
+
+.empty-title {
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-sm);
+}
+
+.empty-text {
+  font-size: var(--font-size-sm);
+  margin-bottom: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+/* === PAGINATION === */
+/* Table pagination controls */
+
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.pagination-info {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.futuristic-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.futuristic-pagination .page-link {
+  background-color: rgba(29, 45, 68, 0.5);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.futuristic-pagination .page-link:hover {
+  background-color: rgba(29, 45, 68, 0.8);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.futuristic-pagination .page-item.active .page-link {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--primary-bg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.futuristic-pagination .page-item.disabled .page-link {
+  background-color: rgba(29, 45, 68, 0.3);
+  border-color: rgba(100, 255, 218, 0.1);
+  color: rgba(168, 178, 209, 0.5);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* === LOADING STATE === */
+/* Table loading indicators */
+
+.table-loading {
+  text-align: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+.table-loading .spinner-border {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--border-color);
+  border-top: 2px solid var(--accent-color);
+  border-radius: var(--radius-round);
+  animation: spin 1s linear infinite;
+  margin-bottom: var(--spacing-md);
+}
+
+.table-loading-text {
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-sm);
+}
+
+/* === RESPONSIVE BEHAVIOR === */
+/* Mobile and tablet adaptations */
+
+@media (max-width: 768px) {
+  .table-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+  
+  .search-container {
+    max-width: none;
+  }
+  
+  .table-actions {
+    justify-content: center;
+  }
+  
+  .futuristic-table {
+    font-size: var(--font-size-xs);
+  }
+  
+  .futuristic-table thead th,
+  .futuristic-table tbody td {
+    padding: var(--spacing-xs) var(--spacing-xs);
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .pagination-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .futuristic-pagination {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .futuristic-table {
+    font-size: var(--font-size-xs);
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .status-badge {
+    font-size: 10px;
+    padding: 2px var(--spacing-xs);
+  }
+  
+  .futuristic-pagination .page-link {
+    min-width: 28px;
+    height: 28px;
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* === TABLE OVERFLOW HANDLING === */
+/* Horizontal scroll for large tables */
+
+.table-responsive {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: var(--primary-bg);
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+/* === ACCESSIBILITY === */
+/* Enhanced accessibility features */
+
+.futuristic-table thead th:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
+}
+
+.futuristic-table tbody tr:focus-within {
+  outline: 2px solid var(--accent-color);
+  outline-offset: -2px;
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .futuristic-table thead th,
+  .futuristic-table tbody td {
+    border-width: 2px;
+  }
+  
+  .status-badge {
+    border-width: 2px;
+  }
+  
+  .futuristic-pagination .page-link {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .futuristic-table thead th,
+  .futuristic-table tbody td,
+  .futuristic-pagination .page-link,
+  .status-badge {
+    transition: none;
+  }
+  
+  .futuristic-table thead th .sort-icon {
+    transition: none;
+  }
+  
+  .table-loading .spinner-border {
+    animation: none;
+  }
+  
+  @keyframes spin {
+    from, to {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+/* === ANIMATIONS === */
+/* Table animations */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Row fade-in animation */
+@keyframes fadeInRow {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.futuristic-table tbody tr.new-row {
+  animation: fadeInRow 0.3s ease-out;
+}
