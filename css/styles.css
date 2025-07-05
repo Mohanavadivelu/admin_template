@@ -260,3 +260,636 @@ hr.panel-divider { border-color: rgba(100, 255, 218, 0.2); margin-top: 1.5rem; m
     min-width: 0;
     overflow: visible;
 }
+
+/* --- Application Form Styles --- */
+#app-form {
+    /* Remove max-height and overflow to eliminate scrollbars */
+    width: 100%;
+}
+
+.form-label {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.futuristic-input,
+.futuristic-select,
+.futuristic-textarea {
+    background-color: rgba(29, 45, 68, 0.3);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: 4px;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.futuristic-input:focus,
+.futuristic-select:focus,
+.futuristic-textarea:focus {
+    background-color: rgba(29, 45, 68, 0.5);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.25);
+    color: var(--text-primary);
+}
+
+.futuristic-input::placeholder,
+.futuristic-textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.futuristic-select option {
+    background-color: var(--secondary-bg);
+    color: var(--text-primary);
+}
+
+.futuristic-switch .form-check-input {
+    background-color: rgba(29, 45, 68, 0.5);
+    border: 1px solid var(--border-color);
+    width: 3rem;
+    height: 1.5rem;
+}
+
+.futuristic-switch .form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.futuristic-switch .form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.25);
+}
+
+.futuristic-checkbox .form-check-input,
+.futuristic-checkbox .form-check-input {
+    background-color: rgba(29, 45, 68, 0.5);
+    border: 1px solid var(--border-color);
+}
+
+.futuristic-checkbox .form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.futuristic-checkbox .form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.25);
+}
+
+.futuristic-checkbox .form-check-label,
+.futuristic-switch .form-check-label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.tracking-options {
+    padding: 1rem;
+    background-color: rgba(29, 45, 68, 0.2);
+    border-radius: 4px;
+    border: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.cpu-memory-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(100, 255, 218, 0.1);
+}
+
+.futuristic-btn {
+    background: linear-gradient(135deg, var(--accent-color), #4dd0e1);
+    border: none;
+    color: var(--primary-bg);
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.futuristic-btn:hover {
+    background: linear-gradient(135deg, #4dd0e1, var(--accent-color));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+    color: var(--primary-bg);
+}
+
+.futuristic-btn-secondary {
+    background-color: rgba(29, 45, 68, 0.8);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.futuristic-btn-secondary:hover {
+    background-color: rgba(29, 45, 68, 1);
+    border-color: var(--accent-color);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.futuristic-btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.futuristic-btn-outline:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background-color: rgba(100, 255, 218, 0.1);
+}
+
+.futuristic-btn-danger {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.futuristic-btn-danger:hover {
+    background: linear-gradient(135deg, #ee5a52, #ff6b6b);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    color: white;
+}
+
+.form-messages .alert {
+    background-color: rgba(100, 255, 218, 0.1);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+}
+
+.form-messages .alert.alert-danger {
+    background-color: rgba(255, 107, 107, 0.1);
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+}
+
+/* --- Application Table Styles --- */
+.table-controls {
+    margin-bottom: 1rem;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-container .search-icon {
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.search-container .futuristic-input {
+    padding-left: 2.5rem;
+}
+
+.table-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.futuristic-table {
+    background-color: transparent;
+    color: var(--text-primary);
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.futuristic-table thead th {
+    background-color: rgba(29, 45, 68, 0.5);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 0.5rem;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.futuristic-table thead th:first-child {
+    border-top-left-radius: 4px;
+}
+
+.futuristic-table thead th:last-child {
+    border-top-right-radius: 4px;
+}
+
+.futuristic-table thead th.sortable:hover {
+    background-color: rgba(29, 45, 68, 0.8);
+    color: var(--accent-color);
+}
+
+.futuristic-table thead th .sort-icon {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.futuristic-table thead th.sort-asc .sort-icon {
+    opacity: 1;
+    color: var(--accent-color);
+}
+
+.futuristic-table thead th.sort-desc .sort-icon {
+    opacity: 1;
+    color: var(--accent-color);
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.futuristic-table tbody td {
+    background-color: rgba(29, 45, 68, 0.3);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+    vertical-align: middle;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.futuristic-table tbody tr:hover td {
+    background-color: rgba(29, 45, 68, 0.5);
+    border-color: rgba(100, 255, 218, 0.3);
+}
+
+.futuristic-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 4px;
+}
+
+.futuristic-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 4px;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.active {
+    background-color: rgba(100, 255, 218, 0.2);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+}
+
+.status-badge.inactive {
+    background-color: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.action-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background-color: rgba(100, 255, 218, 0.1);
+}
+
+.action-btn.danger:hover {
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+    background-color: rgba(255, 107, 107, 0.1);
+}
+
+.empty-state {
+    color: var(--text-secondary);
+}
+
+.empty-icon {
+    font-size: 3rem;
+    color: var(--border-color);
+}
+
+.empty-title {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.empty-text {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.pagination-info {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.futuristic-pagination .page-link {
+    background-color: rgba(29, 45, 68, 0.5);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.futuristic-pagination .page-link:hover {
+    background-color: rgba(29, 45, 68, 0.8);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.futuristic-pagination .page-item.active .page-link {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-bg);
+}
+
+.futuristic-pagination .page-item.disabled .page-link {
+    background-color: rgba(29, 45, 68, 0.3);
+    border-color: rgba(100, 255, 218, 0.1);
+    color: rgba(168, 178, 209, 0.5);
+}
+
+.table-loading {
+    color: var(--text-secondary);
+}
+
+.table-loading .spinner-border {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* --- Modal Styles --- */
+.futuristic-modal .modal-content {
+    background-color: var(--primary-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    position: relative;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* Add corner decorations to modal */
+.futuristic-modal .modal-content::before,
+.futuristic-modal .modal-content::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-style: solid;
+    border-color: var(--accent-color);
+    z-index: 1;
+}
+
+.futuristic-modal .modal-content::before {
+    top: -2px;
+    left: -2px;
+    border-width: 2px 0 0 2px;
+}
+
+.futuristic-modal .modal-content::after {
+    top: -2px;
+    right: -2px;
+    border-width: 2px 2px 0 0;
+}
+
+.futuristic-modal .modal-dialog::before,
+.futuristic-modal .modal-dialog::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-style: solid;
+    border-color: var(--accent-color);
+    z-index: 1;
+}
+
+.futuristic-modal .modal-dialog::before {
+    bottom: -2px;
+    left: -2px;
+    border-width: 0 0 2px 2px;
+}
+
+.futuristic-modal .modal-dialog::after {
+    bottom: -2px;
+    right: -2px;
+    border-width: 0 2px 2px 0;
+}
+
+.futuristic-modal .modal-header {
+    border-bottom: 1px solid var(--border-color);
+    background-color: rgba(29, 45, 68, 0.5);
+    border-radius: 8px 8px 0 0;
+}
+
+.futuristic-modal .modal-title {
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.futuristic-modal .btn-close {
+    filter: invert(1);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.futuristic-modal .btn-close:hover {
+    opacity: 1;
+}
+
+.futuristic-modal .modal-body {
+    background-color: var(--primary-bg);
+    padding: 1.5rem;
+}
+
+.futuristic-modal .modal-footer {
+    border-top: 1px solid var(--border-color);
+    background-color: var(--secondary-bg);
+    border-radius: 0 0 8px 8px;
+}
+
+.app-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.detail-item {
+    background-color: var(--secondary-bg);
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+    border-color: rgba(100, 255, 218, 0.3);
+    background-color: rgba(29, 45, 68, 0.8);
+}
+
+.detail-label {
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.detail-value {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+.detail-value.url {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.detail-value.url:hover {
+    text-decoration: underline;
+    color: #4dd0e1;
+}
+
+/* --- Page Content Management --- */
+.page-content {
+    display: none;
+}
+
+.page-content.active {
+    display: block;
+}
+
+.page-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.page-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .app-form {
+        max-height: none;
+        padding-right: 0;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .futuristic-btn,
+    .futuristic-btn-secondary,
+    .futuristic-btn-outline {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .table-controls .row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .table-actions {
+        justify-content: center;
+    }
+    
+    .futuristic-table {
+        font-size: 0.8rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.125rem;
+    }
+    
+    .action-btn {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+}

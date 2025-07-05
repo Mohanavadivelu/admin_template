@@ -1,0 +1,125 @@
+<!-- Application Form Panel -->
+<div class="dashboard-panel">
+    <span class="corner corner-tl"></span><span class="corner corner-tr"></span><span class="corner corner-bl"></span><span class="corner corner-br"></span>
+    <div class="panel-title">ADD NEW APPLICATION</div>
+    <div class="panel-content-wrapper">
+        <form id="app-form">
+            <!-- Row 1: Application Name & Type -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="app_name" class="form-label">Application Name</label>
+                    <input type="text" class="form-control futuristic-input" id="app_name" name="app_name" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="app_type" class="form-label">Application Type</label>
+                    <select class="form-select futuristic-select" id="app_type" name="app_type" required>
+                        <option value="">Select Type</option>
+                        <option value="windows">Windows</option>
+                        <option value="mac">Mac</option>
+                        <option value="linux">Linux</option>
+                        <option value="web">Web</option>
+                        <option value="mobile">Mobile</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Row 2: Version & Release Date -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="current_version" class="form-label">Current Version</label>
+                    <input type="text" class="form-control futuristic-input" id="current_version" name="current_version" placeholder="e.g., 1.0.0" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="released_date" class="form-label">Release Date</label>
+                    <input type="date" class="form-control futuristic-input" id="released_date" name="released_date" required>
+                </div>
+            </div>
+
+            <!-- Row 3: Publisher -->
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="publisher" class="form-label">Publisher</label>
+                    <input type="text" class="form-control futuristic-input" id="publisher" name="publisher" required>
+                </div>
+            </div>
+
+            <!-- Row 4: Description -->
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control futuristic-textarea" id="description" name="description" rows="2" placeholder="Brief description of the application"></textarea>
+                </div>
+            </div>
+
+            <!-- Row 5: Download Link & Registration Date -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="download_link" class="form-label">Download Link</label>
+                    <input type="url" class="form-control futuristic-input" id="download_link" name="download_link" placeholder="https://example.com/download">
+                </div>
+                <div class="col-md-6">
+                    <label for="registered_date" class="form-label">Registration Date</label>
+                    <input type="date" class="form-control futuristic-input" id="registered_date" name="registered_date" required>
+                </div>
+            </div>
+
+            <!-- Row 6: Tracking Options -->
+            <div class="row mb-3">
+                <div class="col-12">
+                    <label class="form-label">Tracking Options</label>
+                    <div class="d-flex flex-wrap gap-3 mt-2">
+                        <div class="form-check futuristic-checkbox">
+                            <input class="form-check-input" type="checkbox" id="enable_tracking" name="enable_tracking" checked>
+                            <label class="form-check-label" for="enable_tracking">Enable Tracking</label>
+                        </div>
+                        <div class="form-check futuristic-checkbox">
+                            <input class="form-check-input" type="checkbox" id="track_usage" name="track_usage" checked>
+                            <label class="form-check-label" for="track_usage">Usage Stats</label>
+                        </div>
+                        <div class="form-check futuristic-checkbox">
+                            <input class="form-check-input" type="checkbox" id="track_location" name="track_location">
+                            <label class="form-check-label" for="track_location">Location Data</label>
+                        </div>
+                        <div class="form-check futuristic-checkbox">
+                            <input class="form-check-input" type="checkbox" id="track_cpu_memory" name="track_cpu_memory">
+                            <label class="form-check-label" for="track_cpu_memory">CPU & Memory</label>
+                        </div>
+                    </div>
+                    <div id="cpu-memory-options" class="mt-2" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="track_interval" class="form-label">Interval (minutes)</label>
+                                <input type="number" class="form-control futuristic-input" id="track_interval" name="track_interval" min="1" max="60" value="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 7: Action Buttons -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button type="submit" class="btn futuristic-btn">
+                            <i class="fas fa-save me-2"></i>Save Application
+                        </button>
+                        <button type="button" class="btn futuristic-btn-secondary" id="reset-form">
+                            <i class="fas fa-undo me-2"></i>Reset
+                        </button>
+                        <button type="button" class="btn futuristic-btn-outline" id="clear-form">
+                            <i class="fas fa-trash me-2"></i>Clear
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Success/Error Messages -->
+        <div id="form-messages" class="form-messages mt-3" style="display: none;">
+            <div class="alert" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                <span class="message-text"></span>
+            </div>
+        </div>
+    </div>
+</div>

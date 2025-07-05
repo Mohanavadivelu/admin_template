@@ -22,30 +22,48 @@
             <!-- ==== TOP NAVBAR ==== -->
             <div id="topbar-container"></div>
 
-            <!-- ==== SCROLLABLE DASHBOARD CONTENT ==== -->
+            <!-- ==== SCROLLABLE CONTENT ==== -->
             <main class="container-fluid dashboard-container">
-                <!-- ROW 1: Main Metrics -->
-                <div class="row">
-                    <!-- Site Visitors Panel -->
-                    <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="visitors-panel-container"></div>
-                    
-                    <!-- Store Sales Panel -->
-                    <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="sales-panel-container"></div>
-                    
-                    <!-- New Members Panel -->
-                    <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="members-panel-container"></div>
-                    
-                    <!-- Bandwidth Panel -->
-                    <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="bandwidth-panel-container"></div>
+                <!-- DASHBOARD PAGE -->
+                <div id="dashboard-page" class="page-content active">
+                    <!-- ROW 1: Main Metrics -->
+                    <div class="row">
+                        <!-- Site Visitors Panel -->
+                        <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="visitors-panel-container"></div>
+                        
+                        <!-- Store Sales Panel -->
+                        <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="sales-panel-container"></div>
+                        
+                        <!-- New Members Panel -->
+                        <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="members-panel-container"></div>
+                        
+                        <!-- Bandwidth Panel -->
+                        <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="bandwidth-panel-container"></div>
+                    </div>
+
+                    <!-- ROW 2: Detailed Analytics -->
+                    <div class="row">
+                        <!-- Server Stats Panel -->
+                        <div class="col-xl-6 col-lg-6 col-md-12 mb-4" id="server-panel-container"></div>
+                        
+                        <!-- Traffic Analytics Panel -->
+                        <div class="col-xl-6 col-lg-6 col-md-12 mb-4" id="traffic-panel-container"></div>
+                    </div>
                 </div>
 
-                <!-- ROW 2: Detailed Analytics -->
-                <div class="row">
-                    <!-- Server Stats Panel -->
-                    <div class="col-xl-6 col-lg-6 col-md-12 mb-4" id="server-panel-container"></div>
-                    
-                    <!-- Traffic Analytics Panel -->
-                    <div class="col-xl-6 col-lg-6 col-md-12 mb-4" id="traffic-panel-container"></div>
+                <!-- APP MANAGER PAGE -->
+                <div id="app-manager-page" class="page-content">
+                   <!-- <div class="page-header mb-1">
+                        <h2 class="page-title">Application Manager</h2>
+                    </div> -->
+                    <!-- Application Management Row -->
+                    <div class="row">
+                        <!-- Application Form Panel -->
+                        <div class="col-xl-6 col-lg-6 col-md-12 mb-4" id="app-form-panel-container"></div>
+                        
+                        <!-- Applications Table Panel -->
+                        <div class="col-xl-6 col-lg-6 col-md-12 mb-4" id="app-table-panel-container"></div>
+                    </div>
                 </div>
             </main>
         </div>

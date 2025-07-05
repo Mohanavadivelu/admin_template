@@ -60,6 +60,14 @@ class DashboardManager {
             console.log('🔄 Populating data...');
             this.populateData();
             
+            // Initialize application management
+            console.log('📱 Initializing application management...');
+            this.initializeApplicationManagement();
+            
+            // Initialize navigation
+            console.log('🧭 Initializing navigation...');
+            this.initializeNavigation();
+            
             // Hide loading indicator
             this.hideLoadingIndicator();
             
@@ -210,14 +218,16 @@ class DashboardManager {
         });
         
         const components = [
-            { selector: '#sidebar-container', url: './components/sidebar.html', name: 'Sidebar' },
-            { selector: '#topbar-container', url: './components/topbar.html', name: 'Top Navigation' },
-            { selector: '#visitors-panel-container', url: './components/dashboard/visitors-panel.html', name: 'Visitors Panel' },
-            { selector: '#sales-panel-container', url: './components/dashboard/sales-panel.html', name: 'Sales Panel' },
-            { selector: '#members-panel-container', url: './components/dashboard/members-panel.html', name: 'Members Panel' },
-            { selector: '#bandwidth-panel-container', url: './components/dashboard/bandwidth-panel.html', name: 'Bandwidth Panel' },
-            { selector: '#server-panel-container', url: './components/dashboard/server-panel.html', name: 'Server Panel' },
-            { selector: '#traffic-panel-container', url: './components/dashboard/traffic-panel.html', name: 'Traffic Panel' }
+            { selector: '#sidebar-container', url: './components/common/sidebar.html', name: 'Sidebar' },
+            { selector: '#topbar-container', url: './components/common/topbar.html', name: 'Top Navigation' },
+            { selector: '#visitors-panel-container', url: './components/pages/dashboard/visitors-panel.html', name: 'Visitors Panel' },
+            { selector: '#sales-panel-container', url: './components/pages/dashboard/sales-panel.html', name: 'Sales Panel' },
+            { selector: '#members-panel-container', url: './components/pages/dashboard/members-panel.html', name: 'Members Panel' },
+            { selector: '#bandwidth-panel-container', url: './components/pages/dashboard/bandwidth-panel.html', name: 'Bandwidth Panel' },
+            { selector: '#server-panel-container', url: './components/pages/dashboard/server-panel.html', name: 'Server Panel' },
+            { selector: '#traffic-panel-container', url: './components/pages/dashboard/traffic-panel.html', name: 'Traffic Panel' },
+            { selector: '#app-form-panel-container', url: './components/pages/app-manager/app-form-panel.html', name: 'Application Form Panel' },
+            { selector: '#app-table-panel-container', url: './components/pages/app-manager/app-table-panel.html', name: 'Applications Table Panel' }
         ];
 
         let loadedCount = 0;
@@ -704,9 +714,828 @@ class DashboardManager {
                 .join('');
         }
     }
+
+    // Application Management Methods
+    initializeApplicationManagement() {
+        try {
+            console.log('🔧 DEBUG: Initializing application management...');
+            
+            // Initialize application data storage
+            this.applications = this.data.applications || [];
+            console.log('🔧 DEBUG: Applications loaded:', this.applications.length, 'items');
+            console.log('🔧 DEBUG: Sample application:', this.applications[0]);
+            
+            this.currentEditingApp = null;
+            this.currentPage = 1;
+            this.itemsPerPage = 10;
+            this.sortField = 'app_name';
+            this.sortDirection = 'asc';
+            this.searchTerm = '';
+
+            // Populate applications table immediately
+            console.log('🔧 DEBUG: About to populate applications table...');
+            this.populateApplicationsTable();
+
+            // Set up form event listeners
+            this.setupApplicationFormEvents();
+
+            // Set up table event listeners
+            this.setupApplicationTableEvents();
+
+            // Set today's date as default for registration date
+            const registeredDateInput = document.getElementById('registered_date');
+            if (registeredDateInput) {
+                registeredDateInput.value = new Date().toISOString().split('T')[0];
+            }
+
+            console.log('✅ Application management initialized successfully');
+        } catch (error) {
+            console.error('❌ Failed to initialize application management:', error);
+        }
+    }
+
+    setupApplicationFormEvents() {
+        // Form submission
+        const appForm = document.getElementById('app-form');
+        if (appForm) {
+            appForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleFormSubmission();
+            });
+        }
+
+        // Reset form button
+        const resetBtn = document.getElementById('reset-form');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                this.resetForm();
+            });
+        }
+
+        // Clear form button
+        const clearBtn = document.getElementById('clear-form');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                this.clearForm();
+            });
+        }
+
+        // Enable tracking toggle
+        const enableTrackingToggle = document.getElementById('enable_tracking');
+        if (enableTrackingToggle) {
+            enableTrackingToggle.addEventListener('change', (e) => {
+                this.toggleTrackingOptions(e.target.checked);
+            });
+        }
+
+        // CPU/Memory tracking toggle
+        const cpuMemoryToggle = document.getElementById('track_cpu_memory');
+        if (cpuMemoryToggle) {
+            cpuMemoryToggle.addEventListener('change', (e) => {
+                this.toggleCpuMemoryOptions(e.target.checked);
+            });
+        }
+    }
+
+    setupApplicationTableEvents() {
+        // Search functionality
+        const searchInput = document.getElementById('app-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                this.searchTerm = e.target.value.toLowerCase();
+                this.currentPage = 1;
+                this.populateApplicationsTable();
+            });
+        }
+
+        // Refresh button
+        const refreshBtn = document.getElementById('refresh-table');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                this.populateApplicationsTable();
+                this.showMessage('Table refreshed successfully', 'success');
+            });
+        }
+
+        // Export button
+        const exportBtn = document.getElementById('export-data');
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                this.exportApplicationData();
+            });
+        }
+
+        // Table sorting
+        const sortableHeaders = document.querySelectorAll('.sortable');
+        sortableHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const field = header.dataset.sort;
+                this.handleSort(field);
+            });
+        });
+    }
+
+    handleFormSubmission() {
+        try {
+            const formData = this.getFormData();
+            
+            // Validate form data
+            if (!this.validateFormData(formData)) {
+                return;
+            }
+
+            if (this.currentEditingApp) {
+                // Update existing application
+                this.updateApplication(formData);
+            } else {
+                // Add new application
+                this.addApplication(formData);
+            }
+
+            this.clearForm();
+            this.populateApplicationsTable();
+            this.showMessage('Application saved successfully!', 'success');
+        } catch (error) {
+            console.error('Form submission error:', error);
+            this.showMessage('Failed to save application. Please try again.', 'error');
+        }
+    }
+
+    getFormData() {
+        const form = document.getElementById('app-form');
+        const formData = new FormData(form);
+        
+        return {
+            id: this.currentEditingApp ? this.currentEditingApp.id : Date.now(),
+            app_name: formData.get('app_name'),
+            app_type: formData.get('app_type'),
+            current_version: formData.get('current_version'),
+            released_date: formData.get('released_date'),
+            publisher: formData.get('publisher'),
+            description: formData.get('description') || '',
+            download_link: formData.get('download_link') || '',
+            enable_tracking: formData.get('enable_tracking') === 'on',
+            track: {
+                usage: formData.get('track_usage') === 'on',
+                location: formData.get('track_location') === 'on',
+                cpu_memory: {
+                    track_cm: formData.get('track_cpu_memory') === 'on',
+                    track_intr: parseInt(formData.get('track_interval')) || 1
+                }
+            },
+            registered_date: formData.get('registered_date')
+        };
+    }
+
+    validateFormData(data) {
+        const requiredFields = ['app_name', 'app_type', 'current_version', 'released_date', 'publisher', 'registered_date'];
+        
+        for (const field of requiredFields) {
+            if (!data[field] || data[field].trim() === '') {
+                this.showMessage(`Please fill in the ${field.replace('_', ' ')} field.`, 'error');
+                return false;
+            }
+        }
+
+        // Validate URL if provided
+        if (data.download_link && !this.isValidUrl(data.download_link)) {
+            this.showMessage('Please enter a valid download URL.', 'error');
+            return false;
+        }
+
+        return true;
+    }
+
+    isValidUrl(string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    }
+
+    addApplication(appData) {
+        this.applications.push(appData);
+        this.saveApplicationsToStorage();
+    }
+
+    updateApplication(appData) {
+        const index = this.applications.findIndex(app => app.id === this.currentEditingApp.id);
+        if (index !== -1) {
+            this.applications[index] = appData;
+            this.saveApplicationsToStorage();
+        }
+        this.currentEditingApp = null;
+    }
+
+    deleteApplication(appId) {
+        this.applications = this.applications.filter(app => app.id !== appId);
+        this.saveApplicationsToStorage();
+        this.populateApplicationsTable();
+        this.showMessage('Application deleted successfully!', 'success');
+    }
+
+    saveApplicationsToStorage() {
+        // In a real application, this would save to a backend API
+        // For now, we'll use localStorage
+        localStorage.setItem('dashboard_applications', JSON.stringify(this.applications));
+    }
+
+    loadApplicationsFromStorage() {
+        const stored = localStorage.getItem('dashboard_applications');
+        if (stored) {
+            this.applications = JSON.parse(stored);
+        }
+    }
+
+    populateApplicationsTable() {
+        console.log('🔧 DEBUG: populateApplicationsTable called');
+        console.log('🔧 DEBUG: this.applications:', this.applications);
+        console.log('🔧 DEBUG: this.applications.length:', this.applications ? this.applications.length : 'undefined');
+        
+        const tbody = document.getElementById('applications-tbody');
+        const emptyState = document.getElementById('empty-state');
+        
+        console.log('🔧 DEBUG: tbody element:', tbody);
+        console.log('🔧 DEBUG: emptyState element:', emptyState);
+        
+        if (!tbody) {
+            console.log('🔧 DEBUG: tbody not found, returning');
+            return;
+        }
+
+        // Filter applications based on search term
+        let filteredApps = this.applications.filter(app => {
+            if (!this.searchTerm) return true;
+            return (
+                app.app_name.toLowerCase().includes(this.searchTerm) ||
+                app.publisher.toLowerCase().includes(this.searchTerm) ||
+                app.current_version.toLowerCase().includes(this.searchTerm)
+            );
+        });
+
+        // Sort applications
+        filteredApps.sort((a, b) => {
+            let aVal = a[this.sortField];
+            let bVal = b[this.sortField];
+            
+            if (typeof aVal === 'string') {
+                aVal = aVal.toLowerCase();
+                bVal = bVal.toLowerCase();
+            }
+            
+            if (this.sortDirection === 'asc') {
+                return aVal > bVal ? 1 : -1;
+            } else {
+                return aVal < bVal ? 1 : -1;
+            }
+        });
+
+        // Show empty state if no applications
+        if (filteredApps.length === 0) {
+            tbody.innerHTML = '';
+            if (emptyState) emptyState.style.display = 'block';
+            return;
+        }
+
+        if (emptyState) emptyState.style.display = 'none';
+
+        // Pagination
+        const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+        const endIndex = startIndex + this.itemsPerPage;
+        const paginatedApps = filteredApps.slice(startIndex, endIndex);
+
+        // Generate table rows
+        tbody.innerHTML = paginatedApps.map(app => `
+            <tr>
+                <td>
+                    <div>
+                        <strong>${app.app_name}</strong>
+                        <br>
+                        <small class="text-muted">${app.description ? app.description.substring(0, 50) + '...' : 'No description'}</small>
+                    </div>
+                </td>
+                <td>${app.current_version}</td>
+                <td>${app.publisher}</td>
+                <td>
+                    <span class="status-badge ${app.enable_tracking ? 'active' : 'inactive'}">
+                        <span class="status-dot"></span>
+                        ${app.enable_tracking ? 'Active' : 'Inactive'}
+                    </span>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="window.dashboardManager.viewApplication(${app.id})" title="View Details">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-btn" onclick="window.dashboardManager.editApplication(${app.id})" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn danger" onclick="window.dashboardManager.confirmDeleteApplication(${app.id})" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+
+        // Update pagination
+        this.updatePagination(filteredApps.length);
+    }
+
+    updatePagination(totalItems) {
+        const totalPages = Math.ceil(totalItems / this.itemsPerPage);
+        const paginationContainer = document.getElementById('pagination-container');
+        
+        if (totalPages <= 1) {
+            if (paginationContainer) paginationContainer.style.display = 'none';
+            return;
+        }
+
+        if (paginationContainer) paginationContainer.style.display = 'block';
+
+        // Update pagination info
+        const showingStart = document.getElementById('showing-start');
+        const showingEnd = document.getElementById('showing-end');
+        const totalRecords = document.getElementById('total-records');
+
+        if (showingStart) showingStart.textContent = (this.currentPage - 1) * this.itemsPerPage + 1;
+        if (showingEnd) showingEnd.textContent = Math.min(this.currentPage * this.itemsPerPage, totalItems);
+        if (totalRecords) totalRecords.textContent = totalItems;
+
+        // Generate pagination buttons
+        const paginationList = document.getElementById('pagination-list');
+        if (!paginationList) return;
+
+        let paginationHTML = '';
+
+        // Previous button
+        paginationHTML += `
+            <li class="page-item ${this.currentPage === 1 ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="window.dashboardManager.changePage(${this.currentPage - 1})">Previous</a>
+            </li>
+        `;
+
+        // Page numbers
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= this.currentPage - 2 && i <= this.currentPage + 2)) {
+                paginationHTML += `
+                    <li class="page-item ${i === this.currentPage ? 'active' : ''}">
+                        <a class="page-link" href="#" onclick="window.dashboardManager.changePage(${i})">${i}</a>
+                    </li>
+                `;
+            } else if (i === this.currentPage - 3 || i === this.currentPage + 3) {
+                paginationHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+            }
+        }
+
+        // Next button
+        paginationHTML += `
+            <li class="page-item ${this.currentPage === totalPages ? 'disabled' : ''}">
+                <a class="page-link" href="#" onclick="window.dashboardManager.changePage(${this.currentPage + 1})">Next</a>
+            </li>
+        `;
+
+        paginationList.innerHTML = paginationHTML;
+    }
+
+    changePage(page) {
+        const totalPages = Math.ceil(this.applications.length / this.itemsPerPage);
+        if (page >= 1 && page <= totalPages) {
+            this.currentPage = page;
+            this.populateApplicationsTable();
+        }
+    }
+
+    handleSort(field) {
+        if (this.sortField === field) {
+            this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            this.sortField = field;
+            this.sortDirection = 'asc';
+        }
+
+        // Update sort icons
+        document.querySelectorAll('.sortable').forEach(header => {
+            header.classList.remove('sort-asc', 'sort-desc');
+            if (header.dataset.sort === field) {
+                header.classList.add(`sort-${this.sortDirection}`);
+            }
+        });
+
+        this.populateApplicationsTable();
+    }
+
+    viewApplication(appId) {
+        const app = this.applications.find(a => a.id === appId);
+        if (!app) return;
+
+        const modal = document.getElementById('appDetailsModal');
+        const modalBody = document.getElementById('modal-app-details');
+        
+        if (!modal || !modalBody) return;
+
+        modalBody.innerHTML = `
+            <div class="app-details-grid">
+                <div class="detail-item">
+                    <div class="detail-label">Application Name</div>
+                    <div class="detail-value">${app.app_name}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Type</div>
+                    <div class="detail-value">${app.app_type.toUpperCase()}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Version</div>
+                    <div class="detail-value">${app.current_version}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Publisher</div>
+                    <div class="detail-value">${app.publisher}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Release Date</div>
+                    <div class="detail-value">${new Date(app.released_date).toLocaleDateString()}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Registration Date</div>
+                    <div class="detail-value">${new Date(app.registered_date).toLocaleDateString()}</div>
+                </div>
+            </div>
+            ${app.description ? `
+                <div class="detail-item">
+                    <div class="detail-label">Description</div>
+                    <div class="detail-value">${app.description}</div>
+                </div>
+            ` : ''}
+            ${app.download_link ? `
+                <div class="detail-item">
+                    <div class="detail-label">Download Link</div>
+                    <div class="detail-value">
+                        <a href="${app.download_link}" class="detail-value url" target="_blank">${app.download_link}</a>
+                    </div>
+                </div>
+            ` : ''}
+            <div class="detail-item">
+                <div class="detail-label">Tracking Status</div>
+                <div class="detail-value">
+                    <span class="status-badge ${app.enable_tracking ? 'active' : 'inactive'}">
+                        <span class="status-dot"></span>
+                        ${app.enable_tracking ? 'Enabled' : 'Disabled'}
+                    </span>
+                </div>
+            </div>
+            ${app.enable_tracking ? `
+                <div class="detail-item">
+                    <div class="detail-label">Tracking Details</div>
+                    <div class="detail-value">
+                        <ul style="margin: 0; padding-left: 1rem;">
+                            <li>Usage Tracking: ${app.track.usage ? 'Enabled' : 'Disabled'}</li>
+                            <li>Location Tracking: ${app.track.location ? 'Enabled' : 'Disabled'}</li>
+                            <li>CPU/Memory Tracking: ${app.track.cpu_memory.track_cm ? `Enabled (${app.track.cpu_memory.track_intr} min intervals)` : 'Disabled'}</li>
+                        </ul>
+                    </div>
+                </div>
+            ` : ''}
+        `;
+
+        // Set up edit button
+        const editBtn = document.getElementById('edit-app-btn');
+        if (editBtn) {
+            editBtn.onclick = () => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('appDetailsModal'));
+                if (modal) modal.hide();
+                this.editApplication(appId);
+            };
+        }
+
+        // Show modal
+        const bootstrapModal = new bootstrap.Modal(modal);
+        bootstrapModal.show();
+    }
+
+    editApplication(appId) {
+        const app = this.applications.find(a => a.id === appId);
+        if (!app) return;
+
+        this.currentEditingApp = app;
+
+        // Populate form with application data
+        document.getElementById('app_name').value = app.app_name;
+        document.getElementById('app_type').value = app.app_type;
+        document.getElementById('current_version').value = app.current_version;
+        document.getElementById('released_date').value = app.released_date;
+        document.getElementById('publisher').value = app.publisher;
+        document.getElementById('description').value = app.description || '';
+        document.getElementById('download_link').value = app.download_link || '';
+        document.getElementById('registered_date').value = app.registered_date;
+
+        // Set tracking options
+        document.getElementById('enable_tracking').checked = app.enable_tracking;
+        this.toggleTrackingOptions(app.enable_tracking);
+
+        if (app.enable_tracking) {
+            document.getElementById('track_usage').checked = app.track.usage;
+            document.getElementById('track_location').checked = app.track.location;
+            document.getElementById('track_cpu_memory').checked = app.track.cpu_memory.track_cm;
+            document.getElementById('track_interval').value = app.track.cpu_memory.track_intr;
+            this.toggleCpuMemoryOptions(app.track.cpu_memory.track_cm);
+        }
+
+        // Update form title
+        const panelTitle = document.querySelector('#app-form-panel-container .panel-title');
+        if (panelTitle) {
+            panelTitle.textContent = 'EDIT APPLICATION';
+        }
+
+        // Scroll to form
+        document.getElementById('app-form-panel-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    confirmDeleteApplication(appId) {
+        const app = this.applications.find(a => a.id === appId);
+        if (!app) return;
+
+        const modal = document.getElementById('deleteConfirmModal');
+        const appNameEl = document.getElementById('delete-app-name');
+        const appDetailsEl = document.getElementById('delete-app-details');
+        const confirmBtn = document.getElementById('confirm-delete-btn');
+
+        if (!modal || !appNameEl || !appDetailsEl || !confirmBtn) return;
+
+        appNameEl.textContent = app.app_name;
+        appDetailsEl.textContent = `${app.app_type.toUpperCase()} • Version ${app.current_version} • ${app.publisher}`;
+
+        confirmBtn.onclick = () => {
+            this.deleteApplication(appId);
+            const bootstrapModal = bootstrap.Modal.getInstance(modal);
+            if (bootstrapModal) bootstrapModal.hide();
+        };
+
+        const bootstrapModal = new bootstrap.Modal(modal);
+        bootstrapModal.show();
+    }
+
+    toggleTrackingOptions(enabled) {
+        const trackingOptions = document.getElementById('tracking-options');
+        if (trackingOptions) {
+            trackingOptions.style.display = enabled ? 'block' : 'none';
+        }
+    }
+
+    toggleCpuMemoryOptions(enabled) {
+        const cpuMemoryOptions = document.getElementById('cpu-memory-options');
+        if (cpuMemoryOptions) {
+            cpuMemoryOptions.style.display = enabled ? 'block' : 'none';
+        }
+    }
+
+    resetForm() {
+        const form = document.getElementById('app-form');
+        if (form) {
+            form.reset();
+            this.currentEditingApp = null;
+            
+            // Reset form title
+            const panelTitle = document.querySelector('#app-form-panel-container .panel-title');
+            if (panelTitle) {
+                panelTitle.textContent = 'ADD NEW APPLICATION';
+            }
+
+            // Set today's date as default
+            const registeredDateInput = document.getElementById('registered_date');
+            if (registeredDateInput) {
+                registeredDateInput.value = new Date().toISOString().split('T')[0];
+            }
+
+            // Reset tracking options
+            this.toggleTrackingOptions(true); // Default to enabled
+            this.toggleCpuMemoryOptions(false);
+        }
+    }
+
+    clearForm() {
+        this.resetForm();
+        this.showMessage('Form cleared successfully', 'success');
+    }
+
+    exportApplicationData() {
+        try {
+            const dataStr = JSON.stringify(this.applications, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `applications_export_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            this.showMessage('Application data exported successfully!', 'success');
+        } catch (error) {
+            console.error('Export error:', error);
+            this.showMessage('Failed to export data. Please try again.', 'error');
+        }
+    }
+
+    showMessage(message, type = 'success') {
+        const messagesContainer = document.getElementById('form-messages');
+        if (!messagesContainer) return;
+
+        const alertClass = type === 'error' ? 'alert-danger' : 'alert-success';
+        const iconClass = type === 'error' ? 'fa-exclamation-triangle' : 'fa-check-circle';
+
+        messagesContainer.innerHTML = `
+            <div class="alert ${alertClass}" role="alert">
+                <i class="fas ${iconClass} me-2"></i>
+                <span class="message-text">${message}</span>
+            </div>
+        `;
+        messagesContainer.style.display = 'block';
+
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            messagesContainer.style.display = 'none';
+        }, 5000);
+    }
+
+    // Navigation Management Methods
+    initializeNavigation() {
+        try {
+            // Set up navigation event listeners
+            this.setupNavigationEvents();
+            
+            // Initialize with dashboard page active
+            this.currentPage = 'dashboard';
+            this.showPage('dashboard');
+            
+            console.log('✅ Navigation initialized successfully');
+        } catch (error) {
+            console.error('❌ Failed to initialize navigation:', error);
+        }
+    }
+
+    setupNavigationEvents() {
+        // Add click event listeners to navigation links
+        const navLinks = document.querySelectorAll('.sidebar-nav-link[data-page]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.getAttribute('data-page');
+                this.navigateToPage(page);
+            });
+        });
+    }
+
+    navigateToPage(page) {
+        if (this.currentPage === page) return;
+
+        // Update navigation active state
+        this.updateNavigationState(page);
+        
+        // Show the selected page
+        this.showPage(page);
+        
+        // Update current page
+        this.currentPage = page;
+        
+        console.log(`📄 Navigated to ${page} page`);
+    }
+
+    updateNavigationState(activePage) {
+        const navLinks = document.querySelectorAll('.sidebar-nav-link[data-page]');
+        navLinks.forEach(link => {
+            const page = link.getAttribute('data-page');
+            if (page === activePage) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+
+    showPage(page) {
+        console.log(`🔄 Switching to ${page} page and refreshing data...`);
+        
+        // Hide all page content
+        const allPages = document.querySelectorAll('.page-content');
+        allPages.forEach(pageEl => {
+            pageEl.classList.remove('active');
+        });
+
+        // Show the selected page
+        const targetPage = document.getElementById(`${page}-page`);
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+
+        // Refresh page-specific data
+        setTimeout(() => {
+            this.refreshPageData(page);
+        }, 100);
+    }
+
+    refreshPageData(page) {
+        try {
+            console.log(`🔄 Refreshing data for ${page} page...`);
+            
+            switch (page) {
+                case 'dashboard':
+                    this.refreshDashboardPage();
+                    break;
+                case 'app-manager':
+                    this.refreshAppManagerPage();
+                    break;
+                default:
+                    console.log(`No specific refresh logic for ${page} page`);
+            }
+            
+            console.log(`✅ ${page} page data refreshed successfully`);
+        } catch (error) {
+            console.error(`❌ Failed to refresh ${page} page data:`, error);
+        }
+    }
+
+    refreshDashboardPage() {
+        console.log('🔄 Refreshing Dashboard page data...');
+        
+        try {
+            // Re-populate all metrics data
+            this.populateMetrics();
+            
+            // Re-populate server statistics
+            this.populateServerStats();
+            
+            // Re-populate traffic analytics
+            this.populateTrafficAnalytics();
+            
+            // Re-initialize charts with fresh data (in case data has changed)
+            this.refreshCharts();
+            
+            console.log('✅ Dashboard page refreshed successfully');
+        } catch (error) {
+            console.error('❌ Failed to refresh dashboard page:', error);
+        }
+    }
+
+    refreshAppManagerPage() {
+        console.log('🔄 Refreshing App Manager page data...');
+        
+        try {
+            // Reset search and pagination state
+            this.searchTerm = '';
+            this.currentPage = 1;
+            
+            // Clear search input
+            const searchInput = document.getElementById('app-search');
+            if (searchInput) {
+                searchInput.value = '';
+            }
+            
+            // Re-populate applications table with fresh data
+            this.populateApplicationsTable();
+            
+            // Clear any form editing state
+            this.currentEditingApp = null;
+            
+            // Reset form title if needed
+            const panelTitle = document.querySelector('#app-form-panel-container .panel-title');
+            if (panelTitle && panelTitle.textContent !== 'ADD NEW APPLICATION') {
+                panelTitle.textContent = 'ADD NEW APPLICATION';
+            }
+            
+            console.log('✅ App Manager page refreshed successfully');
+        } catch (error) {
+            console.error('❌ Failed to refresh app manager page:', error);
+        }
+    }
+
+    refreshCharts() {
+        console.log('🔄 Refreshing charts...');
+        
+        try {
+            // Destroy existing charts if they exist
+            Object.keys(this.charts).forEach(chartKey => {
+                if (this.charts[chartKey]) {
+                    this.charts[chartKey].destroy();
+                }
+            });
+            
+            // Clear charts object
+            this.charts = {};
+            
+            // Re-initialize all charts
+            this.initializeCharts();
+            
+            console.log('✅ Charts refreshed successfully');
+        } catch (error) {
+            console.error('❌ Failed to refresh charts:', error);
+        }
+    }
 }
 
 // Initialize dashboard when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new DashboardManager();
+    const dashboardManager = new DashboardManager();
+    // Make it globally accessible for onclick handlers
+    window.dashboardManager = dashboardManager;
 });
