@@ -419,21 +419,56 @@ hr.panel-divider { border-color: rgba(100, 255, 218, 0.2); margin-top: 1.5rem; m
 }
 
 .futuristic-btn-danger {
-    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
-    border: none;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    border: 1px solid #ef4444;
     color: white;
     font-weight: 600;
     padding: 0.6rem 1.2rem;
     border-radius: 4px;
     transition: all 0.3s ease;
     font-size: 0.9rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .futuristic-btn-danger:hover {
-    background: linear-gradient(135deg, #ee5a52, #ff6b6b);
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
     color: white;
+}
+
+.futuristic-btn-danger:active {
+    transform: translateY(0);
+}
+
+.futuristic-btn-danger::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.futuristic-btn-danger:hover::before {
+    left: 100%;
+}
+
+/* Enhanced secondary button for modals */
+.futuristic-modal .futuristic-btn-secondary {
+    background-color: rgba(100, 255, 218, 0.1);
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.futuristic-modal .futuristic-btn-secondary:hover {
+    background-color: rgba(100, 255, 218, 0.2);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
 }
 
 .form-messages .alert {
@@ -681,14 +716,21 @@ hr.panel-divider { border-color: rgba(100, 255, 218, 0.2); margin-top: 1.5rem; m
 }
 
 /* --- Modal Styles --- */
+.modal-backdrop {
+    background-color: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
 .futuristic-modal .modal-content {
-    background-color: var(--primary-bg);
-    border: 1px solid var(--border-color);
+    background-color: #1d2d44;
+    border: 2px solid var(--accent-color);
     border-radius: 8px;
     color: var(--text-primary);
     position: relative;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 /* Add corner decorations to modal */
@@ -740,8 +782,9 @@ hr.panel-divider { border-color: rgba(100, 255, 218, 0.2); margin-top: 1.5rem; m
 
 .futuristic-modal .modal-header {
     border-bottom: 1px solid var(--border-color);
-    background-color: rgba(29, 45, 68, 0.5);
-    border-radius: 8px 8px 0 0;
+    background: linear-gradient(135deg, transparent, rgba(100, 255, 218, 0.05));
+    border-radius: 6px 6px 0 0;
+    padding: 1.5rem 1.5rem 1rem;
 }
 
 .futuristic-modal .modal-title {
@@ -750,27 +793,100 @@ hr.panel-divider { border-color: rgba(100, 255, 218, 0.2); margin-top: 1.5rem; m
     font-size: 1.1rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
 }
 
 .futuristic-modal .btn-close {
     filter: invert(1);
     opacity: 0.7;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    padding: 0.5rem;
 }
 
 .futuristic-modal .btn-close:hover {
     opacity: 1;
+    background-color: rgba(100, 255, 218, 0.1);
+    transform: scale(1.1);
 }
 
 .futuristic-modal .modal-body {
-    background-color: var(--primary-bg);
+    background-color: #1d2d44;
     padding: 1.5rem;
+    color: var(--text-primary);
 }
 
 .futuristic-modal .modal-footer {
     border-top: 1px solid var(--border-color);
-    background-color: var(--secondary-bg);
-    border-radius: 0 0 8px 8px;
+    background: linear-gradient(135deg, rgba(100, 255, 218, 0.02), transparent);
+    border-radius: 0 0 6px 6px;
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+/* Delete Confirmation Modal Specific Styles */
+.futuristic-modal#deleteConfirmModal .modal-content {
+    border-color: rgba(239, 68, 68, 0.6);
+    animation: warningGlow 3s ease-in-out infinite;
+}
+
+.futuristic-modal#deleteConfirmModal .modal-header {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), transparent);
+    border-bottom-color: rgba(239, 68, 68, 0.3);
+}
+
+.futuristic-modal#deleteConfirmModal .modal-title {
+    color: #ef4444;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.futuristic-modal#deleteConfirmModal .modal-dialog::before,
+.futuristic-modal#deleteConfirmModal .modal-dialog::after,
+.futuristic-modal#deleteConfirmModal .modal-content::before,
+.futuristic-modal#deleteConfirmModal .modal-content::after {
+    border-color: rgba(239, 68, 68, 0.6);
+}
+
+.futuristic-modal#deleteConfirmModal .text-warning {
+    color: #fbbf24 !important;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+    animation: warningPulse 2s ease-in-out infinite;
+}
+
+.futuristic-modal#deleteConfirmModal .app-info {
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.futuristic-modal#deleteConfirmModal .app-info strong {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.futuristic-modal#deleteConfirmModal .app-info small {
+    color: var(--text-secondary);
+}
+
+@keyframes warningPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes warningGlow {
+    0%, 100% {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 5px rgba(239, 68, 68, 0.3);
+    }
+    50% {
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(239, 68, 68, 0.6);
+    }
 }
 
 .app-details-grid {

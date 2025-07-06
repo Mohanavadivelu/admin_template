@@ -11,8 +11,9 @@ A modern, responsive admin dashboard built with HTML5, CSS3, JavaScript, and Cha
 - **Application Manager**: Complete CRUD operations for application management
 - **Multi-Page Navigation**: Dashboard and Application Manager pages
 - **Futuristic UI**: Custom CSS with accent colors, backdrop filters, and corner decorations
+- **Modal System**: Advanced modal components with specialized styling
 - **Error Handling**: Comprehensive error handling and loading states
-- **Clean Architecture**: Organized file structure with no unused files
+- **Clean Architecture**: Organized file structure with modular CSS system
 
 ## 📁 Project Structure
 
@@ -22,7 +23,34 @@ admin_template/
 ├── README.md                     # Project documentation
 ├── TODO_README.md               # Future development roadmap
 ├── css/
-│   └── styles.css               # Main stylesheet with futuristic design
+│   ├── main.css                 # CSS import orchestrator (entry point)
+│   ├── styles.css               # Legacy stylesheet (preserved for reference)
+│   ├── core/                    # Foundation styles
+│   │   ├── variables.css        # Design tokens & CSS custom properties
+│   │   ├── reset.css            # Browser normalization & base styles
+│   │   └── typography.css       # Text hierarchy & font system
+│   ├── layout/                  # Structural components
+│   │   ├── grid.css             # Layout system & responsive grid
+│   │   ├── sidebar.css          # Navigation sidebar
+│   │   ├── topbar.css           # Top navigation bar
+│   │   └── main-content.css     # Content area styling
+│   ├── components/              # UI components
+│   │   ├── panels.css           # Dashboard panels & corners
+│   │   ├── buttons.css          # Button variants & states
+│   │   ├── forms.css            # Form inputs & validation
+│   │   ├── tables.css           # Data tables & interactions
+│   │   ├── modal-base.css       # Core modal functionality
+│   │   ├── modal-application-details.css  # Application details modal
+│   │   ├── modal-delete-confirmation.css  # Delete confirmation modal
+│   │   ├── charts.css           # Chart containers & visualizations
+│   │   └── badges.css           # Status indicators & badges
+│   ├── pages/                   # Page-specific styles
+│   │   ├── dashboard.css        # Dashboard page customizations
+│   │   └── app-manager.css      # Application manager styles
+│   └── utilities/               # Helper classes & responsive
+│       ├── animations.css       # Transitions & keyframes
+│       ├── helpers.css          # Utility classes
+│       └── responsive.css       # Media queries & breakpoints
 ├── js/
 │   └── dashboard-init.js        # Main application logic and initialization
 ├── data/
@@ -31,6 +59,9 @@ admin_template/
     ├── common/                  # Shared components
     │   ├── sidebar.html         # Navigation sidebar with page switching
     │   └── topbar.html          # Top navigation bar
+    ├── modals/                  # Modal components
+    │   ├── application-details-modal.html    # Application details modal
+    │   └── delete-confirmation-modal.html    # Delete confirmation modal
     └── pages/                   # Page-specific components
         ├── dashboard/           # Dashboard page panels
         │   ├── bandwidth-panel.html
@@ -58,39 +89,86 @@ admin_template/
 - **CRUD Operations**: Create, read, update, delete applications
 - **Advanced Features**: Pagination, filtering, export functionality
 - **Tracking Options**: Usage, location, CPU/memory monitoring with configurable intervals
+- **Modal System**: Application details and delete confirmation modals
 
-## 1. Panel and Layout System
+## 🏗️ CSS Architecture
 
-### Component-Based Architecture
+### Modular CSS System
 
-The dashboard uses a modular component system where each panel is a separate HTML file loaded dynamically:
+The project uses a modern, modular CSS architecture organized into focused files:
 
-```html
-<!-- Multi-page layout structure -->
-<main class="container-fluid dashboard-container">
-    <!-- DASHBOARD PAGE -->
-    <div id="dashboard-page" class="page-content active">
-        <div class="row">
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="visitors-panel-container"></div>
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="sales-panel-container"></div>
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="members-panel-container"></div>
-            <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="bandwidth-panel-container"></div>
-        </div>
-    </div>
+#### Core Foundation
+- **variables.css**: Design tokens and CSS custom properties
+- **reset.css**: Browser normalization and base styles
+- **typography.css**: Text hierarchy and font system
 
-    <!-- APP MANAGER PAGE -->
-    <div id="app-manager-page" class="page-content">
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-12 mb-4" id="app-form-panel-container"></div>
-            <div class="col-xl-6 col-lg-6 col-md-12 mb-4" id="app-table-panel-container"></div>
-        </div>
-    </div>
-</main>
+#### Layout System
+- **grid.css**: Layout system and responsive grid
+- **sidebar.css**: Navigation sidebar styling
+- **topbar.css**: Top navigation bar
+- **main-content.css**: Content area styling
+
+#### UI Components
+- **panels.css**: Dashboard panels with futuristic corners
+- **buttons.css**: Interactive button components
+- **forms.css**: Form inputs and validation
+- **tables.css**: Data tables and interactions
+- **modal-base.css**: Core modal functionality
+- **modal-application-details.css**: Application details modal styling
+- **modal-delete-confirmation.css**: Delete confirmation modal styling
+- **charts.css**: Chart containers and visualizations
+- **badges.css**: Status indicators and badges
+
+#### Page-Specific Styles
+- **dashboard.css**: Dashboard page customizations
+- **app-manager.css**: Application manager page styles
+
+#### Utilities
+- **animations.css**: Transitions and keyframes
+- **helpers.css**: Utility classes and helpers
+- **responsive.css**: Media queries and breakpoints
+
+### Design Token System
+
+All visual properties are centralized using CSS custom properties:
+
+```css
+:root {
+  /* Colors */
+  --primary-bg: #1a233a;        /* Deep navy background */
+  --secondary-bg: #1d2d44;      /* Panel backgrounds */
+  --accent-color: #64ffda;      /* Cyan accent */
+  
+  /* Text Colors */
+  --text-primary: #e0e0e0;      /* Main text */
+  --text-secondary: #a8b2d1;    /* Secondary text */
+  --text-muted: #8892b0;        /* Muted text */
+  
+  /* Spacing Scale */
+  --spacing-xs: 0.25rem;        /* 4px */
+  --spacing-sm: 0.5rem;         /* 8px */
+  --spacing-md: 1rem;           /* 16px */
+  --spacing-lg: 1.5rem;         /* 24px */
+  --spacing-xl: 2rem;           /* 32px */
+  
+  /* Typography */
+  --font-size-xs: 0.75rem;      /* 12px */
+  --font-size-sm: 0.85rem;      /* 13.6px */
+  --font-size-base: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;     /* 18px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
 ```
 
-### Panel Structure
+## 🎨 Futuristic Design Elements
 
-Each panel follows a consistent futuristic design structure:
+### Panel Structure
+Each panel follows a consistent futuristic design:
 
 ```html
 <div class="dashboard-panel">
@@ -108,105 +186,17 @@ Each panel follows a consistent futuristic design structure:
 </div>
 ```
 
-### Bootstrap Grid System
-
-- **Desktop (xl)**: 4 columns for metrics, 2 columns for detailed panels
-- **Tablet (lg)**: 2 columns layout
-- **Mobile (md/sm)**: Single column stack
-- **App Manager**: 2 equal columns on desktop, stacked on mobile
-
-### Responsive Breakpoints
-
-```css
-/* Panel responsive behavior */
-.col-xl-3  /* 4 panels per row on extra large screens */
-.col-lg-6  /* 2 panels per row on large screens */
-.col-md-6  /* 2 panels per row on medium screens */
-.col-xl-6  /* 2 panels per row for app manager */
-```
-
-## 2. CSS Design System
-
-### Color Scheme
-
-The dashboard uses CSS custom properties for consistent futuristic theming:
-
-```css
-:root {
-    --primary-bg: #1a233a;      /* Main background */
-    --secondary-bg: #1d2d44;    /* Panel backgrounds */
-    --panel-bg: rgba(29, 45, 68, 0.5); /* Translucent panels */
-    --accent-color: #64ffda;    /* Accent/highlight color */
-    --text-primary: #e0e0e0;    /* Primary text */
-    --text-secondary: #a8b2d1;  /* Secondary text */
-    --border-color: rgba(100, 255, 218, 0.15); /* Borders */
-}
-```
-
-### Panel Styling
-
-#### Futuristic Panel Design
+### Glass-morphism Effects
 ```css
 .dashboard-panel {
     background-color: var(--panel-bg);
     border: 1px solid var(--border-color);
     backdrop-filter: blur(5px);  /* Glass effect */
-    position: relative;
     border-radius: 8px;
-    padding: 1.5rem;
 }
 ```
 
-#### Corner Decorations
-```css
-.corner {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-style: solid;
-    border-color: var(--accent-color);
-}
-/* Individual corner positioning */
-.corner-tl { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
-.corner-tr { top: -2px; right: -2px; border-width: 2px 2px 0 0; }
-.corner-bl { bottom: -2px; left: -2px; border-width: 0 0 2px 2px; }
-.corner-br { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
-```
-
-### Typography Hierarchy
-
-```css
-.panel-title {
-    font-size: 0.8rem;
-    letter-spacing: 1.5px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-}
-
-.panel-metric {
-    font-size: 2.75rem;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 1;
-}
-```
-
-### Layout Components
-
-#### Sidebar Navigation
-- Fixed width: `80px`
-- Full height with flex layout
-- Icon-based navigation with active states
-- Page switching functionality
-
-#### Main Content
-- Flexible width with sidebar offset
-- Scrollable dashboard container
-- Top navigation bar: `70px` height
-- Multi-page content switching
-
-#### Grid Background
+### Grid Background
 ```css
 body {
     background-image:
@@ -216,7 +206,45 @@ body {
 }
 ```
 
-## 3. Application Management System
+## 🔧 Modal System
+
+### Modal Components
+
+The modal system has been refactored into specialized components:
+
+#### Application Details Modal
+- Grid layout for structured content display
+- Field cards with hover effects
+- Status badges for tracking information
+- Responsive design for mobile/tablet
+
+#### Delete Confirmation Modal
+- Warning-themed styling with red accents
+- Animated warning icon with pulse effect
+- Destructive action button with special effects
+- Item information display with proper theming
+
+### Modal Usage
+
+```javascript
+// Show application details modal
+function showApplicationDetails(appData) {
+    // Populate modal with data
+    document.getElementById('appName').textContent = appData.name;
+    // Show modal
+    document.getElementById('applicationDetailsModal').classList.add('active');
+}
+
+// Show delete confirmation modal
+function showDeleteConfirmation(appData) {
+    // Populate modal with app info
+    document.getElementById('deleteItemName').textContent = appData.name;
+    // Show modal
+    document.getElementById('deleteConfirmationModal').classList.add('active');
+}
+```
+
+## 💻 Application Management System
 
 ### DashboardManager Class
 
@@ -245,7 +273,7 @@ class DashboardManager {
 }
 ```
 
-### Application CRUD Operations
+### CRUD Operations
 
 #### Create Application
 ```javascript
@@ -260,7 +288,7 @@ addApplication(appData) {
 }
 ```
 
-#### Read Applications with Search & Sort
+#### Read with Search & Sort
 ```javascript
 populateApplicationsTable() {
     // Filter applications based on search term
@@ -354,17 +382,7 @@ updatePagination(totalItems) {
 }
 ```
 
-### Application Form Features
-
-#### Comprehensive Form Fields
-- Application Name, Type, Version
-- Publisher, Release Date, Description
-- Download Link (with URL validation)
-- Registration Date
-- Tracking Options (Usage, Location, CPU/Memory)
-- Configurable monitoring intervals
-
-#### Form Validation
+### Form Validation
 ```javascript
 validateFormData(data) {
     const requiredFields = ['app_name', 'app_type', 'current_version', 'released_date', 'publisher'];
@@ -386,7 +404,7 @@ validateFormData(data) {
 }
 ```
 
-## 4. Navigation System
+## 🔄 Navigation System
 
 ### Multi-Page Architecture
 
@@ -418,22 +436,7 @@ showPage(page) {
 }
 ```
 
-### Page-Specific Data Refresh
-
-```javascript
-refreshPageData(page) {
-    switch (page) {
-        case 'dashboard':
-            this.refreshDashboardPage();
-            break;
-        case 'app-manager':
-            this.refreshAppManagerPage();
-            break;
-    }
-}
-```
-
-## 5. Data Loading & Initialization
+## 📊 Data Loading & Initialization
 
 ### Initialization Flow
 
@@ -453,7 +456,6 @@ async loadComponents() {
     const components = [
         { selector: '#sidebar-container', url: './components/common/sidebar.html', name: 'Sidebar' },
         { selector: '#topbar-container', url: './components/common/topbar.html', name: 'Top Navigation' },
-        { selector: '#visitors-panel-container', url: './components/pages/dashboard/visitors-panel.html', name: 'Visitors Panel' },
         // ... more components
     ];
 
@@ -476,27 +478,6 @@ async loadComponents() {
             }
         } catch (error) {
             console.error(`Failed to load ${component.name}:`, error);
-        }
-    }
-}
-```
-
-### Chart Initialization with Error Handling
-
-```javascript
-async initializeCharts() {
-    const chartInitializers = [
-        { name: 'Site Visitors', fn: () => this.initSiteVisitorsChart() },
-        { name: 'Store Sales', fn: () => this.initStoreSalesChart() },
-        // ... more charts
-    ];
-    
-    for (const chart of chartInitializers) {
-        try {
-            chart.fn();
-            console.log(`✅ ${chart.name} chart initialized`);
-        } catch (error) {
-            console.error(`❌ Failed to initialize ${chart.name} chart:`, error);
         }
     }
 }
@@ -530,24 +511,6 @@ searchInput.addEventListener('input', (e) => {
     this.currentPage = 1; // Reset pagination
     this.populateApplicationsTable();
 });
-```
-
-### Form Validation
-
-**Issue**: Form submitting with invalid data.
-
-**Solution**: Implement comprehensive validation:
-
-```javascript
-handleFormSubmission() {
-    const formData = this.getFormData();
-    
-    if (!this.validateFormData(formData)) {
-        return; // Stop submission if validation fails
-    }
-    
-    // Proceed with save operation
-}
 ```
 
 ### Chart Canvas Conflicts
@@ -633,20 +596,34 @@ Update CSS custom properties in `:root`:
 
 *Note: Backdrop-filter support may vary on older browsers*
 
-## 🧹 Project Cleanup
+## 🧹 Project Cleanup & Architecture
 
-The project has been cleaned and optimized:
+The project has been completely refactored and optimized:
+
+### ✅ CSS Architecture Refactoring
+- **Modular CSS System**: Split from single `styles.css` into 15+ focused files
+- **Design Token System**: Centralized design values in CSS custom properties
+- **Import Order Management**: Logical cascade with `main.css` as entry point
+- **Component-Based Organization**: Clear separation of concerns
+- **Enhanced Maintainability**: Each file has single responsibility
+
+### ✅ Modal System Enhancement
+- **Specialized Modal Components**: Application details and delete confirmation modals
+- **Futuristic Theming**: Consistent with dashboard design language
+- **Responsive Design**: Mobile and tablet optimizations
+- **Accessibility Features**: Proper ARIA attributes and keyboard navigation
 
 ### ✅ Removed Unused Files & Folders
-- Empty directories: `js/charts/`, `js/utils/`, `components/modals/`
-- Duplicate files: `README.html`, `TODO_README.html`
-- Old component structure reorganized
+- Consolidated documentation into single README.md
+- Removed duplicate and outdated files
+- Clean project structure with no unused directories
+- Optimized for maintainability and development
 
 ### ✅ Current Clean Structure
 - Organized component hierarchy
-- No unused files or empty directories
+- Modular CSS architecture
 - Clear separation between common and page-specific components
-- Optimized for maintainability and development
+- Comprehensive documentation
 
 ## 📈 Performance Features
 
@@ -655,13 +632,56 @@ The project has been cleaned and optimized:
 - **Memory Management**: Proper cleanup of intervals and event listeners
 - **Optimized Rendering**: Efficient DOM updates
 - **Caching**: LocalStorage for application data persistence
+- **Modular CSS**: Better browser caching with separate files
+
+## ♿ Accessibility Features
+
+- **Focus Management**: Visible focus indicators and logical tab order
+- **Color Contrast**: High contrast mode support and sufficient ratios
+- **Motion Preferences**: Respects `prefers-reduced-motion`
+- **Screen Reader Support**: Proper ARIA attributes and semantic markup
+- **Keyboard Navigation**: Full keyboard accessibility
 
 ## 🔮 Future Enhancements
 
 See `TODO_README.md` for detailed roadmap including:
 - REST API integration
-- Real-time data updates
-- WebSocket support
-- Advanced analytics
-- Performance monitoring
-- User authentication
+- Real-time data updates with WebSocket support
+- Advanced analytics and reporting
+- Performance monitoring and optimization
+- User authentication and authorization
+- Progressive Web App (PWA) features
+- Advanced chart types and data visualization
+- Export functionality for reports
+- Theme customization system
+- Multi-language support
+
+## 📚 Development Guidelines
+
+### Adding New Components
+
+1. **Create component file** in appropriate directory
+2. **Follow naming conventions** using BEM methodology
+3. **Use design tokens** from variables.css
+4. **Include responsive behavior** and accessibility features
+5. **Add comprehensive documentation**
+
+### CSS Best Practices
+
+1. **Use design tokens** instead of hardcoded values
+2. **Follow the established file structure**
+3. **Maintain consistent naming patterns**
+4. **Include meaningful comments**
+5. **Test across different browsers**
+
+### JavaScript Patterns
+
+1. **Use ES6+ features** consistently
+2. **Implement proper error handling**
+3. **Follow the established class structure**
+4. **Add comprehensive logging**
+5. **Ensure memory cleanup**
+
+---
+
+This dashboard provides a solid foundation for modern web applications with a focus on maintainability, accessibility, and performance. The modular architecture makes it easy to extend and customize while maintaining consistency across the entire application.

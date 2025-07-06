@@ -1,0 +1,341 @@
+/**
+ * Delete Confirmation Modal
+ * 
+ * Specialized styling for delete confirmation dialogs with warning
+ * indicators and destructive action styling. Maintains the futuristic
+ * theme while clearly indicating the dangerous nature of the action.
+ * 
+ * Dependencies:
+ * - modal-base.css (base modal functionality)
+ * - variables.css (design tokens)
+ * - buttons.css (button styles)
+ * 
+ * Usage:
+ * - .modal-delete-confirmation for the main modal
+ * - .modal-warning-* classes for warning elements
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === DELETE CONFIRMATION MODAL === */
+/* Main modal container for delete confirmations */
+
+.modal-delete-confirmation {
+  max-width: 500px;
+  background: var(--secondary-bg) !important;
+  border: 2px solid rgba(239, 68, 68, 0.6) !important;
+  box-shadow: 0 25px 50px -12px rgba(239, 68, 68, 0.3) !important;
+}
+
+.modal-delete-confirmation .modal-title {
+  color: #ef4444 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: var(--font-size-lg);
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+  font-weight: var(--font-weight-bold);
+}
+
+.modal-delete-confirmation .modal-header {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), transparent) !important;
+  border-bottom: 1px solid rgba(239, 68, 68, 0.4) !important;
+  padding: var(--spacing-xl);
+}
+
+.modal-delete-confirmation .modal-close {
+  color: #ef4444 !important;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+.modal-delete-confirmation .modal-close:hover {
+  color: #ffffff !important;
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+}
+
+/* === WARNING CONTENT === */
+/* Warning icon and message styling */
+
+.modal-delete-confirmation .modal-body {
+  background: var(--secondary-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+.modal-warning-content {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-lg);
+}
+
+.modal-warning-icon {
+  font-size: 4rem;
+  color: #fbbf24 !important;
+  margin-bottom: var(--spacing-lg);
+  display: block;
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+  animation: warningPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
+}
+
+.modal-warning-message {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary) !important;
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+.modal-warning-description {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary) !important;
+  margin-bottom: var(--spacing-xl);
+  line-height: 1.6;
+}
+
+/* === APPLICATION INFO === */
+/* Information about the item being deleted */
+
+.modal-delete-item-info {
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-lg) 0;
+  text-align: left;
+}
+
+.modal-delete-item-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.modal-delete-item-details {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.modal-delete-item-details span {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* === ACTION BUTTONS === */
+/* Destructive and cancel button styling */
+
+.modal-delete-confirmation .modal-footer {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), transparent) !important;
+  border-top: 1px solid rgba(239, 68, 68, 0.2) !important;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
+}
+
+.modal-delete-confirmation .btn-cancel {
+  background-color: rgba(100, 255, 218, 0.1) !important;
+  border: 1px solid rgba(100, 255, 218, 0.3) !important;
+  color: var(--accent-color) !important;
+  font-weight: var(--font-weight-semibold);
+  min-width: 140px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 4px rgba(100, 255, 218, 0.1);
+}
+
+.modal-delete-confirmation .btn-cancel:hover {
+  background-color: rgba(100, 255, 218, 0.2) !important;
+  border-color: var(--accent-color) !important;
+  color: var(--accent-color) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+}
+
+.modal-delete-confirmation .btn-delete {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  border: 1px solid #ef4444 !important;
+  color: #ffffff !important;
+  font-weight: var(--font-weight-semibold);
+  min-width: 140px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+.modal-delete-confirmation .btn-delete:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+  border-color: #dc2626 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.modal-delete-confirmation .btn-delete:active {
+  transform: translateY(0);
+}
+
+.modal-delete-confirmation .btn-delete::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.modal-delete-confirmation .btn-delete:hover::before {
+  left: 100%;
+}
+
+/* === WARNING ANIMATIONS === */
+/* Subtle warning animations */
+
+@keyframes warningPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes warningGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+  }
+}
+
+.modal-delete-confirmation .modal {
+  animation: warningGlow 3s ease-in-out infinite;
+}
+
+/* === RESPONSIVE DESIGN === */
+/* Mobile and tablet adaptations */
+
+@media (max-width: 768px) {
+  .modal-delete-confirmation {
+    max-width: 100%;
+  }
+  
+  .modal-warning-content {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+  
+  .modal-warning-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .modal-warning-message {
+    font-size: var(--font-size-base);
+  }
+  
+  .modal-delete-confirmation .modal-footer {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .modal-delete-confirmation .btn-cancel,
+  .modal-delete-confirmation .btn-delete {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-warning-icon {
+    font-size: 2.5rem;
+  }
+  
+  .modal-warning-message {
+    font-size: var(--font-size-sm);
+  }
+  
+  .modal-delete-item-info {
+    padding: var(--spacing-md);
+  }
+  
+  .modal-delete-item-name {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+/* Enhanced focus and interaction states */
+
+.modal-delete-confirmation .btn-delete:focus {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+.modal-delete-confirmation .btn-cancel:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .modal-delete-confirmation .modal {
+    border-width: 3px;
+    border-color: #ef4444;
+  }
+  
+  .modal-delete-item-info {
+    border-width: 2px;
+    background-color: var(--secondary-bg);
+  }
+  
+  .modal-warning-icon {
+    text-shadow: none;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .modal-warning-icon {
+    animation: none;
+  }
+  
+  .modal-delete-confirmation .modal {
+    animation: none;
+  }
+  
+  .modal-delete-confirmation .btn-delete::before {
+    transition: none;
+  }
+}
+
+/* === DARK MODE ENHANCEMENTS === */
+/* Additional dark mode specific styling */
+
+@media (prefers-color-scheme: dark) {
+  .modal-delete-confirmation .modal-warning-icon {
+    color: #fcd34d;
+    text-shadow: 0 0 20px rgba(252, 211, 77, 0.5);
+  }
+  
+  .modal-delete-item-info {
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.25);
+  }
+}

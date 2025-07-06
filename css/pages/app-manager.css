@@ -1,0 +1,151 @@
+/**
+ * Application Manager Page Styles
+ * 
+ * Page-specific styling for the application management interface.
+ * Includes form layouts, table styling, and modal customizations.
+ * 
+ * Dependencies:
+ * - variables.css (design tokens)
+ * - components/forms.css (form base styles)
+ * - components/tables.css (table base styles)
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === APP MANAGER PAGE LAYOUT === */
+#app-manager-page {
+  padding: var(--spacing-lg);
+}
+
+#app-manager-page .row {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* === FORM PANEL CUSTOMIZATIONS === */
+#app-form-panel-container .panel {
+  height: fit-content;
+}
+
+/* === TABLE PANEL CUSTOMIZATIONS === */
+#app-table-panel-container .panel {
+  min-height: 600px;
+}
+
+/* === ACTION BUTTONS === */
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-xs);
+  justify-content: center;
+}
+
+.action-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.action-btn:hover {
+  background-color: rgba(100, 255, 218, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.action-btn.danger:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* === PAGINATION === */
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+.pagination-info {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--spacing-xs);
+}
+
+.page-item {
+  display: flex;
+}
+
+.page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  min-width: 36px;
+  height: 36px;
+}
+
+.page-link:hover {
+  background-color: rgba(100, 255, 218, 0.1);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+}
+
+.page-item.active .page-link {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--primary-bg);
+}
+
+.page-item.disabled .page-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+  #app-manager-page {
+    padding: var(--spacing-md);
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .pagination-container {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    text-align: center;
+  }
+  
+  .pagination {
+    justify-content: center;
+  }
+}

@@ -67,8 +67,10 @@
 /* Data tables and interactions */
 @import url('./components/tables.css');
 
-/* Modal dialogs and overlays */
-@import url('./components/modals.css');
+/* Modal dialogs and overlays - Modular approach */
+@import url('./components/modal-base.css');
+@import url('./components/modal-application-details.css');
+@import url('./components/modal-delete-confirmation.css');
 
 /* Data visualization components */
 @import url('./components/charts.css');

@@ -376,8 +376,9 @@ code {
 <li><strong>Application Manager</strong>: Complete CRUD operations for application management</li>
 <li><strong>Multi-Page Navigation</strong>: Dashboard and Application Manager pages</li>
 <li><strong>Futuristic UI</strong>: Custom CSS with accent colors, backdrop filters, and corner decorations</li>
+<li><strong>Modal System</strong>: Advanced modal components with specialized styling</li>
 <li><strong>Error Handling</strong>: Comprehensive error handling and loading states</li>
-<li><strong>Clean Architecture</strong>: Organized file structure with no unused files</li>
+<li><strong>Clean Architecture</strong>: Organized file structure with modular CSS system</li>
 </ul>
 <h2 id="%F0%9F%93%81-project-structure">📁 Project Structure</h2>
 <pre class="hljs"><code><div>admin_template/
@@ -385,7 +386,34 @@ code {
 ├── README.md                     # Project documentation
 ├── TODO_README.md               # Future development roadmap
 ├── css/
-│   └── styles.css               # Main stylesheet with futuristic design
+│   ├── main.css                 # CSS import orchestrator (entry point)
+│   ├── styles.css               # Legacy stylesheet (preserved for reference)
+│   ├── core/                    # Foundation styles
+│   │   ├── variables.css        # Design tokens &amp; CSS custom properties
+│   │   ├── reset.css            # Browser normalization &amp; base styles
+│   │   └── typography.css       # Text hierarchy &amp; font system
+│   ├── layout/                  # Structural components
+│   │   ├── grid.css             # Layout system &amp; responsive grid
+│   │   ├── sidebar.css          # Navigation sidebar
+│   │   ├── topbar.css           # Top navigation bar
+│   │   └── main-content.css     # Content area styling
+│   ├── components/              # UI components
+│   │   ├── panels.css           # Dashboard panels &amp; corners
+│   │   ├── buttons.css          # Button variants &amp; states
+│   │   ├── forms.css            # Form inputs &amp; validation
+│   │   ├── tables.css           # Data tables &amp; interactions
+│   │   ├── modal-base.css       # Core modal functionality
+│   │   ├── modal-application-details.css  # Application details modal
+│   │   ├── modal-delete-confirmation.css  # Delete confirmation modal
+│   │   ├── charts.css           # Chart containers &amp; visualizations
+│   │   └── badges.css           # Status indicators &amp; badges
+│   ├── pages/                   # Page-specific styles
+│   │   ├── dashboard.css        # Dashboard page customizations
+│   │   └── app-manager.css      # Application manager styles
+│   └── utilities/               # Helper classes &amp; responsive
+│       ├── animations.css       # Transitions &amp; keyframes
+│       ├── helpers.css          # Utility classes
+│       └── responsive.css       # Media queries &amp; breakpoints
 ├── js/
 │   └── dashboard-init.js        # Main application logic and initialization
 ├── data/
@@ -394,6 +422,9 @@ code {
     ├── common/                  # Shared components
     │   ├── sidebar.html         # Navigation sidebar with page switching
     │   └── topbar.html          # Top navigation bar
+    ├── modals/                  # Modal components
+    │   ├── application-details-modal.html    # Application details modal
+    │   └── delete-confirmation-modal.html    # Delete confirmation modal
     └── pages/                   # Page-specific components
         ├── dashboard/           # Dashboard page panels
         │   ├── bandwidth-panel.html
@@ -421,33 +452,83 @@ code {
 <li><strong>CRUD Operations</strong>: Create, read, update, delete applications</li>
 <li><strong>Advanced Features</strong>: Pagination, filtering, export functionality</li>
 <li><strong>Tracking Options</strong>: Usage, location, CPU/memory monitoring with configurable intervals</li>
+<li><strong>Modal System</strong>: Application details and delete confirmation modals</li>
 </ul>
-<h2 id="1-panel-and-layout-system">1. Panel and Layout System</h2>
-<h3 id="component-based-architecture">Component-Based Architecture</h3>
-<p>The dashboard uses a modular component system where each panel is a separate HTML file loaded dynamically:</p>
-<pre class="hljs"><code><div><span class="hljs-comment">&lt;!-- Multi-page layout structure --&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">main</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container-fluid dashboard-container"</span>&gt;</span>
-    <span class="hljs-comment">&lt;!-- DASHBOARD PAGE --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dashboard-page"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"page-content active"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-3 col-lg-6 col-md-6 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"visitors-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-3 col-lg-6 col-md-6 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"sales-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-3 col-lg-6 col-md-6 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"members-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-3 col-lg-6 col-md-6 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"bandwidth-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-
-    <span class="hljs-comment">&lt;!-- APP MANAGER PAGE --&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app-manager-page"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"page-content"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-6 col-lg-6 col-md-12 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app-form-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col-xl-6 col-lg-6 col-md-12 mb-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"app-table-panel-container"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span>
+<h2 id="%F0%9F%8F%97%EF%B8%8F-css-architecture">🏗️ CSS Architecture</h2>
+<h3 id="modular-css-system">Modular CSS System</h3>
+<p>The project uses a modern, modular CSS architecture organized into focused files:</p>
+<h4 id="core-foundation">Core Foundation</h4>
+<ul>
+<li><strong>variables.css</strong>: Design tokens and CSS custom properties</li>
+<li><strong>reset.css</strong>: Browser normalization and base styles</li>
+<li><strong>typography.css</strong>: Text hierarchy and font system</li>
+</ul>
+<h4 id="layout-system">Layout System</h4>
+<ul>
+<li><strong>grid.css</strong>: Layout system and responsive grid</li>
+<li><strong>sidebar.css</strong>: Navigation sidebar styling</li>
+<li><strong>topbar.css</strong>: Top navigation bar</li>
+<li><strong>main-content.css</strong>: Content area styling</li>
+</ul>
+<h4 id="ui-components">UI Components</h4>
+<ul>
+<li><strong>panels.css</strong>: Dashboard panels with futuristic corners</li>
+<li><strong>buttons.css</strong>: Interactive button components</li>
+<li><strong>forms.css</strong>: Form inputs and validation</li>
+<li><strong>tables.css</strong>: Data tables and interactions</li>
+<li><strong>modal-base.css</strong>: Core modal functionality</li>
+<li><strong>modal-application-details.css</strong>: Application details modal styling</li>
+<li><strong>modal-delete-confirmation.css</strong>: Delete confirmation modal styling</li>
+<li><strong>charts.css</strong>: Chart containers and visualizations</li>
+<li><strong>badges.css</strong>: Status indicators and badges</li>
+</ul>
+<h4 id="page-specific-styles">Page-Specific Styles</h4>
+<ul>
+<li><strong>dashboard.css</strong>: Dashboard page customizations</li>
+<li><strong>app-manager.css</strong>: Application manager page styles</li>
+</ul>
+<h4 id="utilities">Utilities</h4>
+<ul>
+<li><strong>animations.css</strong>: Transitions and keyframes</li>
+<li><strong>helpers.css</strong>: Utility classes and helpers</li>
+<li><strong>responsive.css</strong>: Media queries and breakpoints</li>
+</ul>
+<h3 id="design-token-system">Design Token System</h3>
+<p>All visual properties are centralized using CSS custom properties:</p>
+<pre class="hljs"><code><div><span class="hljs-selector-pseudo">:root</span> {
+  <span class="hljs-comment">/* Colors */</span>
+  <span class="hljs-attribute">--primary-bg</span>: <span class="hljs-number">#1a233a</span>;        <span class="hljs-comment">/* Deep navy background */</span>
+  <span class="hljs-attribute">--secondary-bg</span>: <span class="hljs-number">#1d2d44</span>;      <span class="hljs-comment">/* Panel backgrounds */</span>
+  <span class="hljs-attribute">--accent-color</span>: <span class="hljs-number">#64ffda</span>;      <span class="hljs-comment">/* Cyan accent */</span>
+  
+  <span class="hljs-comment">/* Text Colors */</span>
+  <span class="hljs-attribute">--text-primary</span>: <span class="hljs-number">#e0e0e0</span>;      <span class="hljs-comment">/* Main text */</span>
+  <span class="hljs-attribute">--text-secondary</span>: <span class="hljs-number">#a8b2d1</span>;    <span class="hljs-comment">/* Secondary text */</span>
+  <span class="hljs-attribute">--text-muted</span>: <span class="hljs-number">#8892b0</span>;        <span class="hljs-comment">/* Muted text */</span>
+  
+  <span class="hljs-comment">/* Spacing Scale */</span>
+  <span class="hljs-attribute">--spacing-xs</span>: <span class="hljs-number">0.25rem</span>;        <span class="hljs-comment">/* 4px */</span>
+  <span class="hljs-attribute">--spacing-sm</span>: <span class="hljs-number">0.5rem</span>;         <span class="hljs-comment">/* 8px */</span>
+  <span class="hljs-attribute">--spacing-md</span>: <span class="hljs-number">1rem</span>;           <span class="hljs-comment">/* 16px */</span>
+  <span class="hljs-attribute">--spacing-lg</span>: <span class="hljs-number">1.5rem</span>;         <span class="hljs-comment">/* 24px */</span>
+  <span class="hljs-attribute">--spacing-xl</span>: <span class="hljs-number">2rem</span>;           <span class="hljs-comment">/* 32px */</span>
+  
+  <span class="hljs-comment">/* Typography */</span>
+  <span class="hljs-attribute">--font-size-xs</span>: <span class="hljs-number">0.75rem</span>;      <span class="hljs-comment">/* 12px */</span>
+  <span class="hljs-attribute">--font-size-sm</span>: <span class="hljs-number">0.85rem</span>;      <span class="hljs-comment">/* 13.6px */</span>
+  <span class="hljs-attribute">--font-size-base</span>: <span class="hljs-number">1rem</span>;       <span class="hljs-comment">/* 16px */</span>
+  <span class="hljs-attribute">--font-size-lg</span>: <span class="hljs-number">1.125rem</span>;     <span class="hljs-comment">/* 18px */</span>
+  <span class="hljs-attribute">--font-size-xl</span>: <span class="hljs-number">1.25rem</span>;      <span class="hljs-comment">/* 20px */</span>
+  
+  <span class="hljs-comment">/* Transitions */</span>
+  <span class="hljs-attribute">--transition-fast</span>: <span class="hljs-number">0.15s</span> ease;
+  <span class="hljs-attribute">--transition-normal</span>: <span class="hljs-number">0.3s</span> ease;
+  <span class="hljs-attribute">--transition-slow</span>: <span class="hljs-number">0.5s</span> ease;
+}
 </div></code></pre>
+<h2 id="%F0%9F%8E%A8-futuristic-design-elements">🎨 Futuristic Design Elements</h2>
 <h3 id="panel-structure">Panel Structure</h3>
-<p>Each panel follows a consistent futuristic design structure:</p>
+<p>Each panel follows a consistent futuristic design:</p>
 <pre class="hljs"><code><div><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dashboard-panel"</span>&gt;</span>
     <span class="hljs-comment">&lt;!-- Corner decorations for futuristic look --&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"corner corner-tl"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
@@ -462,90 +543,15 @@ code {
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </div></code></pre>
-<h3 id="bootstrap-grid-system">Bootstrap Grid System</h3>
-<ul>
-<li><strong>Desktop (xl)</strong>: 4 columns for metrics, 2 columns for detailed panels</li>
-<li><strong>Tablet (lg)</strong>: 2 columns layout</li>
-<li><strong>Mobile (md/sm)</strong>: Single column stack</li>
-<li><strong>App Manager</strong>: 2 equal columns on desktop, stacked on mobile</li>
-</ul>
-<h3 id="responsive-breakpoints">Responsive Breakpoints</h3>
-<pre class="hljs"><code><div><span class="hljs-comment">/* Panel responsive behavior */</span>
-<span class="hljs-selector-class">.col-xl-3</span>  <span class="hljs-comment">/* 4 panels per row on extra large screens */</span>
-<span class="hljs-selector-class">.col-lg-6</span>  <span class="hljs-comment">/* 2 panels per row on large screens */</span>
-<span class="hljs-selector-class">.col-md-6</span>  <span class="hljs-comment">/* 2 panels per row on medium screens */</span>
-<span class="hljs-selector-class">.col-xl-6</span>  <span class="hljs-comment">/* 2 panels per row for app manager */</span>
-</div></code></pre>
-<h2 id="2-css-design-system">2. CSS Design System</h2>
-<h3 id="color-scheme">Color Scheme</h3>
-<p>The dashboard uses CSS custom properties for consistent futuristic theming:</p>
-<pre class="hljs"><code><div><span class="hljs-selector-pseudo">:root</span> {
-    <span class="hljs-attribute">--primary-bg</span>: <span class="hljs-number">#1a233a</span>;      <span class="hljs-comment">/* Main background */</span>
-    <span class="hljs-attribute">--secondary-bg</span>: <span class="hljs-number">#1d2d44</span>;    <span class="hljs-comment">/* Panel backgrounds */</span>
-    <span class="hljs-attribute">--panel-bg</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">29</span>, <span class="hljs-number">45</span>, <span class="hljs-number">68</span>, <span class="hljs-number">0.5</span>); <span class="hljs-comment">/* Translucent panels */</span>
-    <span class="hljs-attribute">--accent-color</span>: <span class="hljs-number">#64ffda</span>;    <span class="hljs-comment">/* Accent/highlight color */</span>
-    <span class="hljs-attribute">--text-primary</span>: <span class="hljs-number">#e0e0e0</span>;    <span class="hljs-comment">/* Primary text */</span>
-    <span class="hljs-attribute">--text-secondary</span>: <span class="hljs-number">#a8b2d1</span>;  <span class="hljs-comment">/* Secondary text */</span>
-    <span class="hljs-attribute">--border-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">100</span>, <span class="hljs-number">255</span>, <span class="hljs-number">218</span>, <span class="hljs-number">0.15</span>); <span class="hljs-comment">/* Borders */</span>
-}
-</div></code></pre>
-<h3 id="panel-styling">Panel Styling</h3>
-<h4 id="futuristic-panel-design">Futuristic Panel Design</h4>
+<h3 id="glass-morphism-effects">Glass-morphism Effects</h3>
 <pre class="hljs"><code><div><span class="hljs-selector-class">.dashboard-panel</span> {
     <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--panel-bg);
     <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">var</span>(--border-color);
     <span class="hljs-attribute">backdrop-filter</span>: <span class="hljs-built_in">blur</span>(<span class="hljs-number">5px</span>);  <span class="hljs-comment">/* Glass effect */</span>
-    <span class="hljs-attribute">position</span>: relative;
     <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">8px</span>;
-    <span class="hljs-attribute">padding</span>: <span class="hljs-number">1.5rem</span>;
 }
 </div></code></pre>
-<h4 id="corner-decorations">Corner Decorations</h4>
-<pre class="hljs"><code><div><span class="hljs-selector-class">.corner</span> {
-    <span class="hljs-attribute">position</span>: absolute;
-    <span class="hljs-attribute">width</span>: <span class="hljs-number">20px</span>;
-    <span class="hljs-attribute">height</span>: <span class="hljs-number">20px</span>;
-    <span class="hljs-attribute">border-style</span>: solid;
-    <span class="hljs-attribute">border-color</span>: <span class="hljs-built_in">var</span>(--accent-color);
-}
-<span class="hljs-comment">/* Individual corner positioning */</span>
-<span class="hljs-selector-class">.corner-tl</span> { <span class="hljs-attribute">top</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">left</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">border-width</span>: <span class="hljs-number">2px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">2px</span>; }
-<span class="hljs-selector-class">.corner-tr</span> { <span class="hljs-attribute">top</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">right</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">border-width</span>: <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>; }
-<span class="hljs-selector-class">.corner-bl</span> { <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">left</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">border-width</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">2px</span> <span class="hljs-number">2px</span>; }
-<span class="hljs-selector-class">.corner-br</span> { <span class="hljs-attribute">bottom</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">right</span>: -<span class="hljs-number">2px</span>; <span class="hljs-attribute">border-width</span>: <span class="hljs-number">0</span> <span class="hljs-number">2px</span> <span class="hljs-number">2px</span> <span class="hljs-number">0</span>; }
-</div></code></pre>
-<h3 id="typography-hierarchy">Typography Hierarchy</h3>
-<pre class="hljs"><code><div><span class="hljs-selector-class">.panel-title</span> {
-    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.8rem</span>;
-    <span class="hljs-attribute">letter-spacing</span>: <span class="hljs-number">1.5px</span>;
-    <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">600</span>;
-    <span class="hljs-attribute">text-transform</span>: uppercase;
-    <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--text-secondary);
-}
-
-<span class="hljs-selector-class">.panel-metric</span> {
-    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2.75rem</span>;
-    <span class="hljs-attribute">font-weight</span>: <span class="hljs-number">700</span>;
-    <span class="hljs-attribute">color</span>: <span class="hljs-number">#ffffff</span>;
-    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1</span>;
-}
-</div></code></pre>
-<h3 id="layout-components">Layout Components</h3>
-<h4 id="sidebar-navigation">Sidebar Navigation</h4>
-<ul>
-<li>Fixed width: <code>80px</code></li>
-<li>Full height with flex layout</li>
-<li>Icon-based navigation with active states</li>
-<li>Page switching functionality</li>
-</ul>
-<h4 id="main-content">Main Content</h4>
-<ul>
-<li>Flexible width with sidebar offset</li>
-<li>Scrollable dashboard container</li>
-<li>Top navigation bar: <code>70px</code> height</li>
-<li>Multi-page content switching</li>
-</ul>
-<h4 id="grid-background">Grid Background</h4>
+<h3 id="grid-background">Grid Background</h3>
 <pre class="hljs"><code><div><span class="hljs-selector-tag">body</span> {
     <span class="hljs-attribute">background-image</span>:
         <span class="hljs-built_in">linear-gradient</span>(rgba(<span class="hljs-number">100</span>, <span class="hljs-number">255</span>, <span class="hljs-number">218</span>, <span class="hljs-number">0.07</span>) <span class="hljs-number">1px</span>, transparent <span class="hljs-number">1px</span>),
@@ -553,7 +559,41 @@ code {
     <span class="hljs-attribute">background-size</span>: <span class="hljs-number">30px</span> <span class="hljs-number">30px</span>;
 }
 </div></code></pre>
-<h2 id="3-application-management-system">3. Application Management System</h2>
+<h2 id="%F0%9F%94%A7-modal-system">🔧 Modal System</h2>
+<h3 id="modal-components">Modal Components</h3>
+<p>The modal system has been refactored into specialized components:</p>
+<h4 id="application-details-modal">Application Details Modal</h4>
+<ul>
+<li>Grid layout for structured content display</li>
+<li>Field cards with hover effects</li>
+<li>Status badges for tracking information</li>
+<li>Responsive design for mobile/tablet</li>
+</ul>
+<h4 id="delete-confirmation-modal">Delete Confirmation Modal</h4>
+<ul>
+<li>Warning-themed styling with red accents</li>
+<li>Animated warning icon with pulse effect</li>
+<li>Destructive action button with special effects</li>
+<li>Item information display with proper theming</li>
+</ul>
+<h3 id="modal-usage">Modal Usage</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Show application details modal</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showApplicationDetails</span>(<span class="hljs-params">appData</span>) </span>{
+    <span class="hljs-comment">// Populate modal with data</span>
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'appName'</span>).textContent = appData.name;
+    <span class="hljs-comment">// Show modal</span>
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'applicationDetailsModal'</span>).classList.add(<span class="hljs-string">'active'</span>);
+}
+
+<span class="hljs-comment">// Show delete confirmation modal</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showDeleteConfirmation</span>(<span class="hljs-params">appData</span>) </span>{
+    <span class="hljs-comment">// Populate modal with app info</span>
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'deleteItemName'</span>).textContent = appData.name;
+    <span class="hljs-comment">// Show modal</span>
+    <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'deleteConfirmationModal'</span>).classList.add(<span class="hljs-string">'active'</span>);
+}
+</div></code></pre>
+<h2 id="%F0%9F%92%BB-application-management-system">💻 Application Management System</h2>
 <h3 id="dashboardmanager-class">DashboardManager Class</h3>
 <p>The enhanced <code>DashboardManager</code> class handles both dashboard and application management:</p>
 <pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DashboardManager</span> </span>{
@@ -577,7 +617,7 @@ code {
     }
 }
 </div></code></pre>
-<h3 id="application-crud-operations">Application CRUD Operations</h3>
+<h3 id="crud-operations">CRUD Operations</h3>
 <h4 id="create-application">Create Application</h4>
 <pre class="hljs"><code><div>addApplication(appData) {
     <span class="hljs-keyword">this</span>.applications.push({
@@ -589,7 +629,7 @@ code {
     <span class="hljs-keyword">this</span>.populateApplicationsTable();
 }
 </div></code></pre>
-<h4 id="read-applications-with-search--sort">Read Applications with Search &amp; Sort</h4>
+<h4 id="read-with-search--sort">Read with Search &amp; Sort</h4>
 <pre class="hljs"><code><div>populateApplicationsTable() {
     <span class="hljs-comment">// Filter applications based on search term</span>
     <span class="hljs-keyword">let</span> filteredApps = <span class="hljs-keyword">this</span>.applications.filter(<span class="hljs-function"><span class="hljs-params">app</span> =&gt;</span> {
@@ -670,17 +710,7 @@ updatePagination(totalItems) {
     <span class="hljs-comment">// Update showing X to Y of Z records</span>
 }
 </div></code></pre>
-<h3 id="application-form-features">Application Form Features</h3>
-<h4 id="comprehensive-form-fields">Comprehensive Form Fields</h4>
-<ul>
-<li>Application Name, Type, Version</li>
-<li>Publisher, Release Date, Description</li>
-<li>Download Link (with URL validation)</li>
-<li>Registration Date</li>
-<li>Tracking Options (Usage, Location, CPU/Memory)</li>
-<li>Configurable monitoring intervals</li>
-</ul>
-<h4 id="form-validation">Form Validation</h4>
+<h3 id="form-validation">Form Validation</h3>
 <pre class="hljs"><code><div>validateFormData(data) {
     <span class="hljs-keyword">const</span> requiredFields = [<span class="hljs-string">'app_name'</span>, <span class="hljs-string">'app_type'</span>, <span class="hljs-string">'current_version'</span>, <span class="hljs-string">'released_date'</span>, <span class="hljs-string">'publisher'</span>];
     
@@ -700,7 +730,7 @@ updatePagination(totalItems) {
     <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
 }
 </div></code></pre>
-<h2 id="4-navigation-system">4. Navigation System</h2>
+<h2 id="%F0%9F%94%84-navigation-system">🔄 Navigation System</h2>
 <h3 id="multi-page-architecture">Multi-Page Architecture</h3>
 <p>The dashboard supports multiple pages with smooth transitions:</p>
 <pre class="hljs"><code><div>navigateToPage(page) {
@@ -727,19 +757,7 @@ showPage(page) {
     }
 }
 </div></code></pre>
-<h3 id="page-specific-data-refresh">Page-Specific Data Refresh</h3>
-<pre class="hljs"><code><div>refreshPageData(page) {
-    <span class="hljs-keyword">switch</span> (page) {
-        <span class="hljs-keyword">case</span> <span class="hljs-string">'dashboard'</span>:
-            <span class="hljs-keyword">this</span>.refreshDashboardPage();
-            <span class="hljs-keyword">break</span>;
-        <span class="hljs-keyword">case</span> <span class="hljs-string">'app-manager'</span>:
-            <span class="hljs-keyword">this</span>.refreshAppManagerPage();
-            <span class="hljs-keyword">break</span>;
-    }
-}
-</div></code></pre>
-<h2 id="5-data-loading--initialization">5. Data Loading &amp; Initialization</h2>
+<h2 id="%F0%9F%93%8A-data-loading--initialization">📊 Data Loading &amp; Initialization</h2>
 <h3 id="initialization-flow">Initialization Flow</h3>
 <ol>
 <li><strong>Show Loading Indicator</strong> with progress updates</li>
@@ -756,7 +774,6 @@ showPage(page) {
     <span class="hljs-keyword">const</span> components = [
         { <span class="hljs-attr">selector</span>: <span class="hljs-string">'#sidebar-container'</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">'./components/common/sidebar.html'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'Sidebar'</span> },
         { <span class="hljs-attr">selector</span>: <span class="hljs-string">'#topbar-container'</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">'./components/common/topbar.html'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'Top Navigation'</span> },
-        { <span class="hljs-attr">selector</span>: <span class="hljs-string">'#visitors-panel-container'</span>, <span class="hljs-attr">url</span>: <span class="hljs-string">'./components/pages/dashboard/visitors-panel.html'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'Visitors Panel'</span> },
         <span class="hljs-comment">// ... more components</span>
     ];
 
@@ -783,24 +800,6 @@ showPage(page) {
     }
 }
 </div></code></pre>
-<h3 id="chart-initialization-with-error-handling">Chart Initialization with Error Handling</h3>
-<pre class="hljs"><code><div><span class="hljs-keyword">async</span> initializeCharts() {
-    <span class="hljs-keyword">const</span> chartInitializers = [
-        { <span class="hljs-attr">name</span>: <span class="hljs-string">'Site Visitors'</span>, <span class="hljs-attr">fn</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.initSiteVisitorsChart() },
-        { <span class="hljs-attr">name</span>: <span class="hljs-string">'Store Sales'</span>, <span class="hljs-attr">fn</span>: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">this</span>.initStoreSalesChart() },
-        <span class="hljs-comment">// ... more charts</span>
-    ];
-    
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> chart <span class="hljs-keyword">of</span> chartInitializers) {
-        <span class="hljs-keyword">try</span> {
-            chart.fn();
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`✅ <span class="hljs-subst">${chart.name}</span> chart initialized`</span>);
-        } <span class="hljs-keyword">catch</span> (error) {
-            <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`❌ Failed to initialize <span class="hljs-subst">${chart.name}</span> chart:`</span>, error);
-        }
-    }
-}
-</div></code></pre>
 <h2 id="%F0%9F%94%A7-common-issues--solutions">🔧 Common Issues &amp; Solutions</h2>
 <h3 id="application-table-issues">Application Table Issues</h3>
 <p><strong>Issue</strong>: Table not updating after adding/editing applications.</p>
@@ -819,19 +818,6 @@ showPage(page) {
     <span class="hljs-keyword">this</span>.currentPage = <span class="hljs-number">1</span>; <span class="hljs-comment">// Reset pagination</span>
     <span class="hljs-keyword">this</span>.populateApplicationsTable();
 });
-</div></code></pre>
-<h3 id="form-validation">Form Validation</h3>
-<p><strong>Issue</strong>: Form submitting with invalid data.</p>
-<p><strong>Solution</strong>: Implement comprehensive validation:</p>
-<pre class="hljs"><code><div>handleFormSubmission() {
-    <span class="hljs-keyword">const</span> formData = <span class="hljs-keyword">this</span>.getFormData();
-    
-    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.validateFormData(formData)) {
-        <span class="hljs-keyword">return</span>; <span class="hljs-comment">// Stop submission if validation fails</span>
-    }
-    
-    <span class="hljs-comment">// Proceed with save operation</span>
-}
 </div></code></pre>
 <h3 id="chart-canvas-conflicts">Chart Canvas Conflicts</h3>
 <p><strong>Issue</strong>: Charts not rendering when switching pages.</p>
@@ -905,20 +891,36 @@ showPage(page) {
 <li>Edge 88+</li>
 </ul>
 <p><em>Note: Backdrop-filter support may vary on older browsers</em></p>
-<h2 id="%F0%9F%A7%B9-project-cleanup">🧹 Project Cleanup</h2>
-<p>The project has been cleaned and optimized:</p>
+<h2 id="%F0%9F%A7%B9-project-cleanup--architecture">🧹 Project Cleanup &amp; Architecture</h2>
+<p>The project has been completely refactored and optimized:</p>
+<h3 id="%E2%9C%85-css-architecture-refactoring">✅ CSS Architecture Refactoring</h3>
+<ul>
+<li><strong>Modular CSS System</strong>: Split from single <code>styles.css</code> into 15+ focused files</li>
+<li><strong>Design Token System</strong>: Centralized design values in CSS custom properties</li>
+<li><strong>Import Order Management</strong>: Logical cascade with <code>main.css</code> as entry point</li>
+<li><strong>Component-Based Organization</strong>: Clear separation of concerns</li>
+<li><strong>Enhanced Maintainability</strong>: Each file has single responsibility</li>
+</ul>
+<h3 id="%E2%9C%85-modal-system-enhancement">✅ Modal System Enhancement</h3>
+<ul>
+<li><strong>Specialized Modal Components</strong>: Application details and delete confirmation modals</li>
+<li><strong>Futuristic Theming</strong>: Consistent with dashboard design language</li>
+<li><strong>Responsive Design</strong>: Mobile and tablet optimizations</li>
+<li><strong>Accessibility Features</strong>: Proper ARIA attributes and keyboard navigation</li>
+</ul>
 <h3 id="%E2%9C%85-removed-unused-files--folders">✅ Removed Unused Files &amp; Folders</h3>
 <ul>
-<li>Empty directories: <code>js/charts/</code>, <code>js/utils/</code>, <code>components/modals/</code></li>
-<li>Duplicate files: <code>README.html</code>, <code>TODO_README.html</code></li>
-<li>Old component structure reorganized</li>
+<li>Consolidated documentation into single README.md</li>
+<li>Removed duplicate and outdated files</li>
+<li>Clean project structure with no unused directories</li>
+<li>Optimized for maintainability and development</li>
 </ul>
 <h3 id="%E2%9C%85-current-clean-structure">✅ Current Clean Structure</h3>
 <ul>
 <li>Organized component hierarchy</li>
-<li>No unused files or empty directories</li>
+<li>Modular CSS architecture</li>
 <li>Clear separation between common and page-specific components</li>
-<li>Optimized for maintainability and development</li>
+<li>Comprehensive documentation</li>
 </ul>
 <h2 id="%F0%9F%93%88-performance-features">📈 Performance Features</h2>
 <ul>
@@ -927,17 +929,57 @@ showPage(page) {
 <li><strong>Memory Management</strong>: Proper cleanup of intervals and event listeners</li>
 <li><strong>Optimized Rendering</strong>: Efficient DOM updates</li>
 <li><strong>Caching</strong>: LocalStorage for application data persistence</li>
+<li><strong>Modular CSS</strong>: Better browser caching with separate files</li>
+</ul>
+<h2 id="%E2%99%BF-accessibility-features">♿ Accessibility Features</h2>
+<ul>
+<li><strong>Focus Management</strong>: Visible focus indicators and logical tab order</li>
+<li><strong>Color Contrast</strong>: High contrast mode support and sufficient ratios</li>
+<li><strong>Motion Preferences</strong>: Respects <code>prefers-reduced-motion</code></li>
+<li><strong>Screen Reader Support</strong>: Proper ARIA attributes and semantic markup</li>
+<li><strong>Keyboard Navigation</strong>: Full keyboard accessibility</li>
 </ul>
 <h2 id="%F0%9F%94%AE-future-enhancements">🔮 Future Enhancements</h2>
 <p>See <code>TODO_README.md</code> for detailed roadmap including:</p>
 <ul>
 <li>REST API integration</li>
-<li>Real-time data updates</li>
-<li>WebSocket support</li>
-<li>Advanced analytics</li>
-<li>Performance monitoring</li>
-<li>User authentication</li>
+<li>Real-time data updates with WebSocket support</li>
+<li>Advanced analytics and reporting</li>
+<li>Performance monitoring and optimization</li>
+<li>User authentication and authorization</li>
+<li>Progressive Web App (PWA) features</li>
+<li>Advanced chart types and data visualization</li>
+<li>Export functionality for reports</li>
+<li>Theme customization system</li>
+<li>Multi-language support</li>
 </ul>
+<h2 id="%F0%9F%93%9A-development-guidelines">📚 Development Guidelines</h2>
+<h3 id="adding-new-components">Adding New Components</h3>
+<ol>
+<li><strong>Create component file</strong> in appropriate directory</li>
+<li><strong>Follow naming conventions</strong> using BEM methodology</li>
+<li><strong>Use design tokens</strong> from variables.css</li>
+<li><strong>Include responsive behavior</strong> and accessibility features</li>
+<li><strong>Add comprehensive documentation</strong></li>
+</ol>
+<h3 id="css-best-practices">CSS Best Practices</h3>
+<ol>
+<li><strong>Use design tokens</strong> instead of hardcoded values</li>
+<li><strong>Follow the established file structure</strong></li>
+<li><strong>Maintain consistent naming patterns</strong></li>
+<li><strong>Include meaningful comments</strong></li>
+<li><strong>Test across different browsers</strong></li>
+</ol>
+<h3 id="javascript-patterns">JavaScript Patterns</h3>
+<ol>
+<li><strong>Use ES6+ features</strong> consistently</li>
+<li><strong>Implement proper error handling</strong></li>
+<li><strong>Follow the established class structure</strong></li>
+<li><strong>Add comprehensive logging</strong></li>
+<li><strong>Ensure memory cleanup</strong></li>
+</ol>
+<hr>
+<p>This dashboard provides a solid foundation for modern web applications with a focus on maintainability, accessibility, and performance. The modular architecture makes it easy to extend and customize while maintaining consistency across the entire application.</p>
 
 </body>
 </html>

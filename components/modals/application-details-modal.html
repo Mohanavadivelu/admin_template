@@ -1,0 +1,81 @@
+<!-- Application Details Modal -->
+<div class="modal-overlay" id="applicationDetailsModal" aria-hidden="true">
+  <div class="modal modal-application-details" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modalTitle">Application Details</h2>
+      <button class="modal-close" aria-label="Close modal" onclick="closeModal('applicationDetailsModal')">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="modal-body" id="modalDescription">
+      <div class="modal-grid">
+        <div class="modal-field-card">
+          <div class="modal-field-label">Application Name</div>
+          <div class="modal-field-value" id="appName">Chrome Browser</div>
+        </div>
+        
+        <div class="modal-field-card">
+          <div class="modal-field-label">Type</div>
+          <div class="modal-field-value" id="appType">WINDOWS</div>
+        </div>
+        
+        <div class="modal-field-card">
+          <div class="modal-field-label">Version</div>
+          <div class="modal-field-value" id="appVersion">131.0.6778.108</div>
+        </div>
+        
+        <div class="modal-field-card">
+          <div class="modal-field-label">Publisher</div>
+          <div class="modal-field-value" id="appPublisher">Google</div>
+        </div>
+        
+        <div class="modal-field-card">
+          <div class="modal-field-label">Release Date</div>
+          <div class="modal-field-value" id="appReleaseDate">12/15/2024</div>
+        </div>
+        
+        <div class="modal-field-card">
+          <div class="modal-field-label">Registration Date</div>
+          <div class="modal-field-value" id="appRegistrationDate">12/20/2024</div>
+        </div>
+        
+        <div class="modal-field-card modal-field-full">
+          <div class="modal-field-label">Description</div>
+          <div class="modal-field-value" id="appDescription">A fast, secure, and free web browser built for the modern web.</div>
+        </div>
+        
+        <div class="modal-field-card modal-field-full">
+          <div class="modal-field-label">Download Link</div>
+          <div class="modal-field-value link" id="appDownloadLink">
+            <a href="https://www.google.com/chrome/" target="_blank" rel="noopener noreferrer">
+              https://www.google.com/chrome/
+            </a>
+          </div>
+        </div>
+        
+        <div class="modal-field-card">
+          <div class="modal-field-label">Tracking Status</div>
+          <div class="modal-field-value">
+            <span class="modal-status-badge enabled" id="appTrackingStatus">Enabled</span>
+          </div>
+        </div>
+        
+        <div class="modal-field-card modal-field-full">
+          <div class="modal-field-label">Tracking Details</div>
+          <div class="modal-tracking-details" id="appTrackingDetails">
+            <div class="modal-tracking-item">User activity monitoring enabled</div>
+            <div class="modal-tracking-item">Performance metrics collection active</div>
+            <div class="modal-tracking-item">Security event logging enabled</div>
+            <div class="modal-tracking-item">Last updated: 2 hours ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('applicationDetailsModal')">Close</button>
+      <button class="btn btn-primary" onclick="editApplication()">Edit Application</button>
+    </div>
+  </div>
+</div>

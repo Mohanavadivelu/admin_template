@@ -1,0 +1,40 @@
+/**
+ * Dashboard Page Styles
+ * 
+ * Page-specific styling for the main dashboard view.
+ * Includes layout adjustments and component customizations.
+ * 
+ * Dependencies:
+ * - variables.css (design tokens)
+ * - layout/main-content.css (base layout)
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === DASHBOARD PAGE LAYOUT === */
+#dashboard-page {
+  padding: var(--spacing-lg);
+}
+
+#dashboard-page .row {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* === DASHBOARD SPECIFIC OVERRIDES === */
+.dashboard-container {
+  max-width: 100%;
+  padding: 0;
+}
+
+/* === RESPONSIVE ADJUSTMENTS === */
+@media (max-width: 768px) {
+  #dashboard-page {
+    padding: var(--spacing-md);
+  }
+  
+  #dashboard-page .row {
+    margin-bottom: var(--spacing-md);
+  }
+}

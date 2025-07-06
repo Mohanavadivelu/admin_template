@@ -48,11 +48,11 @@
 
 .corner {
   position: absolute;
-  width: var(--corner-size);
-  height: var(--corner-size);
+  width: 0;
+  height: 0;
   border-style: solid;
   border-color: var(--accent-color);
-  border-width: var(--corner-border-width);
+  border-width: 0;
   transition: all var(--transition-normal);
   z-index: 2;
 }
@@ -470,8 +470,8 @@ hr.panel-divider {
 
 @media (max-width: 480px) {
   .corner {
-    width: 15px;
-    height: 15px;
+    width: 0;
+    height: 0;
   }
   
   .panel-metric {

@@ -1,0 +1,273 @@
+/**
+ * Application Details Modal
+ * 
+ * Specialized styling for the application details modal that displays
+ * comprehensive information about registered applications including
+ * metadata, tracking status, and action buttons.
+ * 
+ * Dependencies:
+ * - modal-base.css (base modal functionality)
+ * - variables.css (design tokens)
+ * - buttons.css (button styles)
+ * 
+ * Usage:
+ * - .modal-application-details for the main modal
+ * - .modal-field-* classes for structured content
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === APPLICATION DETAILS MODAL === */
+/* Main modal container for application details */
+
+.modal-application-details {
+  max-width: 900px;
+}
+
+.modal-application-details .modal-title {
+  color: var(--accent-color);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: var(--font-size-lg);
+}
+
+/* === MODAL CONTENT STRUCTURE === */
+/* Field organization and layout */
+
+.modal-field {
+  margin-bottom: var(--spacing-lg);
+}
+
+.modal-field-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--accent-color);
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-field-value {
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm) 0;
+}
+
+/* === MODAL GRID LAYOUT === */
+/* Grid layout for structured modal content */
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.modal-field-card {
+  background: rgba(100, 255, 218, 0.05);
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-fast);
+}
+
+.modal-field-card:hover {
+  background: rgba(100, 255, 218, 0.08);
+  border-color: rgba(100, 255, 218, 0.3);
+  transform: translateY(-2px);
+}
+
+.modal-field-card .modal-field-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--accent-color);
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.modal-field-card .modal-field-value {
+  font-size: var(--font-size-lg);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-medium);
+  padding: 0;
+  line-height: 1.4;
+}
+
+.modal-field-full {
+  grid-column: 1 / -1;
+}
+
+/* === LINK STYLING === */
+/* Download links and external references */
+
+.modal-field-value.link {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  word-break: break-all;
+}
+
+.modal-field-value.link:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+/* === STATUS BADGES === */
+/* Application status indicators */
+
+.modal-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: var(--spacing-xs);
+}
+
+.modal-status-badge.enabled {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.modal-status-badge.disabled {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* === TRACKING DETAILS SECTION === */
+/* Expandable tracking information */
+
+.modal-tracking-details {
+  background: rgba(100, 255, 218, 0.05);
+  border: 1px solid rgba(100, 255, 218, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.modal-tracking-item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-xs) 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.modal-tracking-item::before {
+  content: '•';
+  color: var(--accent-color);
+  margin-right: var(--spacing-sm);
+  font-weight: bold;
+}
+
+/* === ACTION BUTTONS === */
+/* Modal footer button styling */
+
+.modal-application-details .modal-footer {
+  justify-content: space-between;
+}
+
+.modal-application-details .modal-footer .btn-secondary {
+  background-color: rgba(100, 255, 218, 0.1);
+  border: 1px solid rgba(100, 255, 218, 0.3);
+  color: var(--accent-color);
+}
+
+.modal-application-details .modal-footer .btn-secondary:hover {
+  background-color: rgba(100, 255, 218, 0.2);
+  border-color: var(--accent-color);
+}
+
+.modal-application-details .modal-footer .btn-primary {
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+  border: 1px solid var(--accent-color);
+  color: var(--primary-bg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.modal-application-details .modal-footer .btn-primary:hover {
+  background: linear-gradient(135deg, var(--accent-hover), var(--accent-color));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+}
+
+/* === RESPONSIVE DESIGN === */
+/* Mobile and tablet adaptations */
+
+@media (max-width: 768px) {
+  .modal-application-details {
+    max-width: 100%;
+  }
+  
+  .modal-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .modal-field-card .modal-field-value {
+    font-size: var(--font-size-base);
+  }
+  
+  .modal-application-details .modal-footer {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .modal-application-details .modal-footer .btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-field-card {
+    padding: var(--spacing-md);
+  }
+  
+  .modal-field-card .modal-field-label {
+    font-size: var(--font-size-xs);
+  }
+  
+  .modal-field-card .modal-field-value {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+/* Enhanced focus and interaction states */
+
+.modal-field-card:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(100, 255, 218, 0.25);
+}
+
+.modal-tracking-details:focus-within {
+  border-color: var(--accent-color);
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .modal-field-card {
+    border-width: 2px;
+    background-color: var(--secondary-bg);
+  }
+  
+  .modal-status-badge {
+    border-width: 2px;
+  }
+  
+  .modal-tracking-details {
+    border-width: 2px;
+    background-color: var(--secondary-bg);
+  }
+}

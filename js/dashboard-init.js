@@ -1301,24 +1301,27 @@ class DashboardManager {
         const app = this.applications.find(a => a.id === appId);
         if (!app) return;
 
-        const modal = document.getElementById('deleteConfirmModal');
-        const appNameEl = document.getElementById('delete-app-name');
-        const appDetailsEl = document.getElementById('delete-app-details');
-        const confirmBtn = document.getElementById('confirm-delete-btn');
+        // Get the modal elements
+        const modal = document.getElementById('deleteConfirmationModal');
+        const appNameEl = document.getElementById('deleteItemName');
+        const appVersionEl = document.getElementById('deleteItemVersion');
+        const appPublisherEl = document.getElementById('deleteItemPublisher');
 
-        if (!modal || !appNameEl || !appDetailsEl || !confirmBtn) return;
+        if (!modal || !appNameEl || !appVersionEl || !appPublisherEl) {
+            console.error('Delete confirmation modal elements not found');
+            return;
+        }
 
+        // Populate modal with application data
         appNameEl.textContent = app.app_name;
-        appDetailsEl.textContent = `${app.app_type.toUpperCase()} • Version ${app.current_version} • ${app.publisher}`;
+        appVersionEl.textContent = app.current_version;
+        appPublisherEl.textContent = app.publisher;
 
-        confirmBtn.onclick = () => {
-            this.deleteApplication(appId);
-            const bootstrapModal = bootstrap.Modal.getInstance(modal);
-            if (bootstrapModal) bootstrapModal.hide();
-        };
+        // Store the app ID for deletion
+        modal.dataset.deleteAppId = appId;
 
-        const bootstrapModal = new bootstrap.Modal(modal);
-        bootstrapModal.show();
+        // Show the modal
+        this.showModal('deleteConfirmationModal');
     }
 
     toggleTrackingOptions(enabled) {
@@ -1575,6 +1578,98 @@ class DashboardManager {
             console.error('❌ Failed to refresh charts:', error);
         }
     }
+
+    // Modal Management Methods
+    showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) {
+            console.error(`Modal with ID ${modalId} not found`);
+            return;
+        }
+
+        // Remove aria-hidden and add active class
+        modal.setAttribute('aria-hidden', 'false');
+        modal.classList.add('active');
+        
+        // Add animation class to modal content
+        const modalContent = modal.querySelector('.modal');
+        if (modalContent) {
+            modalContent.classList.add('animate-in');
+        }
+
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+
+        // Add escape key listener
+        const handleEscape = (e) => {
+            if (e.key === 'Escape') {
+                this.closeModal(modalId);
+                document.removeEventListener('keydown', handleEscape);
+            }
+        };
+        document.addEventListener('keydown', handleEscape);
+
+        // Add click outside to close
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.closeModal(modalId);
+            }
+        });
+
+        console.log(`✅ Modal ${modalId} shown`);
+    }
+
+    closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) {
+            console.error(`Modal with ID ${modalId} not found`);
+            return;
+        }
+
+        // Add animation class for closing
+        const modalContent = modal.querySelector('.modal');
+        if (modalContent) {
+            modalContent.classList.add('animate-out');
+            modalContent.classList.remove('animate-in');
+        }
+
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+            modal.setAttribute('aria-hidden', 'true');
+            modal.classList.remove('active');
+            
+            if (modalContent) {
+                modalContent.classList.remove('animate-out');
+            }
+        }, 200);
+
+        // Restore body scroll
+        document.body.style.overflow = '';
+
+        console.log(`✅ Modal ${modalId} closed`);
+    }
+
+    confirmDelete() {
+        const modal = document.getElementById('deleteConfirmationModal');
+        if (!modal) {
+            console.error('Delete confirmation modal not found');
+            return;
+        }
+
+        const appId = modal.dataset.deleteAppId;
+        if (!appId) {
+            console.error('No app ID found for deletion');
+            return;
+        }
+
+        // Close the modal first
+        this.closeModal('deleteConfirmationModal');
+
+        // Delete the application
+        this.deleteApplication(parseInt(appId));
+
+        console.log(`✅ Application ${appId} deletion confirmed`);
+    }
 }
 
 // Initialize dashboard when DOM is loaded
@@ -1583,3 +1678,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make it globally accessible for onclick handlers
     window.dashboardManager = dashboardManager;
 });
+
+// Global functions for modal interactions (referenced in HTML)
+function closeModal(modalId) {
+    if (window.dashboardManager) {
+        window.dashboardManager.closeModal(modalId);
+    }
+}
+
+function confirmDelete() {
+    if (window.dashboardManager) {
+        window.dashboardManager.confirmDelete();
+    }
+}

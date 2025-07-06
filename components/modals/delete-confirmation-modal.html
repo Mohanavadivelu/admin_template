@@ -1,0 +1,34 @@
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" id="deleteConfirmationModal" aria-hidden="true">
+  <div class="modal modal-delete-confirmation" role="dialog" aria-labelledby="deleteModalTitle" aria-describedby="deleteModalDescription">
+    <div class="modal-header">
+      <h2 class="modal-title" id="deleteModalTitle">Confirm Deletion</h2>
+      <button class="modal-close" aria-label="Close modal" onclick="closeModal('deleteConfirmationModal')">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="modal-body" id="deleteModalDescription">
+      <div class="modal-warning-content">
+        <div class="modal-warning-icon">⚠️</div>
+        <div class="modal-warning-message">Are you sure you want to delete this application?</div>
+        <div class="modal-warning-description">This action cannot be undone.</div>
+        
+        <div class="modal-delete-item-info">
+          <div class="modal-delete-item-name" id="deleteItemName">Microsoft Teams</div>
+          <div class="modal-delete-item-details" id="deleteItemDetails">
+            <span>WINDOWS</span> • Version <span id="deleteItemVersion">24326.3602.3132.9934</span> • <span id="deleteItemPublisher">Microsoft</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="btn btn-cancel" onclick="closeModal('deleteConfirmationModal')">Cancel</button>
+      <button class="btn btn-delete" onclick="confirmDelete()">
+        <i class="fas fa-trash-alt"></i>
+        Delete Application
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+/**
+ * Chart Components
+ * 
+ * Styling for Chart.js components and custom chart containers.
+ * Provides consistent theming for all dashboard visualizations.
+ * 
+ * Dependencies:
+ * - variables.css (design tokens)
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === CHART CONTAINERS === */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.chart-canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* === CHART LEGENDS === */
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.chart-legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+/* === RESPONSIVE CHARTS === */
+@media (max-width: 768px) {
+  .chart-container {
+    height: 200px;
+  }
+}

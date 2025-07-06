@@ -1,0 +1,316 @@
+/**
+ * Base Modal Components
+ * 
+ * Core modal functionality including overlay, container structure,
+ * animations, and responsive behavior. This file provides the
+ * foundation for all modal types.
+ * 
+ * Dependencies:
+ * - variables.css (design tokens)
+ * 
+ * Usage:
+ * - .modal-overlay for backdrop
+ * - .modal for main container
+ * - .modal-header, .modal-body, .modal-footer for sections
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === MODAL OVERLAY === */
+/* Full-screen backdrop with blur effect */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.9) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-normal);
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* === MODAL CONTAINER === */
+/* Main modal structure */
+
+.modal {
+  background: #1d2d44;
+  border: 2px solid #64ffda;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
+  position: relative;
+  z-index: 1051;
+  
+  height: auto;
+  min-height: auto;
+  
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+  flex-direction: column;
+  
+  transform: scale(0.8) translateY(40px);
+  transition: all var(--transition-normal);
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1) translateY(0);
+}
+
+/* === MODAL HEADER === */
+/* Title and close button area */
+
+.modal-header {
+  padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+  background: linear-gradient(135deg, transparent, rgba(100, 255, 218, 0.05));
+}
+
+.modal-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  padding-right: var(--spacing-xl);
+  text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.modal-close:hover {
+  color: var(--accent-color);
+  background-color: rgba(100, 255, 218, 0.1);
+  transform: scale(1.1);
+}
+
+.modal-close:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* === MODAL BODY === */
+/* Main content area */
+
+.modal-body {
+  padding: var(--spacing-lg);
+  flex: 1;
+  overflow-y: auto;
+  
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) transparent;
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: var(--radius-full);
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+
+/* === MODAL FOOTER === */
+/* Action buttons area */
+
+.modal-footer {
+  padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(100, 255, 218, 0.02), transparent);
+  flex-shrink: 0;
+}
+
+.modal-footer .btn {
+  min-width: 120px;
+}
+
+/* === MODAL ANIMATIONS === */
+/* Enhanced animations for modal interactions */
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes modalSlideOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px);
+  }
+}
+
+.modal.animate-in {
+  animation: modalSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal.animate-out {
+  animation: modalSlideOut 0.2s ease-in;
+}
+
+/* === MODAL VARIANTS === */
+/* Different modal sizes */
+
+.modal.modal-sm {
+  max-width: 400px;
+}
+
+.modal.modal-lg {
+  max-width: 800px;
+}
+
+.modal.modal-xl {
+  max-width: 1200px;
+}
+
+.modal.modal-fullscreen {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: 95vw;
+  height: 95vh;
+}
+
+/* === RESPONSIVE DESIGN === */
+/* Mobile and tablet adaptations */
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: var(--spacing-md);
+  }
+  
+  .modal {
+    max-width: 100%;
+    max-height: 95vh;
+    margin: 0;
+  }
+  
+  .modal-header {
+    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+  }
+  
+  .modal-title {
+    font-size: var(--font-size-lg);
+    padding-right: var(--spacing-lg);
+  }
+  
+  .modal-close {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+  }
+  
+  .modal-body {
+    padding: var(--spacing-lg);
+    max-height: 70vh;
+  }
+  
+  .modal-footer {
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-lg);
+    flex-direction: column;
+  }
+  
+  .modal-footer .btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+/* Enhanced keyboard navigation and screen reader support */
+
+.modal[role="dialog"] {
+  outline: none;
+}
+
+.modal-overlay[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.modal-overlay.active .modal {
+  outline: none;
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .modal {
+    border-width: 2px;
+    border-color: var(--accent-color);
+  }
+  
+  .modal-header {
+    border-bottom-width: 2px;
+  }
+  
+  .modal-footer {
+    border-top-width: 2px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay,
+  .modal,
+  .modal-close {
+    transition: none;
+  }
+  
+  .modal.animate-in,
+  .modal.animate-out {
+    animation: none;
+  }
+}

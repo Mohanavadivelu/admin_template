@@ -1,0 +1,182 @@
+/**
+ * Responsive Utilities
+ * 
+ * Responsive design utilities and breakpoint-specific
+ * overrides for optimal display across all devices.
+ * 
+ * Dependencies:
+ * - variables.css (breakpoint tokens)
+ * 
+ * @author Dashboard Team
+ * @version 1.0.0
+ * @since 2025-01-06
+ */
+
+/* === RESPONSIVE DISPLAY UTILITIES === */
+@media (max-width: 575px) {
+  .d-xs-none { display: none !important; }
+  .d-xs-block { display: block !important; }
+  .d-xs-flex { display: flex !important; }
+}
+
+@media (max-width: 767px) {
+  .d-sm-none { display: none !important; }
+  .d-sm-block { display: block !important; }
+  .d-sm-flex { display: flex !important; }
+}
+
+@media (max-width: 991px) {
+  .d-md-none { display: none !important; }
+  .d-md-block { display: block !important; }
+  .d-md-flex { display: flex !important; }
+}
+
+@media (max-width: 1199px) {
+  .d-lg-none { display: none !important; }
+  .d-lg-block { display: block !important; }
+  .d-lg-flex { display: flex !important; }
+}
+
+/* === RESPONSIVE TEXT ALIGNMENT === */
+@media (max-width: 767px) {
+  .text-sm-left { text-align: left !important; }
+  .text-sm-center { text-align: center !important; }
+  .text-sm-right { text-align: right !important; }
+}
+
+@media (max-width: 991px) {
+  .text-md-left { text-align: left !important; }
+  .text-md-center { text-align: center !important; }
+  .text-md-right { text-align: right !important; }
+}
+
+/* === RESPONSIVE SPACING === */
+@media (max-width: 767px) {
+  .m-sm-0 { margin: 0 !important; }
+  .m-sm-1 { margin: var(--spacing-xs) !important; }
+  .m-sm-2 { margin: var(--spacing-sm) !important; }
+  .m-sm-3 { margin: var(--spacing-md) !important; }
+  
+  .p-sm-0 { padding: 0 !important; }
+  .p-sm-1 { padding: var(--spacing-xs) !important; }
+  .p-sm-2 { padding: var(--spacing-sm) !important; }
+  .p-sm-3 { padding: var(--spacing-md) !important; }
+}
+
+/* === RESPONSIVE FLEX UTILITIES === */
+@media (max-width: 767px) {
+  .flex-sm-column { flex-direction: column !important; }
+  .flex-sm-row { flex-direction: row !important; }
+  .justify-content-sm-center { justify-content: center !important; }
+  .align-items-sm-center { align-items: center !important; }
+}
+
+/* === MOBILE-FIRST RESPONSIVE OVERRIDES === */
+@media (max-width: 480px) {
+  /* Extra small devices - phones */
+  .container-fluid {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+  
+  .row {
+    margin-left: calc(-1 * var(--spacing-xs));
+    margin-right: calc(-1 * var(--spacing-xs));
+  }
+  
+  .col,
+  [class*="col-"] {
+    padding-left: var(--spacing-xs);
+    padding-right: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 767px) {
+  /* Small devices - tablets */
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.active {
+    transform: translateX(0);
+  }
+  
+  .main-content-wrapper {
+    margin-left: 0;
+  }
+  
+  .topbar {
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+}
+
+@media (max-width: 991px) {
+  /* Medium devices - small laptops */
+  .panel {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .panel-body {
+    padding: var(--spacing-md);
+  }
+}
+
+/* === PRINT STYLES === */
+@media print {
+  .sidebar,
+  .topbar,
+  .btn,
+  .modal-overlay {
+    display: none !important;
+  }
+  
+  .main-content-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  
+  .panel {
+    break-inside: avoid;
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+
+/* === HIGH CONTRAST MODE === */
+@media (prefers-contrast: high) {
+  .modal-overlay {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  .modal {
+    border-width: 3px;
+    box-shadow: 0 0 0 2px currentColor;
+  }
+  
+  .btn {
+    border-width: 2px;
+  }
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar {
+    transition: none;
+  }
+  
+  .modal-overlay,
+  .modal {
+    transition: none;
+    animation: none;
+  }
+  
+  .btn {
+    transition: none;
+  }
+}
