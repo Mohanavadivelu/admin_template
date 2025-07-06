@@ -1,0 +1,26 @@
+<!-- Panel 1: Total Usage Statistics -->
+<div class="dashboard-panel">
+    <span class="corner corner-tl"></span>
+    <span class="corner corner-tr"></span>
+    <span class="corner corner-bl"></span>
+    <span class="corner corner-br"></span>
+    
+    <div class="panel-title">TOTAL USAGE STATISTICS</div>
+    
+    <div class="row align-items-center">
+        <div class="col-7">
+            <div class="panel-metric" id="usage-stats-metric">1,247.5 hrs</div>
+            <ul class="sub-metrics" id="usage-sub-metrics">
+                <li><i class="fas fa-clock metric-increase"></i>Last 30 days total usage</li>
+                <li><i class="fas fa-users"></i>2,847 total active users</li>
+                <li><i class="fas fa-user-slash"></i>342 inactive users (30 days)</li>
+            </ul>
+        </div>
+        
+        <div class="col-5">
+            <div class="chart-container">
+                <canvas id="usageStatsChart" width="120" height="80"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

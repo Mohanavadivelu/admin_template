@@ -1,11 +1,13 @@
 {
   "metrics": {
-    "siteVisitors": {
-      "value": "4.2m",
+    "usageStatistics": {
+      "totalHours": "1.2k hrs",
+      "totalUsers": 2847,
+      "inactiveUsers": 342,
       "subMetrics": [
-        { "icon": "fas fa-arrow-up", "text": "33.3% more than last week", "class": "metric-increase" },
-        { "icon": "fas fa-user-friends", "text": "45.5% new visitors" },
-        { "icon": "fas fa-times-circle", "text": "3.25% bounce rate" }
+        { "icon": "fas fa-users", "text": "2,847 total users" },
+        { "icon": "fas fa-user-slash", "text": "342 inactive users", "class": "metric-warning" },
+        { "icon": "fas fa-clock", "text": "41.6 hrs average per user" }
       ]
     },
     "storeSales": {
@@ -34,6 +36,7 @@
     }
   },
   "chartData": {
+    "usageStats": [145, 89, 167, 234, 198, 289],
     "siteVisitors": [60, 75, 50, 65, 40, 55, 35, 70, 85, 95],
     "storeSales": [25, 20, 28, 22, 25, 18, 22, 20, 25, 15, 20],
     "newMembers": [45.5, 15.25, 39.25],

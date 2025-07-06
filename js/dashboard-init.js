@@ -220,7 +220,7 @@ class DashboardManager {
         const components = [
             { selector: '#sidebar-container', url: './components/common/sidebar.html', name: 'Sidebar' },
             { selector: '#topbar-container', url: './components/common/topbar.html', name: 'Top Navigation' },
-            { selector: '#visitors-panel-container', url: './components/pages/dashboard/visitors-panel.html', name: 'Visitors Panel' },
+            { selector: '#visitors-panel-container', url: './components/pages/dashboard/usage-statistics-panel.html', name: 'Usage Statistics Panel' },
             { selector: '#sales-panel-container', url: './components/pages/dashboard/sales-panel.html', name: 'Sales Panel' },
             { selector: '#members-panel-container', url: './components/pages/dashboard/members-panel.html', name: 'Members Panel' },
             { selector: '#bandwidth-panel-container', url: './components/pages/dashboard/bandwidth-panel.html', name: 'Bandwidth Panel' },
@@ -312,7 +312,7 @@ class DashboardManager {
 
             // Initialize all charts with error handling
             const chartInitializers = [
-                { name: 'Site Visitors', fn: () => this.initSiteVisitorsChart() },
+                { name: 'Usage Statistics', fn: () => this.initUsageStatsChart() },
                 { name: 'Store Sales', fn: () => this.initStoreSalesChart() },
                 { name: 'New Members', fn: () => this.initNewMembersChart() },
                 { name: 'Bandwidth', fn: () => this.initBandwidthChart() },
@@ -342,20 +342,20 @@ class DashboardManager {
         }
     }
 
-    initSiteVisitorsChart() {
-        const ctx = document.getElementById('siteVisitorsChart');
+    initUsageStatsChart() {
+        const ctx = document.getElementById('usageStatsChart');
         if (!ctx) return;
 
-        this.charts.siteVisitors = new Chart(ctx.getContext('2d'), {
+        this.charts.usageStats = new Chart(ctx.getContext('2d'), {
             type: 'bar',
             data: {
-                labels: ['', '', '', '', '', '', '', '', '', ''],
+                labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
                 datasets: [{
-                    data: this.data.chartData.siteVisitors,
+                    data: this.data.chartData.usageStats,
                     backgroundColor: this.data.chartColors.primary,
                     borderColor: this.data.chartColors.primary,
                     borderWidth: 0,
-                    borderRadius: 2,
+                    borderRadius: 4,
                     borderSkipped: false,
                 }]
             },
@@ -364,14 +364,41 @@ class DashboardManager {
                 maintainAspectRatio: false,
                 plugins: {
                     legend: { display: false },
-                    tooltip: { enabled: false }
+                    tooltip: { 
+                        enabled: true,
+                        backgroundColor: 'rgba(29, 45, 68, 0.9)',
+                        titleColor: '#64ffda',
+                        bodyColor: '#e0e0e0',
+                        borderColor: '#64ffda',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: {
+                            title: function(context) {
+                                return context[0].label + ' 2024';
+                            },
+                            label: function(context) {
+                                return 'New Users: ' + context.parsed.y;
+                            }
+                        }
+                    }
                 },
                 scales: {
-                    x: { display: false },
-                    y: { display: false }
+                    x: { 
+                        display: true,
+                        grid: { display: false },
+                        ticks: { 
+                            color: '#a8b2d1',
+                            font: { size: 11 }
+                        }
+                    },
+                    y: { 
+                        display: false,
+                        grid: { display: false }
+                    }
                 },
                 elements: {
-                    bar: { borderRadius: 2 }
+                    bar: { borderRadius: 4 }
                 }
             }
         });
@@ -600,16 +627,17 @@ class DashboardManager {
     }
 
     populateMetrics() {
-        // Site Visitors
-        const visitorsMetric = document.getElementById('visitors-metric');
-        const visitorsSubMetrics = document.getElementById('visitors-sub-metrics');
-        if (visitorsMetric && this.data.metrics.siteVisitors) {
-            visitorsMetric.textContent = this.data.metrics.siteVisitors.value;
-            if (visitorsSubMetrics) {
-                visitorsSubMetrics.innerHTML = this.data.metrics.siteVisitors.subMetrics
-                    .map(metric => `<li><i class="${metric.icon} ${metric.class || ''}"></i>${metric.text}</li>`)
-                    .join('');
-            }
+        // Usage Statistics
+        const usageStatsMetric = document.getElementById('usage-stats-metric');
+        const usageSubMetrics = document.getElementById('usage-sub-metrics');
+        
+        if (usageStatsMetric && this.data.metrics.usageStatistics) {
+            usageStatsMetric.textContent = this.data.metrics.usageStatistics.totalHours;
+        }
+        if (usageSubMetrics && this.data.metrics.usageStatistics) {
+            usageSubMetrics.innerHTML = this.data.metrics.usageStatistics.subMetrics
+                .map(metric => `<li><i class="${metric.icon} ${metric.class || ''}"></i>${metric.text}</li>`)
+                .join('');
         }
 
         // Store Sales

@@ -435,6 +435,77 @@ hr.panel-divider {
   overflow: visible;
 }
 
+/* === USAGE STATISTICS STYLING === */
+/* New styles for usage statistics panel */
+
+.usage-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.stat-item:hover {
+  background-color: rgba(100, 255, 218, 0.05);
+}
+
+.stat-icon {
+  color: var(--accent-color);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-sm);
+  transition: all var(--transition-fast);
+}
+
+.stat-icon.inactive {
+  color: var(--warning-color);
+}
+
+.stat-item:hover .stat-icon {
+  transform: scale(1.1);
+}
+
+.stat-value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: var(--line-height-tight);
+}
+
+.chart-title {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-md);
+  font-style: italic;
+}
+
 /* === RESPONSIVE PANEL BEHAVIOR === */
 /* Mobile and tablet adaptations */
 
@@ -452,6 +523,12 @@ hr.panel-divider {
     align-items: center;
     text-align: center;
     gap: var(--spacing-sm);
+  }
+  
+  .usage-stats-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
   }
   
   .chart-legend {
