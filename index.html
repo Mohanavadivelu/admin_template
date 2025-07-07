@@ -118,6 +118,9 @@
     <script src="./js/utils/SecurityUtils.js"></script>
     <script src="./js/utils/AccessibilityUtils.js"></script>
 
+    <!-- Monitoring Scripts -->
+    <script src="./js/monitoring/PerformanceMonitor.js"></script>
+
     <!-- Service Layer Scripts -->
     <script src="./js/services/ErrorHandler.js"></script>
     <script src="./js/services/StateManager.js"></script>
@@ -155,6 +158,12 @@
                 const dashboardManager = new DashboardManagerRefactored();
                 // Make it globally accessible for onclick handlers (temporary)
                 window.dashboardManager = dashboardManager;
+
+                // Initialize performance monitoring
+                if (typeof PerformanceMonitor !== 'undefined') {
+                    window.performanceMonitor = new PerformanceMonitor();
+                    console.log('📊 Performance monitoring enabled');
+                }
 
                 console.log('✅ Refactored dashboard initialized successfully');
             } catch (error) {
