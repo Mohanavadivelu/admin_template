@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refactored Services Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #0f1419;
+            color: #e0e0e0;
+        }
+        
+        .test-section {
+            background: #1d2d44;
+            border: 1px solid #415a77;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .test-section h2 {
+            color: #64ffda;
+            margin-top: 0;
+        }
+        
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .test-result.success {
+            background: rgba(61, 220, 151, 0.1);
+            border: 1px solid #3ddc97;
+            color: #3ddc97;
+        }
+        
+        .test-result.error {
+            background: rgba(232, 62, 140, 0.1);
+            border: 1px solid #e83e8c;
+            color: #e83e8c;
+        }
+        
+        .test-result.info {
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid #64ffda;
+            color: #64ffda;
+        }
+        
+        button {
+            background: #64ffda;
+            color: #0f1419;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 5px;
+        }
+        
+        button:hover {
+            background: #4fd3b8;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-card {
+            background: #2a3f5f;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #64ffda;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #a8b2d1;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Refactored Services Test Suite</h1>
+    <p>This page tests the refactored dashboard services to ensure they work correctly.</p>
+
+    <div class="test-section">
+        <h2>📊 Service Status</h2>
+        <div class="stats" id="service-stats">
+            <!-- Stats will be populated here -->
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Service Tests</h2>
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+        <div id="test-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📈 Performance Metrics</h2>
+        <button onclick="measurePerformance()">Measure Performance</button>
+        <div id="performance-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🛡️ Security Tests</h2>
+        <button onclick="runSecurityTests()">Run Security Tests</button>
+        <div id="security-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>♿ Accessibility Tests</h2>
+        <button onclick="runAccessibilityTests()">Run Accessibility Tests</button>
+        <div id="accessibility-results"></div>
+    </div>
+
+    <!-- Load all service scripts -->
+    <script src="./js/utils/PerformanceUtils.js"></script>
+    <script src="./js/utils/SecurityUtils.js"></script>
+    <script src="./js/utils/AccessibilityUtils.js"></script>
+    <script src="./js/services/ErrorHandler.js"></script>
+    <script src="./js/services/StateManager.js"></script>
+    <script src="./js/services/DataService.js"></script>
+    <script src="./js/services/ValidationService.js"></script>
+    <script src="./js/services/ComponentLoader.js"></script>
+    <script src="./js/services/ChartManager.js"></script>
+    <script src="./js/services/ApplicationManager.js"></script>
+
+    <script>
+        // Test suite implementation
+        let testResults = [];
+        let services = {};
+
+        // Initialize services for testing
+        function initializeServices() {
+            try {
+                services.errorHandler = new ErrorHandler();
+                services.stateManager = new StateManager();
+                services.dataService = new DataService();
+                services.validationService = new ValidationService();
+                services.componentLoader = new ComponentLoader();
+                
+                // ChartManager requires Chart.js, so we'll skip it if not available
+                if (typeof Chart !== 'undefined') {
+                    services.chartManager = new ChartManager(services.stateManager, services.errorHandler);
+                }
+                
+                services.applicationManager = new ApplicationManager(
+                    services.dataService,
+                    services.validationService,
+                    services.stateManager,
+                    services.errorHandler
+                );
+                
+                return true;
+            } catch (error) {
+                console.error('Failed to initialize services:', error);
+                return false;
+            }
+        }
+
+        // Update service status display
+        function updateServiceStats() {
+            const statsContainer = document.getElementById('service-stats');
+            const serviceCount = Object.keys(services).length;
+            const availableServices = [
+                'ErrorHandler', 'StateManager', 'DataService', 'ValidationService',
+                'ComponentLoader', 'ChartManager', 'ApplicationManager',
+                'PerformanceUtils', 'SecurityUtils', 'AccessibilityUtils'
+            ];
+            
+            const loadedCount = availableServices.filter(name => 
+                typeof window[name] !== 'undefined'
+            ).length;
+
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${serviceCount}</div>
+                    <div class="stat-label">Initialized Services</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${loadedCount}</div>
+                    <div class="stat-label">Available Classes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${testResults.length}</div>
+                    <div class="stat-label">Tests Run</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${testResults.filter(r => r.passed).length}</div>
+                    <div class="stat-label">Tests Passed</div>
+                </div>
+            `;
+        }
+
+        // Test helper functions
+        function addTestResult(name, passed, message, details = null) {
+            const result = { name, passed, message, details, timestamp: new Date() };
+            testResults.push(result);
+            
+            const resultsContainer = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${passed ? 'success' : 'error'}`;
+            resultDiv.innerHTML = `
+                <strong>${passed ? '✅' : '❌'} ${name}</strong><br>
+                ${message}
+                ${details ? `<br><small>${details}</small>` : ''}
+            `;
+            resultsContainer.appendChild(resultDiv);
+            
+            updateServiceStats();
+        }
+
+        function addInfoResult(message) {
+            const resultsContainer = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'test-result info';
+            resultDiv.innerHTML = `<strong>ℹ️ ${message}</strong>`;
+            resultsContainer.appendChild(resultDiv);
+        }
+
+        // Individual service tests
+        function testErrorHandler() {
+            try {
+                const handler = services.errorHandler;
+                
+                // Test error handling
+                handler.handle(new Error('Test error'), 'Test Context');
+                addTestResult('ErrorHandler', true, 'Error handling works correctly');
+                
+                // Test custom error types
+                if (typeof ValidationError !== 'undefined') {
+                    addTestResult('Custom Error Types', true, 'Custom error types available');
+                } else {
+                    addTestResult('Custom Error Types', false, 'Custom error types not found');
+                }
+                
+            } catch (error) {
+                addTestResult('ErrorHandler', false, `Failed: ${error.message}`);
+            }
+        }
+
+        function testStateManager() {
+            try {
+                const state = services.stateManager;
+                
+                // Test state setting and getting
+                state.setState({ testValue: 'hello' });
+                const value = state.getState('testValue');
+                
+                if (value === 'hello') {
+                    addTestResult('StateManager', true, 'State management works correctly');
+                } else {
+                    addTestResult('StateManager', false, 'State value mismatch');
+                }
+                
+                // Test subscription
+                let subscriptionWorked = false;
+                const unsubscribe = state.subscribe('testValue', (newVal) => {
+                    subscriptionWorked = true;
+                });
+                
+                state.setState({ testValue: 'world' });
+                
+                setTimeout(() => {
+                    if (subscriptionWorked) {
+                        addTestResult('State Subscriptions', true, 'State subscriptions work correctly');
+                    } else {
+                        addTestResult('State Subscriptions', false, 'State subscriptions not working');
+                    }
+                    unsubscribe();
+                }, 100);
+                
+            } catch (error) {
+                addTestResult('StateManager', false, `Failed: ${error.message}`);
+            }
+        }
+
+        function testValidationService() {
+            try {
+                const validator = services.validationService;
+                
+                // Test application validation
+                const testData = {
+                    app_name: 'Test App',
+                    app_type: 'web',
+                    current_version: '1.0.0',
+                    publisher: 'Test Publisher',
+                    released_date: '2024-01-01',
+                    registered_date: '2024-01-01'
+                };
+                
+                const result = validator.validateApplicationData(testData);
+                
+                if (result.isValid) {
+                    addTestResult('ValidationService', true, 'Validation works correctly');
+                } else {
+                    addTestResult('ValidationService', false, `Validation failed: ${JSON.stringify(result.errors)}`);
+                }
+                
+                // Test sanitization
+                const sanitized = validator.sanitizeInput('<script>alert("xss")</script>Hello');
+                if (!sanitized.includes('<script>')) {
+                    addTestResult('Input Sanitization', true, 'Input sanitization works correctly');
+                } else {
+                    addTestResult('Input Sanitization', false, 'Input sanitization failed');
+                }
+                
+            } catch (error) {
+                addTestResult('ValidationService', false, `Failed: ${error.message}`);
+            }
+        }
+
+        function testDataService() {
+            try {
+                const dataService = services.dataService;
+                
+                // Test cache functionality
+                const cache = dataService.cache;
+                cache.set('test', 'value');
+                
+                if (cache.has('test') && cache.get('test') === 'value') {
+                    addTestResult('DataService Cache', true, 'Cache functionality works correctly');
+                } else {
+                    addTestResult('DataService Cache', false, 'Cache functionality failed');
+                }
+                
+                // Test data validation
+                const isValid = dataService.validateDataStructure(
+                    { name: 'test', value: 123 },
+                    ['name', 'value']
+                );
+                
+                if (isValid) {
+                    addTestResult('Data Validation', true, 'Data validation works correctly');
+                } else {
+                    addTestResult('Data Validation', false, 'Data validation failed');
+                }
+                
+            } catch (error) {
+                addTestResult('DataService', false, `Failed: ${error.message}`);
+            }
+        }
+
+        // Run all tests
+        function runAllTests() {
+            clearResults();
+            addInfoResult('Starting service tests...');
+            
+            if (!initializeServices()) {
+                addTestResult('Service Initialization', false, 'Failed to initialize services');
+                return;
+            }
+            
+            addTestResult('Service Initialization', true, 'All services initialized successfully');
+            
+            // Run individual tests
+            testErrorHandler();
+            testStateManager();
+            testValidationService();
+            testDataService();
+            
+            addInfoResult('All tests completed!');
+        }
+
+        // Performance tests
+        function measurePerformance() {
+            const resultsContainer = document.getElementById('performance-results');
+            resultsContainer.innerHTML = '';
+            
+            // Test service initialization time
+            const startTime = performance.now();
+            initializeServices();
+            const endTime = performance.now();
+            
+            const initTime = (endTime - startTime).toFixed(2);
+            
+            // Get memory usage if available
+            const memoryInfo = PerformanceUtils.getMemoryUsage();
+            const performanceMetrics = PerformanceUtils.getPerformanceMetrics();
+            
+            resultsContainer.innerHTML = `
+                <div class="test-result info">
+                    <strong>Service Initialization Time:</strong> ${initTime}ms
+                </div>
+                ${memoryInfo ? `
+                    <div class="test-result info">
+                        <strong>Memory Usage:</strong> ${memoryInfo.usedJSHeapSize}MB / ${memoryInfo.totalJSHeapSize}MB (${memoryInfo.usagePercentage}%)
+                    </div>
+                ` : ''}
+                ${performanceMetrics ? `
+                    <div class="test-result info">
+                        <strong>Page Load Time:</strong> ${performanceMetrics.pageLoadTime}ms
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        // Security tests
+        function runSecurityTests() {
+            const resultsContainer = document.getElementById('security-results');
+            resultsContainer.innerHTML = '';
+            
+            // Test HTML sanitization
+            const maliciousHTML = '<script>alert("xss")</script><img src="x" onerror="alert(1)">';
+            const sanitized = SecurityUtils.sanitizeHTML(maliciousHTML);
+            
+            const sanitizationPassed = !sanitized.includes('<script>') && !sanitized.includes('onerror');
+            
+            resultsContainer.innerHTML = `
+                <div class="test-result ${sanitizationPassed ? 'success' : 'error'}">
+                    <strong>${sanitizationPassed ? '✅' : '❌'} HTML Sanitization</strong><br>
+                    Input: ${maliciousHTML}<br>
+                    Output: ${sanitized}
+                </div>
+            `;
+            
+            // Test URL validation
+            const validURL = SecurityUtils.validateURL('https://example.com');
+            const invalidURL = SecurityUtils.validateURL('javascript:alert(1)');
+            
+            resultsContainer.innerHTML += `
+                <div class="test-result ${validURL && !invalidURL ? 'success' : 'error'}">
+                    <strong>${validURL && !invalidURL ? '✅' : '❌'} URL Validation</strong><br>
+                    Valid URL test: ${validURL}<br>
+                    Invalid URL test: ${!invalidURL}
+                </div>
+            `;
+        }
+
+        // Accessibility tests
+        function runAccessibilityTests() {
+            const resultsContainer = document.getElementById('accessibility-results');
+            resultsContainer.innerHTML = '';
+            
+            const accessibilityUtils = new AccessibilityUtils();
+            
+            // Test accessibility validation
+            const validation = accessibilityUtils.validateAccessibility(document.body);
+            
+            resultsContainer.innerHTML = `
+                <div class="test-result ${validation.passed ? 'success' : 'error'}">
+                    <strong>${validation.passed ? '✅' : '❌'} Accessibility Validation</strong><br>
+                    Issues found: ${validation.issues.length}<br>
+                    Warnings: ${validation.warnings.length}
+                </div>
+            `;
+            
+            // Test color contrast
+            const contrast = accessibilityUtils.checkColorContrast('#64ffda', '#0f1419');
+            
+            resultsContainer.innerHTML += `
+                <div class="test-result info">
+                    <strong>Color Contrast Check</strong><br>
+                    Ratio: ${contrast.ratio}:1<br>
+                    AA Compliant: ${contrast.passAA ? 'Yes' : 'No'}<br>
+                    AAA Compliant: ${contrast.passAAA ? 'Yes' : 'No'}
+                </div>
+            `;
+        }
+
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+            document.getElementById('performance-results').innerHTML = '';
+            document.getElementById('security-results').innerHTML = '';
+            document.getElementById('accessibility-results').innerHTML = '';
+            testResults = [];
+            updateServiceStats();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateServiceStats();
+            addInfoResult('Test suite ready. Click "Run All Tests" to begin.');
+        });
+    </script>
+</body>
+</html>
