@@ -113,17 +113,70 @@
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- Utility Scripts -->
+    <script src="./js/utils/PerformanceUtils.js"></script>
+    <script src="./js/utils/SecurityUtils.js"></script>
+    <script src="./js/utils/AccessibilityUtils.js"></script>
+
+    <!-- Service Layer Scripts -->
+    <script src="./js/services/ErrorHandler.js"></script>
+    <script src="./js/services/StateManager.js"></script>
+    <script src="./js/services/DataService.js"></script>
+    <script src="./js/services/ValidationService.js"></script>
+    <script src="./js/services/ComponentLoader.js"></script>
+    <script src="./js/services/ChartManager.js"></script>
+    <script src="./js/services/ApplicationManager.js"></script>
+
+    <!-- Refactored Dashboard Manager -->
+    <script src="./js/DashboardManagerRefactored.js"></script>
+
     <!-- Dashboard Initialization -->
     <script>
-        console.log('🔧 IMMEDIATE DEBUG: HTML script tag executed');
-        console.log('🔧 IMMEDIATE DEBUG: Document ready state:', document.readyState);
-        console.log('🔧 IMMEDIATE DEBUG: Chart.js available:', typeof Chart !== 'undefined');
-        console.log('🔧 IMMEDIATE DEBUG: jQuery available:', typeof $ !== 'undefined');
+        console.log('🔧 DEBUG: All service scripts loaded');
+        console.log('🔧 DEBUG: Chart.js available:', typeof Chart !== 'undefined');
+        console.log('🔧 DEBUG: Services available:', {
+            ErrorHandler: typeof ErrorHandler !== 'undefined',
+            StateManager: typeof StateManager !== 'undefined',
+            DataService: typeof DataService !== 'undefined',
+            ValidationService: typeof ValidationService !== 'undefined',
+            ComponentLoader: typeof ComponentLoader !== 'undefined',
+            ChartManager: typeof ChartManager !== 'undefined',
+            ApplicationManager: typeof ApplicationManager !== 'undefined',
+            DashboardManagerRefactored: typeof DashboardManagerRefactored !== 'undefined'
+        });
     </script>
-    <script src="./js/dashboard-init.js"></script>
+
+    <!-- Initialize Dashboard -->
     <script>
-        console.log('🔧 IMMEDIATE DEBUG: After dashboard-init.js loaded');
-        console.log('🔧 IMMEDIATE DEBUG: DashboardManager available:', typeof DashboardManager !== 'undefined');
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 DOM loaded, initializing refactored dashboard...');
+
+            try {
+                const dashboardManager = new DashboardManagerRefactored();
+                // Make it globally accessible for onclick handlers (temporary)
+                window.dashboardManager = dashboardManager;
+
+                console.log('✅ Refactored dashboard initialized successfully');
+            } catch (error) {
+                console.error('❌ Failed to initialize refactored dashboard:', error);
+
+                // Fallback to original dashboard
+                console.log('🔄 Falling back to original dashboard...');
+                if (typeof DashboardManager !== 'undefined') {
+                    const fallbackManager = new DashboardManager();
+                    window.dashboardManager = fallbackManager;
+                } else {
+                    // Load original dashboard as fallback
+                    const script = document.createElement('script');
+                    script.src = './js/dashboard-init.js';
+                    script.onload = () => {
+                        const fallbackManager = new DashboardManager();
+                        window.dashboardManager = fallbackManager;
+                    };
+                    document.head.appendChild(script);
+                }
+            }
+        });
     </script>
 
 </body>
