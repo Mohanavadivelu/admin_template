@@ -1,0 +1,26 @@
+<!-- Panel 2: User Statistics -->
+<div class="dashboard-panel">
+    <span class="corner corner-tl"></span>
+    <span class="corner corner-tr"></span>
+    <span class="corner corner-bl"></span>
+    <span class="corner corner-br"></span>
+    
+    <div class="panel-title">USER STATISTICS</div>
+    
+    <div class="row align-items-center">
+        <div class="col-7">
+            <div class="panel-metric" id="user-stats-metric">1,000</div>
+            <ul class="sub-metrics" id="user-sub-metrics">
+                <li><i class="fas fa-user-plus metric-increase"></i>1,000 new users</li>
+                <li><i class="fas fa-users"></i>200 active users (last 30 days)</li>
+                <li><i class="fas fa-user-slash metric-warning"></i>300 inactive users (last 30 days)</li>
+            </ul>
+        </div>
+        
+        <div class="col-5">
+            <div class="chart-container">
+                <canvas id="userStatsChart" width="120" height="80"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

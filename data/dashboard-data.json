@@ -10,12 +10,12 @@
         { "icon": "fas fa-clock", "text": "41.6 hrs average per user" }
       ]
     },
-    "storeSales": {
-      "value": "$35.2K",
+    "userStatistics": {
+      "value": "1,000",
       "subMetrics": [
-        { "icon": "fas fa-arrow-up", "text": "20.4% more than last week", "class": "metric-increase" },
-        { "icon": "fas fa-shopping-bag", "text": "33.5% new orders" },
-        { "icon": "fas fa-dollar-sign", "text": "6.21% conversion rate" }
+        { "icon": "fas fa-user-plus", "text": "1,000 new users", "class": "metric-increase" },
+        { "icon": "fas fa-users", "text": "200 active users (last 30 days)" },
+        { "icon": "fas fa-user-slash", "text": "300 inactive users (last 30 days)", "class": "metric-warning" }
       ]
     },
     "newMembers": {
@@ -38,7 +38,7 @@
   "chartData": {
     "usageStats": [145, 89, 167, 234, 198, 289],
     "siteVisitors": [60, 75, 50, 65, 40, 55, 35, 70, 85, 95],
-    "storeSales": [25, 20, 28, 22, 25, 18, 22, 20, 25, 15, 20],
+    "userStats": [150, 180, 165, 200, 185, 200],
     "newMembers": [45.5, 15.25, 39.25],
     "bandwidth": [75, 25],
     "serverMemory": [70, 78, 50, 42, 60, 65, 52, 70, 40, 55],

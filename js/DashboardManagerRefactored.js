@@ -419,8 +419,8 @@ class DashboardManagerRefactored {
             // Usage Statistics
             this.populateMetric('usage-stats-metric', 'usage-sub-metrics', metrics.usageStatistics);
 
-            // Store Sales
-            this.populateMetric('sales-metric', 'sales-sub-metrics', metrics.storeSales);
+            // User Statistics
+            this.populateMetric('user-stats-metric', 'user-sub-metrics', metrics.userStatistics);
 
             // New Members
             this.populateMetric('members-metric', 'members-sub-metrics', metrics.newMembers);

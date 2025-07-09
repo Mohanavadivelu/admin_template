@@ -207,7 +207,7 @@ class DashboardManager {
         // Check if all container elements exist
         const expectedContainers = [
             '#sidebar-container', '#topbar-container', '#visitors-panel-container',
-            '#sales-panel-container', '#members-panel-container', '#bandwidth-panel-container',
+            '#user-statistics-panel-container', '#members-panel-container', '#bandwidth-panel-container',
             '#server-panel-container', '#traffic-panel-container'
         ];
         
@@ -221,7 +221,7 @@ class DashboardManager {
             { selector: '#sidebar-container', url: './components/common/sidebar.html', name: 'Sidebar' },
             { selector: '#topbar-container', url: './components/common/topbar.html', name: 'Top Navigation' },
             { selector: '#visitors-panel-container', url: './components/pages/dashboard/usage-statistics-panel.html', name: 'Usage Statistics Panel' },
-            { selector: '#sales-panel-container', url: './components/pages/dashboard/sales-panel.html', name: 'Sales Panel' },
+            { selector: '#user-statistics-panel-container', url: './components/pages/dashboard/user-statistics-panel.html', name: 'User Statistics Panel' },
             { selector: '#members-panel-container', url: './components/pages/dashboard/members-panel.html', name: 'Members Panel' },
             { selector: '#bandwidth-panel-container', url: './components/pages/dashboard/bandwidth-panel.html', name: 'Bandwidth Panel' },
             { selector: '#server-panel-container', url: './components/pages/dashboard/server-panel.html', name: 'Server Panel' },
@@ -313,6 +313,7 @@ class DashboardManager {
             // Initialize all charts with error handling
             const chartInitializers = [
                 { name: 'Usage Statistics', fn: () => this.initUsageStatsChart() },
+                { name: 'User Statistics', fn: () => this.initUserStatsChart() },
                 { name: 'Store Sales', fn: () => this.initStoreSalesChart() },
                 { name: 'New Members', fn: () => this.initNewMembersChart() },
                 { name: 'Bandwidth', fn: () => this.initBandwidthChart() },
@@ -399,6 +400,77 @@ class DashboardManager {
                 },
                 elements: {
                     bar: { borderRadius: 4 }
+                }
+            }
+        });
+    }
+
+    initUserStatsChart() {
+        const ctx = document.getElementById('userStatsChart');
+        if (!ctx) return;
+
+        this.charts.userStats = new Chart(ctx.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan'],
+                datasets: [{
+                    data: this.data.chartData.userStats,
+                    borderColor: this.data.chartColors.primary,
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: 3,
+                    pointHoverRadius: 5,
+                    pointBackgroundColor: this.data.chartColors.primary,
+                    pointBorderColor: this.data.chartColors.primary,
+                    pointHoverBackgroundColor: this.data.chartColors.primary,
+                    pointHoverBorderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { 
+                        enabled: true,
+                        backgroundColor: 'rgba(29, 45, 68, 0.9)',
+                        titleColor: '#64ffda',
+                        bodyColor: '#e0e0e0',
+                        borderColor: '#64ffda',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: {
+                            title: function(context) {
+                                return context[0].label + ' 2024';
+                            },
+                            label: function(context) {
+                                return 'Active Users: ' + context.parsed.y;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: { 
+                        display: true,
+                        grid: { display: false },
+                        ticks: { 
+                            color: '#a8b2d1',
+                            font: { size: 10 }
+                        }
+                    },
+                    y: { 
+                        display: false,
+                        grid: { display: false }
+                    }
+                },
+                elements: {
+                    point: { 
+                        radius: 3,
+                        hoverRadius: 5
+                    }
                 }
             }
         });

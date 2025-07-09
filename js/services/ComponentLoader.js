@@ -57,10 +57,10 @@ class ComponentLoader {
                 dependencies: []
             },
             {
-                id: 'sales-panel',
-                selector: '#sales-panel-container',
-                url: './components/pages/dashboard/sales-panel.html',
-                name: 'Sales Panel',
+                id: 'user-statistics-panel',
+                selector: '#user-statistics-panel-container',
+                url: './components/pages/dashboard/user-statistics-panel.html',
+                name: 'User Statistics Panel',
                 priority: 2,
                 dependencies: []
             },

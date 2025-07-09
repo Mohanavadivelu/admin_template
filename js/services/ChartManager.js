@@ -53,17 +53,17 @@ class ChartManager {
             }
         });
 
-        // Store Sales Chart
-        this.chartConfigs.set('storeSales', {
-            canvasId: 'storeSalesChart',
+        // User Statistics Chart
+        this.chartConfigs.set('userStats', {
+            canvasId: 'userStatsChart',
             type: 'line',
-            dataKey: 'storeSales',
+            dataKey: 'userStats',
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: { display: false },
-                    tooltip: { enabled: false }
+                    tooltip: this.getTooltipConfig('userStats')
                 },
                 scales: {
                     x: { display: false },
@@ -466,6 +466,19 @@ class ChartManager {
                         },
                         label: function(context) {
                             return 'New Users: ' + context.parsed.y;
+                        }
+                    }
+                };
+            case 'userStats':
+                return {
+                    ...baseConfig,
+                    callbacks: {
+                        title: function(context) {
+                            const months = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                            return months[context[0].dataIndex] + ' 2024';
+                        },
+                        label: function(context) {
+                            return 'Active Users: ' + context.parsed.y;
                         }
                     }
                 };
