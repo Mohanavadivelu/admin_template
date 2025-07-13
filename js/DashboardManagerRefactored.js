@@ -22,11 +22,14 @@ class DashboardManagerRefactored {
         // Initialize services
         this.initializeServices();
         
-        // Setup service coordination
-        this.setupServiceCoordination();
-        
-        // Start initialization
-        this.init();
+            // Setup service coordination
+            this.setupServiceCoordination();
+            
+            // Bind event handlers
+            this.bindEventHandlers();
+
+            // Start initialization
+            this.init();
     }
 
     /**
@@ -119,6 +122,10 @@ class DashboardManagerRefactored {
             
             // Populate initial data
             this.populateInitialData();
+
+            // Render dashboard header with application dropdown
+            await this.renderDashboardHeader();
+            await this.fetchAndPopulateApplicationsDropdown();
             
             // Hide loading indicator
             this.hideLoadingIndicator();
@@ -128,6 +135,128 @@ class DashboardManagerRefactored {
         } catch (error) {
             this.errorHandler.handle(error, 'Dashboard Initialization');
             this.showError('Failed to initialize dashboard. Please refresh the page.');
+        }
+    }
+
+    /**
+     * Bind all event handlers
+     */
+    bindEventHandlers() {
+        document.addEventListener('change', async (e) => {
+            if (e.target.id === 'application-select') {
+                const selectedApp = e.target.value;
+                if (selectedApp) {
+                    await this.updateDashboardForApplication(selectedApp);
+                }
+            }
+        });
+    }
+
+    /**
+     * Render the dashboard header with Analytics title and dropdown placeholder.
+     */
+    async renderDashboardHeader() {
+        const dashboardPage = document.getElementById('dashboard-page');
+        if (!dashboardPage) {
+            console.error('❌ Dashboard page container not found.');
+            return;
+        }
+
+        const headerHtml = `
+            <div class="page-header mb-4">
+                <h2 class="page-title">Analytics <span class="text-muted">stats, overview & performance</span></h2>
+                <div class="header-controls">
+                    <div class="dropdown-container">
+                        <select id="application-select" class="form-select custom-select">
+                            <option value="">Select Application</option>
+                        </select>
+                    </div>
+                    <div class="date-range-picker">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dateRangeDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-calendar-alt me-2"></i>Today
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dateRangeDropdown">
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">Last 7 Days</a></li>
+                            <li><a class="dropdown-item" href="#">Last 30 Days</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">Last Month</a></li>
+                        </ul>
+                        <span class="comparison-text">compared to 12 Jul 2025</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        // Insert at the beginning of the dashboard-page div
+        dashboardPage.insertAdjacentHTML('afterbegin', headerHtml);
+        console.log('✅ Dashboard header rendered.');
+    }
+
+    /**
+     * Fetch applications from backend and populate the dropdown.
+     */
+    async fetchAndPopulateApplicationsDropdown() {
+        try {
+            this.updateLoadingStatus('Fetching applications...');
+            const applications = await this.dataService.fetchApplications();
+            const selectElement = document.getElementById('application-select');
+
+            if (selectElement) {
+                // Clear existing options except the first one ("Select Application")
+                while (selectElement.options.length > 1) {
+                    selectElement.remove(1);
+                }
+
+                applications.forEach(app => {
+                    const option = document.createElement('option');
+                    option.value = app.app_name;
+                    option.textContent = app.app_name;
+                    selectElement.appendChild(option);
+                });
+                console.log('✅ Applications dropdown populated.');
+            }
+        } catch (error) {
+            this.errorHandler.handle(error, 'Fetch Applications');
+            console.error('❌ Failed to fetch and populate applications dropdown:', error);
+        }
+    }
+
+    /**
+     * Update dashboard data for a specific application.
+     * @param {string} applicationName - The name of the selected application.
+     */
+    async updateDashboardForApplication(applicationName) {
+        try {
+            this.showLoadingIndicator();
+            this.updateLoadingStatus(`Loading analytics for ${applicationName}...`);
+
+            const analyticsData = await this.dataService.fetchApplicationAnalytics(applicationName);
+            
+            // Update relevant metrics and charts based on analyticsData
+            // For now, we'll just update the usage statistics panel as an example.
+            // You would extend this to update other panels as needed.
+            const usageStatsMetricEl = document.getElementById('usage-stats-metric');
+            const usageSubMetricsEl = document.getElementById('usage-sub-metrics');
+
+            if (usageStatsMetricEl) {
+                usageStatsMetricEl.textContent = analyticsData.total_hours;
+            }
+            if (usageSubMetricsEl) {
+                usageSubMetricsEl.innerHTML = `
+                    <li><i class="fas fa-clock metric-increase"></i>Total usage: ${analyticsData.total_hours}</li>
+                    <li><i class="fas fa-users"></i>${analyticsData.user_count} unique users</li>
+                `;
+            }
+            
+            // You might also want to update charts here if they are application-specific
+            // For example: this.chartManager.refreshChart('usageStatsChart', analyticsData.chartData);
+
+            console.log(`✅ Dashboard updated for application: ${applicationName}`);
+        } catch (error) {
+            this.errorHandler.handle(error, 'Update Dashboard for Application');
+            console.error(`❌ Failed to update dashboard for ${applicationName}:`, error);
+        } finally {
+            this.hideLoadingIndicator();
         }
     }
 

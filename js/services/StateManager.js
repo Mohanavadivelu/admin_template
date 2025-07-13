@@ -327,15 +327,15 @@ class StateManager {
      * Setup state change logging
      */
     setupStateLogging() {
-        if (process.env.NODE_ENV === 'development') {
-            this.subscribe('*', (newState, prevState, changedKeys) => {
-                console.group('🗃️ State Change');
-                console.log('Changed keys:', changedKeys);
-                console.log('Previous state:', prevState);
-                console.log('New state:', newState);
-                console.groupEnd();
-            });
-        }
+        // Removed process.env.NODE_ENV check as it's not available in browser environments.
+        // State changes will always be logged in the console for debugging.
+        this.subscribe('*', (newState, prevState, changedKeys) => {
+            console.group('🗃️ State Change');
+            console.log('Changed keys:', changedKeys);
+            console.log('Previous state:', prevState);
+            console.log('New state:', newState);
+            console.groupEnd();
+        });
     }
 
     /**

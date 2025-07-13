@@ -14,7 +14,7 @@
 class DataService {
     constructor() {
         this.cache = new Map();
-        this.baseUrl = './data/';
+        this.baseUrl = 'http://localhost:8000/'; // Base URL for FastAPI backend
         this.retryAttempts = 3;
         this.retryDelay = 1000; // Base delay in ms
         
@@ -57,7 +57,10 @@ class DataService {
                 const timeoutId = setTimeout(() => controller.abort(), 10000);
                 
                 const response = await fetch(`${this.baseUrl}${url}`, {
-                    signal: controller.signal
+                    signal: controller.signal,
+                    headers: {
+                        'X-API-Key-725d9439': 'CyRLgKg-FL7RuTtVvb7BPr8wmUoI1PamDj4Xdb3eT9w' // Include API Key
+                    }
                 });
                 
                 clearTimeout(timeoutId);
@@ -224,6 +227,45 @@ class DataService {
         } catch (error) {
             console.error('❌ Failed to import applications data:', error);
             throw new Error('Failed to import applications data: Invalid format');
+        }
+    }
+
+    /**
+     * Fetch list of all legacy applications.
+     * @returns {Promise<Array>} List of application objects.
+     */
+    async fetchApplications() {
+        try {
+            console.log('📊 Fetching application list from backend...');
+            const data = await this.fetchWithRetry('app_list/');
+            if (data && Array.isArray(data.application_list)) {
+                console.log(`✅ Fetched ${data.application_list.length} applications.`);
+                return data.application_list;
+            }
+            throw new Error('Invalid application list data structure.');
+        } catch (error) {
+            console.error('❌ Failed to fetch application list:', error);
+            throw new Error(`Failed to fetch application list: ${error.message}`);
+        }
+    }
+
+    /**
+     * Fetch analytics for a specific application.
+     * @param {string} applicationName - The name of the application.
+     * @returns {Promise<Object>} Application analytics data.
+     */
+    async fetchApplicationAnalytics(applicationName) {
+        try {
+            console.log(`📊 Fetching analytics for application: ${applicationName}`);
+            const data = await this.fetchWithRetry(`usage_data/analytics/${applicationName}`);
+            if (data && typeof data === 'object') {
+                console.log(`✅ Fetched analytics for ${applicationName}.`);
+                return data;
+            }
+            throw new Error('Invalid application analytics data structure.');
+        } catch (error) {
+            console.error(`❌ Failed to fetch analytics for ${applicationName}:`, error);
+            throw new Error(`Failed to fetch analytics for ${applicationName}: ${error.message}`);
         }
     }
 }
